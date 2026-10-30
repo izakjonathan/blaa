@@ -1,0 +1,44 @@
+/* Public text-and-arrow action. Editor controls have their own scoped primitive. */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 10px 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  color: inherit;
+  font: 400 16px/1.3 var(--sans);
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.pill::after {
+  content: '';
+  flex: 0 0 auto;
+  width: 32px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: url('/brand/action-arrow.svg') center / contain no-repeat;
+  mask: url('/brand/action-arrow.svg') center / contain no-repeat;
+  transition: transform 220ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pill:not(:disabled):hover::after {
+    transform: translateX(5px);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .pill:active {
+    opacity: .72;
+  }
+}

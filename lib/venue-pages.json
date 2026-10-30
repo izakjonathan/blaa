@@ -1,0 +1,181 @@
+{
+  "events": {
+    "label": "Koncerter",
+    "copy": [],
+    "events": [
+      {
+        "id": "events.item.0",
+        "section": "tilbagevendende koncerter",
+        "linked": true
+      },
+      {
+        "id": "events.item.1",
+        "section": "tilbagevendende koncerter",
+        "linked": true
+      },
+      {
+        "id": "events.item.2",
+        "section": "tilbagevendende koncerter",
+        "linked": true
+      },
+      {
+        "id": "events.item.3",
+        "section": "SEPTEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.4",
+        "section": "SEPTEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.5",
+        "section": "SEPTEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.6",
+        "section": "SEPTEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.7",
+        "section": "OKTOBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.8",
+        "section": "OKTOBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.9",
+        "section": "OKTOBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.10",
+        "section": "OKTOBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.11",
+        "section": "OKTOBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.12",
+        "section": "OKTOBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.13",
+        "section": "NOVEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.14",
+        "section": "NOVEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.15",
+        "section": "NOVEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.16",
+        "section": "NOVEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.17",
+        "section": "DECEMBER 2026",
+        "linked": true
+      },
+      {
+        "id": "events.item.18",
+        "section": "DECEMBER 2026",
+        "linked": false
+      },
+      {
+        "id": "events.item.19",
+        "section": "DECEMBER 2026",
+        "linked": false
+      }
+    ]
+  },
+  "om-os": {
+    "label": "Om os",
+    "copy": [
+      "om-os.copy.0",
+      "om-os.copy.1",
+      "om-os.copy.2",
+      "om-os.copy.3",
+      "om-os.copy.4",
+      "om-os.copy.5",
+      "om-os.copy.6"
+    ]
+  },
+  "galleri": {
+    "label": "Galleri",
+    "copy": [],
+    "photos": [
+      "galleri.photo.0",
+      "galleri.photo.1",
+      "galleri.photo.2",
+      "galleri.photo.3",
+      "galleri.photo.4",
+      "galleri.photo.5",
+      "galleri.photo.6",
+      "galleri.photo.7",
+      "galleri.photo.8",
+      "galleri.photo.9",
+      "galleri.photo.10",
+      "galleri.photo.11",
+      "galleri.photo.12",
+      "galleri.photo.13",
+      "galleri.photo.14",
+      "galleri.photo.15",
+      "galleri.photo.16",
+      "galleri.photo.17",
+      "galleri.photo.18",
+      "galleri.photo.19",
+      "galleri.photo.20",
+      "galleri.photo.21",
+      "galleri.photo.22",
+      "galleri.photo.23",
+      "galleri.photo.24",
+      "galleri.photo.25",
+      "galleri.photo.26",
+      "galleri.photo.27",
+      "galleri.photo.28",
+      "galleri.photo.29",
+      "galleri.photo.30",
+      "galleri.photo.31"
+    ]
+  },
+  "spil-hos-os": {
+    "label": "Spil hos os",
+    "copy": [
+      "spil-hos-os.copy.0",
+      "spil-hos-os.copy.1",
+      "spil-hos-os.copy.2",
+      "spil-hos-os.copy.3"
+    ]
+  },
+  "kunst": {
+    "label": "Kunst",
+    "copy": [
+      "kunst.copy.0",
+      "kunst.copy.1",
+      "kunst.copy.2",
+      "kunst.copy.3",
+      "kunst.copy.4"
+    ]
+  },
+  "kontakt": {
+    "label": "Kontakt",
+    "copy": []
+  }
+}

@@ -1,0 +1,102 @@
+/* Closing panel; all layout, responsive and wordmark sizing rules live here. */
+
+.brand-footer {
+  padding: clamp(52px, 7vw, 96px) max(var(--gutter), env(safe-area-inset-left)) max(24px, env(safe-area-inset-bottom));
+  background: var(--amber);
+  color: var(--green);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.footer-heading {
+  display: block;
+  margin: 0;
+}
+
+.footer-heading .eyebrow {
+  font-size: 12px;
+  letter-spacing: .04em;
+  margin-bottom: 24px;
+}
+
+.footer-heading h2 {
+  color: inherit;
+  font: clamp(50px, 5.5vw, 82px)/1.06 var(--display);
+  letter-spacing: -.035em;
+  max-width: 11ch;
+}
+
+.footer-signature {
+  display: block;
+  flex: 0 0 auto;
+  width: 200px;
+  margin: 0 0 5px;
+  background-color: var(--brand-green);
+  mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
+  -webkit-mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
+}
+
+.footer-signature img {
+  width: 100%;
+  height: auto;
+  visibility: hidden;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  border-top: 1px solid color-mix(in srgb, var(--brand-green) 25.0980%, transparent);
+  padding-top: 18px;
+}
+
+.footer-bottom p {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.footer-top-link {
+  font-size: 13px;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+}
+
+@media (max-width: 600px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 28px;
+  }
+  .footer-heading h2 {
+    font-size: clamp(48px, 12vw, 64px);
+  }
+  .footer-heading .eyebrow {
+    font-size: 11px;
+    margin-bottom: 20px;
+  }
+  .footer-signature {
+    width: 145px;
+    margin: 0;
+  }
+  .footer-bottom {
+    gap: 4px 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-bottom p {
+    flex-basis: 100%;
+    margin-bottom: 4px;
+  }
+}

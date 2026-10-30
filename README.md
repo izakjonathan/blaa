@@ -1,3 +1,39 @@
-# Blågårds Apotek
+# Blågårds Apotek / Kroteket
 
-Next.js website based on the supplied Plaisir design and Kroteket content package.
+Next.js website for Blågårds Apotek, based on the supplied Plaisir v0.4.22 project and the Kroteket content extraction dated 30 October 2026.
+
+The original Plaisir layouts, Agilera display font, supporting typography, splash sequence, scroll motion, menu transitions, colour controls, image picker, crop controls, draft preview, publishing and version restore are retained. Kroteket supplies the navy (#1A1E3A), copper (#DB8C59), original logo, photography, concert posters, exhibition and Danish copy. Investor pages and financial models have been removed.
+
+## Run and verify
+
+Use Node.js 24 and npm.
+
+```sh
+npm ci
+npm run dev
+npm run check
+```
+
+Public pages: `/`, `/events`, `/om-os`, `/galleri`, `/spil-hos-os`, `/kunst`, `/kontakt`. The original `/1671-2` address permanently redirects to `/spil-hos-os`.
+
+## Editor
+
+Open `/admin`. Each public page has its own editing tab. All migrated text, photographs, concert details/posters and gallery photos are registered in `lib/content-fields.json`. Page composition is in `lib/venue-pages.json` and `app/[slug]/page.tsx`. Adding/removing programme or gallery items currently requires updating those records; existing items are editable.
+
+The existing editor intentionally has no login, matching the supplied project. Its backend enforces same-origin writes, revision conflicts, validated document fields and private media uploads. Configure deployment access to match your intended editor audience.
+
+Saving and publishing require `DATABASE_URL` (or `POSTGRES_URL`) for Neon Postgres. New uploads additionally require a private Vercel Blob store (`BLOB_READ_WRITE_TOKEN` or supported `BLOB_STORE_ID`/OIDC configuration). Never commit secrets. Without storage the public pages use the bundled content and the editor supports exploration and draft preview, with saving/uploads disabled and setup instructions shown.
+
+The application creates independent `blaa_content`, `blaa_media` and `blaa_uploads` tables. Do not connect it to the Plaisir project's production storage.
+
+## Content decisions
+
+- Opening hours use the source homepage's winter hours consistently: Monday 12–00, Tuesday–Saturday 12–02, Sunday 14–00. Other source pages disagree; these hours remain editable.
+- The visible contact-page press address is `zoe@kroteket.dk`; metadata in the package lists different addresses.
+- All 32 gallery images and the extracted concert programme are included. Past September/October listings are retained as programme history, with their dates visible. Undated TBA posters remain undated.
+- Poster names/dates follow the visually verified `events.json`, not misleading filenames.
+- The source's empty gear-list download is omitted because no document was supplied.
+- Original venue images are served locally as high-quality WebP derivatives; original transparent logo artwork is retained. The original homepage video is not used: the hero follows the uploaded Plaisir photo design.
+- No third-party map embed or tracking scripts are loaded. Contact includes a direct Google Maps directions link and the venue's social links.
+
+See `docs/release-1.0.0.md` for verification and remaining setup.
