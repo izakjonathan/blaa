@@ -12,6 +12,7 @@
 .venue-posters article {min-width:0;}
 .venue-posters figure {margin-bottom:24px;}
 .venue-posters img {display:block;width:100%;height:auto;}
+.venue-event-copy {padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px));}
 .venue-posters h3 {font:clamp(28px,3vw,42px)/1.1 var(--display);margin-bottom:16px;overflow-wrap:anywhere;}
 .venue-posters p {font-size:16px;margin-bottom:16px;}
 .venue-gallery {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}

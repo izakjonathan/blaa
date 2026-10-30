@@ -193,7 +193,7 @@ function MarketingShell({ children }: {
         <Link href="/" className="footer-signature" aria-label="Blågårds Apotek — forsiden"><BrandArtwork alt="Blågårds Apotek" tone="green"/></Link>
         </div>
 
-        <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook ↗</ContentLink><br/><ContentLink field="shared.instagram">Instagram ↗</ContentLink></div></div><div className="footer-bottom"><p><Copy field="shared.shell.text3"/></p><a href="#main" className="footer-top-link">Til toppen <span aria-hidden="true">↑</span></a></div>
+        <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook <span aria-hidden="true">↗︎</span></ContentLink><br/><ContentLink field="shared.instagram">Instagram <span aria-hidden="true">↗︎</span></ContentLink></div></div><div className="footer-bottom"><p><Copy field="shared.shell.text3"/></p><a href="#main" className="footer-top-link">Til toppen <span aria-hidden="true">↑</span></a></div>
       </footer>
     </>);
 }
