@@ -2,7 +2,7 @@ import Heading from "./Heading";
 import { Copy, ContentImage, ContentLink } from "./Content";
 import LandingHero from "./LandingHero";
 export default function Home() {
-    return (<main id="main" className="experience bottle-art-page">
+    return (<main id="main" className="experience">
       <LandingHero />
       <section id="welcome" className="manifesto gold-section">
         <Heading as="h2" data-reveal><Copy field="experience.page.text1"/></Heading>

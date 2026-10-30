@@ -792,3 +792,7 @@ html:has(.content-editor) {
 .editor-overlay-inheritance .editor-reset {
   flex: none;
 }
+
+.editor-artwork-samples {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.editor-artwork-sample {display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;align-items:center;padding:24px;min-width:0;}
+@media(max-width:600px){.editor-artwork-samples{grid-template-columns:1fr;}}

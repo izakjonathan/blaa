@@ -17,15 +17,6 @@
   left: max(var(--gutter), env(safe-area-inset-left, 0px));
   width: 130px;
   display: block;
-  background-color: var(--brand-green);
-  mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
-  -webkit-mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
-}
-
-.brand-logo img {
-  width: 100%;
-  height: auto;
-  visibility: hidden;
 }
 
 .floating-header .burger-button {
@@ -60,10 +51,6 @@
 /* Tone is supplied inline by useHeaderTone; financial routes provide the first-paint contract. */
 
 html:not(.menu-open) .floating-header[data-page='financials'] .burger-button {
-  transition: none;
-}
-
-html:not(.menu-open) .floating-header[data-page='financials'] .brand-logo img {
   transition: none;
 }
 

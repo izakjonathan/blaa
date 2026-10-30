@@ -1,6 +1,6 @@
 "use client";
 import Heading from "./Heading";
-import { Copy, ContentLink } from "./Content";
+import { Copy, ContentLink, BrandArtwork } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode, type MouseEvent, type CSSProperties } from "react";
@@ -151,8 +151,8 @@ function MarketingShell({ children }: {
       <div className="brand-grain" aria-hidden="true"/>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
-        <Link className="brand-logo" style={{backgroundColor: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} href="/" aria-label="Blågårds Apotek — forsiden" inert={mounted}>
-          <img src={!mounted && headerTone === "dark" ? "/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png" : "/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png"} width="1300" height="768" alt="Blågårds Apotek" fetchPriority="high"/>
+        <Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" inert={mounted}>
+          <BrandArtwork alt="Blågårds Apotek" tone={!mounted && headerTone === "dark" ? "green" : "gold"}/>
         </Link>
         <button ref={button} className="burger-button" style={{color: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
@@ -190,7 +190,7 @@ function MarketingShell({ children }: {
       <footer className="brand-footer">
         <div className="footer-top">
           <div className="footer-heading"><p className="eyebrow">Bar. Musik. Nørrebro.</p><Heading as="h2" data-reveal><Copy field="shared.shell.text2"/></Heading></div>
-        <Link href="/" className="footer-signature" aria-label="Blågårds Apotek — forsiden"><img src="/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png" width="1300" height="768" alt="Blågårds Apotek" loading="lazy"/></Link>
+        <Link href="/" className="footer-signature" aria-label="Blågårds Apotek — forsiden"><BrandArtwork alt="Blågårds Apotek" tone="green"/></Link>
         </div>
 
         <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook ↗</ContentLink><br/><ContentLink field="shared.instagram">Instagram ↗</ContentLink></div></div><div className="footer-bottom"><p><Copy field="shared.shell.text3"/></p><a href="#main" className="footer-top-link">Til toppen <span aria-hidden="true">↑</span></a></div>

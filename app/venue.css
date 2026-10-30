@@ -1,5 +1,4 @@
 /* Venue content extends Plaisir's existing editorial layouts and motion. */
-.venue-guitar { background: currentColor; mask: url('/kroteket/6c6d53aa-guitar.png') center / contain no-repeat; -webkit-mask: url('/kroteket/6c6d53aa-guitar.png') center / contain no-repeat; }
 .venue-footer-details {display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin:0 0 48px;}
 .venue-footer-details p {font-size:16px;line-height:1.7;}
 .venue-footer-details a {font-size:16px;display:inline-block;min-height:32px;overflow-wrap:anywhere;}

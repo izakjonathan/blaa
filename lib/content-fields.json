@@ -416,7 +416,7 @@
     "id": "splash.overlay",
     "page": "splash",
     "section": "Splash screen",
-    "label": "Green overlay (%)",
+    "label": "Navy overlay (%)",
     "kind": "text",
     "default": "87",
     "control": "range",
@@ -446,7 +446,8 @@
     "control": "range",
     "min": 50,
     "max": 150,
-    "step": 5
+    "step": 5,
+    "hidden": true
   },
   {
     "id": "splash.duration",
@@ -464,7 +465,7 @@
     "id": "splash.showLogo",
     "page": "splash",
     "section": "Splash screen",
-    "label": "Show Plaisir wordmark",
+    "label": "Show Blågårds Apotek logo",
     "kind": "text",
     "default": "true",
     "control": "toggle"
@@ -476,7 +477,8 @@
     "label": "Show guitar illustration",
     "kind": "text",
     "default": "false",
-    "control": "toggle"
+    "control": "toggle",
+    "hidden": true
   },
   {
     "id": "brand.green",

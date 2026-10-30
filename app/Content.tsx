@@ -6,6 +6,7 @@ import { emptyDocument, textValue, imageValue, fieldMap, validateDocument, type 
 
 import { imageOverlayStrength } from '../lib/image-treatment';
 import { brandStyle } from '../lib/brand';
+import { artworkStyle, isBrandArtwork, venueLogo } from '../lib/brand-artwork';
 
 const Context = createContext<ContentDocument>(emptyDocument);
 export function ContentProvider({ value, children }: { value: ContentDocument; children: ReactNode }) {
@@ -26,6 +27,10 @@ export function ContentProvider({ value, children }: { value: ContentDocument; c
   return <Context.Provider value={draft ?? value}><style data-brand-palette>{brandStyle(draft ?? value)}</style>{children}</Context.Provider>;
 }
 export function useContent() { return useContext(Context); }
+export function BrandArtwork({src = venueLogo, alt, className = '', style, width = 1300, height = 768, tone = 'gold'}: {src?:string;alt:string;className?:string;style?:CSSProperties;width?:number;height?:number;tone?:'green'|'gold'}) {
+ const document = useContent();
+ return <span className={`brand-artwork ${className}`} role={alt ? 'img' : undefined} aria-label={alt || undefined} aria-hidden={!alt} style={{...style, aspectRatio:`${width} / ${height}`, ...artworkStyle(document, src, tone)}}/>;
+}
 export function Copy({ field }: { field: string }) {
   const value = textValue(useContent(), field);
   return <FormattedText value={value}/>;
@@ -45,10 +50,9 @@ export function ContentImage({ field, style, ...props }: { field: string } & Omi
   const image = imageValue(document, field);
   const original = fieldMap.get(field)?.default as ContentImageValue;
   const customCrop = (document.images[field] || (field === 'splash.background' && document.images['experience.hero.image1'])) && (image.src !== original.src || image.x !== original.x || image.y !== original.y);
-  // Version the restored-alpha artwork URL so existing optimized JPEG mattes expire.
-  const displaySrc = /^\/brand\/collection\/(menu-(not-wine|wine|food)|coaster-(script|bottle))\.webp$/.test(image.src) ? image.src.replace(/\.webp$/, "-cutout.webp") : image.src;
+  if (isBrandArtwork(image.src)) return <BrandArtwork src={image.src} alt={image.alt} width={image.width} height={image.height} className={props.className} style={style}/>;
   const opacity = imageOverlayStrength(document,image);
-  return <><style>{`:is(.scene,.split-photo,.photo-story figure,.company-photo,.brand-splash,.splash-backdrop,.collection-photos figure,.collection-paper figure,.collection-backdrop):has(> img[data-image-treatment="${treatmentId}"]) { --image-overlay-strength: ${opacity}; }`}</style><Image {...props} data-image-treatment={treatmentId} data-overlay={image.overlay === false ? "off" : "on"} src={displaySrc} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/></>;
+  return <><style>{`:is(.scene,.split-photo,.photo-story figure,.company-photo,.brand-splash,.splash-backdrop,.collection-photos figure,.collection-paper figure,.collection-backdrop):has(> img[data-image-treatment="${treatmentId}"]) { --image-overlay-strength: ${opacity}; }`}</style><Image {...props} data-image-treatment={treatmentId} data-overlay={image.overlay === false ? "off" : "on"} src={image.src} alt={image.alt} width={image.width} height={image.height} style={{...style, ...(customCrop ? {objectPosition:`${image.x}% ${image.y}%`} : {})}}/></>;
 }
 export function ContentLink({ field, ...props }: { field: string } & AnchorHTMLAttributes<HTMLAnchorElement>) {
   const href = textValue(useContent(), field);

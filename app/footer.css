@@ -37,15 +37,6 @@
   flex: 0 0 auto;
   width: 200px;
   margin: 0 0 5px;
-  background-color: var(--brand-green);
-  mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
-  -webkit-mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
-}
-
-.footer-signature img {
-  width: 100%;
-  height: auto;
-  visibility: hidden;
 }
 
 .footer-bottom {

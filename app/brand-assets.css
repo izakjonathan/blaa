@@ -1,12 +1,4 @@
-/* Alpha masks preserve the original artwork and fine bottle line at any palette. */
-
-.brand-bottle-vector {
-  display: block;
-  width: 100%;
-  height: 100%;
-  color: var(--brand-gold);
-  overflow: visible;
-}
+/* Palette-controlled venue artwork and shared grain. */
 
 .brand-grain {
   position: fixed;
@@ -16,4 +8,16 @@
   opacity: var(--brand-grain-opacity,0);
   background: url('/brand/grain.svg') repeat;
   mix-blend-mode: soft-light;
+}
+
+/* Alpha artwork inherits exact colours from the current editor document. */
+.brand-artwork {
+ display: block;
+ width: 100%;
+ mask-size: contain;
+ mask-position: center;
+ mask-repeat: no-repeat;
+ -webkit-mask-size: contain;
+ -webkit-mask-position: center;
+ -webkit-mask-repeat: no-repeat;
 }

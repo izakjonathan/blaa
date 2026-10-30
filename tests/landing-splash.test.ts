@@ -15,7 +15,7 @@ test('first-visit splash loads the masked logo without calling image methods on 
     if(name==='react')return {useState:()=>['splash',()=>{}],useRef:()=>({current:{querySelector:()=>({tagName:'SPAN'}),querySelectorAll:()=>[{decode:()=>new Promise(()=>{})}]}}),useLayoutEffect:(callback:()=>void)=>{effect=callback;}};
     if(name==='react/jsx-runtime')return {jsx:()=>null,jsxs:()=>null};
     if(name==='./Content')return {useContent:()=>({})};
-    if(name==='../lib/splash')return {splashSettings:()=>({enabled:true,duration:1000,showLogo:true,showBottle:true})};
+    if(name==='../lib/splash')return {splashSettings:()=>({enabled:true,duration:1000,showLogo:true})};
     if(name==='../lib/motion')return {isReducedMotion:()=>false};
     return {};
   },document:{documentElement:root,fonts:{ready:Promise.resolve()},addEventListener(){},removeEventListener(){}},window:{scrollY:0},matchMedia:()=>({addEventListener(){},removeEventListener(){}}),location:{hash:'',search:''},sessionStorage:{getItem:()=>null,setItem(){}},URLSearchParams,Image:class{src='';decode(){decoded=this.src;return Promise.resolve();}},setTimeout:()=>1,clearTimeout(){}};

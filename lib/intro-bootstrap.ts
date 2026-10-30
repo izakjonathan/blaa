@@ -31,13 +31,11 @@ html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .floating-header
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .brand-splash { display:block; visibility:visible; }
 html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) .brand-splash { display:none!important; }
 html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) [data-intro="splash"] .hero-line > *,
-html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) [data-intro="splash"] .hero-bottle,
 html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) [data-intro="splash"] .hero-discover { opacity:1; animation:none; }
 `;
 
 export const INTRO_NO_SCRIPT_CSS = `
 .brand-splash { display:none!important; }
 [data-intro="splash"] .hero-line > *,
-[data-intro="splash"] .hero-bottle,
 [data-intro="splash"] .hero-discover { opacity:1!important; animation:none!important; }
 `;

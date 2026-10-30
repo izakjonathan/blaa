@@ -45,30 +45,6 @@
   display: block;
 }
 
-.hero-bottle {
-  position: absolute;
-  z-index: 2;
-  right: 12%;
-  top: 20%;
-  width: min(25vw,310px);
-  height: 65%;
-  transform: rotate(9deg);
-}
-
-.hero-bottle svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.splash-bottle svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
 .hero-discover {
   display: inline-flex;
   gap: 30px;
@@ -112,21 +88,12 @@
   padding: max(30px,env(safe-area-inset-top)) 24px max(30px,env(safe-area-inset-bottom));
 }
 
-.splash-bottle {
-  width: min(calc(22vw * var(--splash-bottle-scale,1)),calc(150px * var(--splash-bottle-scale,1)));
-  height: min(calc(31svh * var(--splash-bottle-scale,1)),calc(290px * var(--splash-bottle-scale,1)));
-  flex-shrink: 1;
-}
-
 .splash-logo {
   width: min(calc(44vw * var(--splash-logo-scale,1)),calc(220px * var(--splash-logo-scale,1)));
   height: auto;
   display: block;
   aspect-ratio: 1300 / 768;
   flex-shrink: 0;
-  background: var(--brand-gold);
-  mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
-  -webkit-mask: url('/kroteket/5f84ffc1-logoblaagardsapotekh-1300x768-1.png') center / contain no-repeat;
 }
 
 html.brand-intro-active {
@@ -157,7 +124,7 @@ html.brand-intro-active .floating-header > * {
   inset: 0;
 }
 
-.brand-splash:not(.splash-preview) :is(.splash-backdrop, .splash-bottle, .splash-logo) {
+.brand-splash:not(.splash-preview) :is(.splash-backdrop, .splash-logo) {
   opacity: 0;
 }
 
@@ -165,21 +132,8 @@ html.brand-intro-active .floating-header > * {
   opacity: 0;
 }
 
-[data-intro="splash"] .hero-bottle {
-  opacity: 0;
-}
-
 [data-intro="splash"] .hero-discover {
   opacity: 0;
-}
-
-[data-intro="leaving"] .hero-bottle {
-  animation: bottleArrival 1100ms var(--ease-reveal) 100ms both;
-}
-
-[data-intro="ready"] .hero-bottle {
-  animation: bottleArrival 1100ms var(--ease-reveal) 100ms both;
-  animation-fill-mode: backwards;
 }
 
 [data-intro="leaving"] .hero-line > * {
@@ -213,17 +167,6 @@ html.brand-intro-active .floating-header > * {
   }
 }
 
-@keyframes bottleArrival {
-  from {
-    opacity: 0;
-    transform: translate3d(0,40px,0) rotate(15deg);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(9deg);
-  }
-}
-
 @keyframes lineArrival {
   from {
     opacity: 0;
@@ -249,16 +192,6 @@ html.brand-intro-active .floating-header > * {
     line-height: 1.02;
     margin-bottom: 28px;
   }
-  .hero-bottle {
-    width: 30vw;
-    height: 27%;
-    right: 15%;
-    top: 14%;
-  }
-  .splash-bottle {
-    width: calc(25vw * var(--splash-bottle-scale,1));
-    height: calc(28svh * var(--splash-bottle-scale,1));
-  }
   .splash-logo {
     width: calc(42vw * var(--splash-logo-scale,1));
   }
@@ -276,19 +209,9 @@ html.brand-intro-active .floating-header > * {
     padding-top: 100px;
     padding-bottom: 25px;
   }
-  .hero-bottle {
-    top: 22%;
-    height: 65%;
-    right: 15%;
-    width: 20vw;
-  }
   .brand-splash .splash-art {
     flex-direction: row;
     gap: 55px;
-  }
-  .splash-bottle {
-    height: calc(46svh * var(--splash-bottle-scale,1));
-    width: calc(18vw * var(--splash-bottle-scale,1));
   }
   .splash-logo {
     width: calc(21vw * var(--splash-logo-scale,1));
@@ -310,11 +233,6 @@ html.brand-intro-active .floating-header > * {
 .splash-preview .splash-art {
   padding: 24px;
   gap: 30px;
-}
-
-.splash-preview .splash-bottle {
-  max-width: 35%;
-  max-height: 50%;
 }
 
 .splash-preview .splash-logo {

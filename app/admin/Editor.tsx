@@ -3,7 +3,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties }
 import { uploadPresigned } from '@vercel/blob/client';
 import { emptyDocument, fields, imageValue, textValue, validateDocument, type ContentDocument, type ContentImageValue, type Field } from '../../lib/content-schema';
 import BrandSplash from '../BrandSplash';
-import { ContentProvider } from '../Content';
+import { ContentProvider, BrandArtwork } from '../Content';
+import { brandColors } from '../../lib/brand';
 import type { ContentState } from '../../lib/content-db';
 import './editor.css';
 import {imageOverlayOpacity,imageOverlayStrength} from '../../lib/image-treatment';
@@ -88,6 +89,7 @@ export default function Editor(){
    <div className="editor-controls"><span className="editor-state">{loading?'Loading…':dirty?'Unsaved changes':ready?'Draft up to date':'Exploring original content'}</span></div>
    {page==='splash'&&<><p className="editor-caption">Shown once per tab session. Preview lets you see it again while editing. Brand colors follow your palette settings.</p><ContentProvider value={document}><BrandSplash preview/></ContentProvider></>}
    {page==='brand'&&<p className="editor-caption">These two colors apply across every page, including logos, illustrations and photo overlays. The global overlay opacity applies to images without a custom opacity. Images switched off stay off. Preview your draft, then publish to update the live site.</p>}
+   {page==='brand'&&<ContentProvider value={document}><section className="editor-artwork-samples" aria-label="Live logo and illustration colours">{(['gold','green'] as const).map(tone=><div key={tone} className="editor-artwork-sample" style={{backgroundColor:brandColors(document)[tone==='gold'?'green':'gold']}}><BrandArtwork alt="Blågårds Apotek" tone={tone}/><BrandArtwork src="/kroteket/6c6d53aa-guitar.png" alt="Musik" width={512} height={512} tone={tone}/><BrandArtwork src="/kroteket/5a192dae-painting.png" alt="Kunst" width={512} height={512} tone={tone}/></div>)}</section></ContentProvider>}
    {sections.map(current=><section key={`${page}-${current}`} className="editor-section" aria-label={sectionNames[current]||current} aria-busy={loading}><h3 className="editor-section-title">{sectionNames[current]||current}</h3><div className="editor-fields">
     {pageFields.filter(field=>field.section===current).map(field=>field.kind==='image'?<article key={field.id} className="editor-card editor-image-card">
      <div className="editor-card-heading"><h3>{field.id==='splash.background'?field.label:'Photograph'}</h3><button type="button" className="editor-button" onClick={()=>void openImages(field)}>Change image</button></div>

@@ -37,3 +37,7 @@ The application creates independent `blaa_content`, `blaa_media` and `blaa_uploa
 - No third-party map embed or tracking scripts are loaded. Contact includes a direct Google Maps directions link and the venue's social links.
 
 See `docs/release-1.0.0.md` for verification and remaining setup.
+
+## Artwork colours
+
+All interface logos use one alpha-mask renderer driven by the current editor document. The Brand colors tab previews the venue logo, music and art illustrations in both palette colours. The same colours apply to the header, footer, splash and draft previews. Inherited bottle artwork and its controls have been removed. Older saved bottle settings are accepted as hidden compatibility data and have no rendering effect.
