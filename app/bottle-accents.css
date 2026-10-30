@@ -1,0 +1,35 @@
+/* One continuous canvas, clipped only at the outer page edges. */
+
+.bottle-art-page {
+  position: relative;
+  isolation: isolate;
+}
+
+.bottle-page-art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.bottle-fragment {
+  position: absolute;
+  max-width: none;
+  overflow: visible;
+  transform-origin: center;
+  opacity: 0;
+}
+
+.bottle-fragment path {
+  stroke: var(--brand-gold);
+  stroke-width: 1.4px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width:600px) {
+  .bottle-fragment path {
+    stroke-width: 1.2px;
+  }
+}

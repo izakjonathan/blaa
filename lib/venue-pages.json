@@ -1,0 +1,53 @@
+{
+  "navigation": [
+    {
+      "href": "/",
+      "label": "Forside",
+      "description": "Velkommen på Apoteket",
+      "id": "experience"
+    },
+    {
+      "href": "/events",
+      "label": "Koncerter",
+      "description": "Jazz, sangskrivere & livemusik",
+      "id": "events"
+    },
+    {
+      "href": "/om-os",
+      "label": "Om os",
+      "description": "Et lokalt, non-profit spillested",
+      "id": "about"
+    },
+    {
+      "href": "/galleri",
+      "label": "Galleri",
+      "description": "Livet på Kroteket",
+      "id": "gallery"
+    },
+    {
+      "href": "/spil-hos-os",
+      "label": "Spil hos os",
+      "description": "Kom op på scenen",
+      "id": "play"
+    },
+    {
+      "href": "/kunst",
+      "label": "Kunst",
+      "description": "Udstil hos os",
+      "id": "art"
+    },
+    {
+      "href": "/kontakt",
+      "label": "Kontakt",
+      "description": "Find vej & åbningstider",
+      "id": "contact"
+    }
+  ],
+  "paragraphs": {
+    "about": 7,
+    "play": 4,
+    "art": 5
+  },
+  "events": 20,
+  "gallery": 32
+}

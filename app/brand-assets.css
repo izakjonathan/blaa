@@ -1,0 +1,11 @@
+/* Alpha masks preserve the original artwork and fine bottle line at any palette. */
+
+.brand-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: var(--brand-grain-opacity,0);
+  background: url('/brand/grain.svg') repeat;
+  mix-blend-mode: soft-light;
+}

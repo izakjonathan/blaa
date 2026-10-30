@@ -1,0 +1,3106 @@
+[
+  {
+    "id": "experience.page.text1",
+    "page": "experience",
+    "section": "welcome",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Musik.\nMennesker.\nNørrebro.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text2",
+    "page": "experience",
+    "section": "welcome",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Blågårds Apotek er en fondsdrevet og non-profit bar og spillested i hjertet af Indre Nørrebro. I folkemunde kalder vi det Kroteket. Her er plads til alle.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text3",
+    "page": "experience",
+    "section": "welcome",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Om Apoteket",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.image4",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Wine being poured at a tiled bar counter",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/017574ea-JONAS-DUE-EXPERIENCE-1-scaled.webp",
+      "alt": "Livemusik på Blågårds Apotek",
+      "width": 1600,
+      "height": 1067,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text5",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Live musik.\nHver uge.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text6",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Jazz Jam mandag kl. 20–23. Songwriters Playground onsdag kl. 20–23. Livemusik lørdag kl. 21–00. Lørdag er entréen 50 kr. i døren; ingen forsalg.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text7",
+    "page": "experience",
+    "section": "coffee",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Se koncerterne",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.image8",
+    "page": "experience",
+    "section": "wine",
+    "label": "Friends sharing glasses of wine",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/0f7d2eba-Bla-ga-rds-Apotek-5-1300x867-1.webp",
+      "alt": "De 18 ølhaner ved den gamle apotekerdisk",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text9",
+    "page": "experience",
+    "section": "wine",
+    "label": "Heading",
+    "kind": "text",
+    "default": "18 haner.\nDin næste\nfavorit.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text10",
+    "page": "experience",
+    "section": "wine",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Traditionelle og unikke øl fra ind- og udland. Eller et glas vin, en forfriskende cider, whiskey eller rom. Vi skifter løbende hanerne ud.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text11",
+    "page": "experience",
+    "section": "wine",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Kig indenfor",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.text12",
+    "page": "experience",
+    "section": "table",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Kunst.\nPå væggene.\nI samtalen.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text13",
+    "page": "experience",
+    "section": "table",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Hver måned sætter en ny kunstner sit aftryk på Kroteket. Et levende udstillingsrum med højt til loftet og plads til fri kunstnerisk udfoldelse.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text14",
+    "page": "experience",
+    "section": "table",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Udstil hos os",
+    "multiline": false
+  },
+  {
+    "id": "experience.page.image15",
+    "page": "experience",
+    "section": "table",
+    "label": "Friends gathered around a table outside a neighbourhood bar",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/8cd0447d-Bla-ga-rds-Apotek-3-1300x867-1.webp",
+      "alt": "Kunst og gæster i barens lokaler",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.image16",
+    "page": "experience",
+    "section": "Wine and everyday rituals",
+    "label": "A server carrying glasses of red wine",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/89d8a63f-Bla-ga-rds-Apotek-4-1300x867-1.webp",
+      "alt": "Et smil bag baren",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.image17",
+    "page": "experience",
+    "section": "Wine and everyday rituals",
+    "label": "A relaxed moment pouring a glass of wine",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/be416452-Bla-ga-rds-Apotek-31-1300x867-1.webp",
+      "alt": "En samtale over en øl",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text18",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Et sted.\nMange historier.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text19",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Den gamle apotekerdisk udgør stadig baren. Her bliver verdenssituationen vendt, musikken spillet og hverdagen delt.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.image22",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Architectural concept for a Plaisir storefront; not confirmed premises",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/6729d91e-FACADE-2-scaled.webp",
+      "alt": "Facaden ved Blågårds Plads",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.page.text23",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Vi ses på\nBlågårds\nPlads.",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text24",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Blågårds Plads 2 · 2200 København N\nVi byder alle velkommen på Apoteket!",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.text25",
+    "page": "experience",
+    "section": "neighbourhood",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Find vej & kontakt",
+    "multiline": false
+  },
+  {
+    "id": "experience.hero.image1",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Wine glasses and a Plaisir menu in warm evening light",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.hero.title",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Dit lokale\n*Apotek.*",
+    "multiline": true
+  },
+  {
+    "id": "experience.hero.text2",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Text",
+    "kind": "text",
+    "default": "Dit lokale",
+    "multiline": false,
+    "hidden": true
+  },
+  {
+    "id": "experience.hero.text3",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Text",
+    "kind": "text",
+    "default": "*Apotek.*",
+    "multiline": false,
+    "hidden": true
+  },
+  {
+    "id": "experience.hero.text4",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Text",
+    "kind": "text",
+    "default": "",
+    "multiline": false,
+    "hidden": true
+  },
+  {
+    "id": "experience.hero.text5",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Oplev Kroteket",
+    "multiline": false
+  },
+  {
+    "id": "shared.shell.text1",
+    "page": "shared",
+    "section": "Navigation & footer",
+    "label": "Button text",
+    "kind": "text",
+    "default": "Gå til indhold",
+    "multiline": false
+  },
+  {
+    "id": "shared.shell.text2",
+    "page": "shared",
+    "section": "Navigation & footer",
+    "label": "Heading",
+    "kind": "text",
+    "default": "Føl dig\nhjemme.",
+    "multiline": true
+  },
+  {
+    "id": "shared.shell.text3",
+    "page": "shared",
+    "section": "Navigation & footer",
+    "label": "Paragraph",
+    "kind": "text",
+    "default": "Blågårds Apotek · Blågårds Plads 2 · 2200 København N",
+    "multiline": true
+  },
+  {
+    "id": "experience.page.link1",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/om-os"
+  },
+  {
+    "id": "experience.page.link2",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/events"
+  },
+  {
+    "id": "experience.page.link3",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/galleri"
+  },
+  {
+    "id": "experience.page.link4",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/kunst"
+  },
+  {
+    "id": "experience.page.link5",
+    "page": "experience",
+    "section": "Button links",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "/kontakt"
+  },
+  {
+    "id": "experience.hero.link1",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Button destination",
+    "kind": "link",
+    "default": "#welcome"
+  },
+  {
+    "id": "splash.background",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Background photograph",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "splash.enabled",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Show splash screen",
+    "kind": "text",
+    "default": "true",
+    "control": "toggle"
+  },
+  {
+    "id": "splash.overlay",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Green overlay (%)",
+    "kind": "text",
+    "default": "87",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1
+  },
+  {
+    "id": "splash.logoScale",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Logo size (%)",
+    "kind": "text",
+    "default": "100",
+    "control": "range",
+    "min": 50,
+    "max": 150,
+    "step": 5
+  },
+  {
+    "id": "splash.bottleScale",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Guitar size",
+    "kind": "text",
+    "default": "100",
+    "control": "range",
+    "min": 50,
+    "max": 150,
+    "step": 5
+  },
+  {
+    "id": "splash.duration",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Hold after reveal",
+    "kind": "text",
+    "default": "1450",
+    "control": "range",
+    "min": 500,
+    "max": 5000,
+    "step": 50
+  },
+  {
+    "id": "splash.showLogo",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Show Plaisir wordmark",
+    "kind": "text",
+    "default": "true",
+    "control": "toggle"
+  },
+  {
+    "id": "splash.showBottle",
+    "page": "splash",
+    "section": "Splash screen",
+    "label": "Show guitar",
+    "kind": "text",
+    "default": "true",
+    "control": "toggle"
+  },
+  {
+    "id": "brand.green",
+    "page": "brand",
+    "section": "Brand palette",
+    "label": "Navy",
+    "kind": "text",
+    "control": "color",
+    "default": "#1A1E3A"
+  },
+  {
+    "id": "brand.gold",
+    "page": "brand",
+    "section": "Brand palette",
+    "label": "Copper",
+    "kind": "text",
+    "control": "color",
+    "default": "#DB8C59"
+  },
+  {
+    "id": "brand.grain",
+    "page": "brand",
+    "section": "Brand palette",
+    "label": "Grain level",
+    "kind": "text",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": "0",
+    "hidden": true
+  },
+  {
+    "id": "experience.collection.cups-scattered",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "cups scattered",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/6729d91e-FACADE-2-scaled.webp",
+      "alt": "Blågårds Apotek ved Blågårds Plads",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.collection.cups-stacked",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "cups stacked",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/1ae92b1d-Bla-ga-rds-Apotek-2-1300x867-1.webp",
+      "alt": "Øltavlen i baren",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "experience.collection.takeaway-bag",
+    "page": "experience",
+    "section": "brand-world",
+    "label": "takeaway bag",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/c60be2ce-Bla-ga-rds-Apotek-21-1300x867-1.webp",
+      "alt": "Detaljer fra den gamle apoteksindretning",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "brand.overlayOpacity",
+    "page": "brand",
+    "section": "Image treatment",
+    "label": "Global overlay / gradient opacity",
+    "kind": "text",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "default": "100"
+  },
+  {
+    "id": "shared.menu.0.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Forside",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.0.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Velkommen på Apoteket",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.1.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Koncerter",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.1.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Jazz, sangskrivere & livemusik",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.2.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Om os",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.2.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Et lokalt, non-profit spillested",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.3.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Galleri",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.3.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Livet på Kroteket",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.4.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Spil hos os",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.4.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Kom op på scenen",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.5.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Kunst",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.5.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Udstil hos os",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.6.label",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Menu title",
+    "kind": "text",
+    "default": "Kontakt",
+    "multiline": true
+  },
+  {
+    "id": "shared.menu.6.description",
+    "page": "shared",
+    "section": "Menu",
+    "label": "Description",
+    "kind": "text",
+    "default": "Find vej & åbningstider",
+    "multiline": true
+  },
+  {
+    "id": "shared.venue.hours",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Åbningstider (vinter)",
+    "kind": "text",
+    "default": "Mandag: 12.00–00.00\nTirsdag: 12.00–02.00\nOnsdag: 12.00–02.00\nTorsdag: 12.00–02.00\nFredag: 12.00–02.00\nLørdag: 12.00–02.00\nSøndag: 14.00–00.00",
+    "multiline": true
+  },
+  {
+    "id": "shared.venue.email",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Mail",
+    "kind": "text",
+    "default": "bestyrer@kroteket.dk",
+    "multiline": true
+  },
+  {
+    "id": "shared.venue.emailLink",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Mail link",
+    "kind": "link",
+    "default": "mailto:bestyrer@kroteket.dk"
+  },
+  {
+    "id": "shared.venue.phone",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Telefon",
+    "kind": "text",
+    "default": "35 37 24 42",
+    "multiline": true
+  },
+  {
+    "id": "shared.venue.phoneLink",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Telefon link",
+    "kind": "link",
+    "default": "tel:+4535372442"
+  },
+  {
+    "id": "shared.venue.facebook",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Facebook",
+    "kind": "link",
+    "default": "https://www.facebook.com/kroteket/"
+  },
+  {
+    "id": "shared.venue.instagram",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Instagram",
+    "kind": "link",
+    "default": "https://www.instagram.com/blaagaardsapotek/"
+  },
+  {
+    "id": "shared.venue.directions",
+    "page": "shared",
+    "section": "Kontakt & åbningstider",
+    "label": "Find vej",
+    "kind": "link",
+    "default": "https://www.google.com/maps/search/?api=1&query=Bl%C3%A5g%C3%A5rds+Apotek+Bl%C3%A5g%C3%A5rds+Plads+2"
+  },
+  {
+    "id": "events.title",
+    "page": "events",
+    "section": "Hero",
+    "label": "Overskrift",
+    "kind": "text",
+    "default": "Koncerter",
+    "multiline": true
+  },
+  {
+    "id": "events.intro",
+    "page": "events",
+    "section": "Hero",
+    "label": "Introduktion",
+    "kind": "text",
+    "default": "Jazz, sangskrivere & livemusik",
+    "multiline": true
+  },
+  {
+    "id": "events.hero",
+    "page": "events",
+    "section": "Hero",
+    "label": "Baggrund",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "about.title",
+    "page": "about",
+    "section": "Hero",
+    "label": "Overskrift",
+    "kind": "text",
+    "default": "Om os",
+    "multiline": true
+  },
+  {
+    "id": "about.intro",
+    "page": "about",
+    "section": "Hero",
+    "label": "Introduktion",
+    "kind": "text",
+    "default": "Et lokalt, non-profit spillested",
+    "multiline": true
+  },
+  {
+    "id": "about.hero",
+    "page": "about",
+    "section": "Hero",
+    "label": "Baggrund",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.title",
+    "page": "gallery",
+    "section": "Hero",
+    "label": "Overskrift",
+    "kind": "text",
+    "default": "Galleri",
+    "multiline": true
+  },
+  {
+    "id": "gallery.intro",
+    "page": "gallery",
+    "section": "Hero",
+    "label": "Introduktion",
+    "kind": "text",
+    "default": "Livet på Kroteket",
+    "multiline": true
+  },
+  {
+    "id": "gallery.hero",
+    "page": "gallery",
+    "section": "Hero",
+    "label": "Baggrund",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "play.title",
+    "page": "play",
+    "section": "Hero",
+    "label": "Overskrift",
+    "kind": "text",
+    "default": "Spil hos os",
+    "multiline": true
+  },
+  {
+    "id": "play.intro",
+    "page": "play",
+    "section": "Hero",
+    "label": "Introduktion",
+    "kind": "text",
+    "default": "Kom op på scenen",
+    "multiline": true
+  },
+  {
+    "id": "play.hero",
+    "page": "play",
+    "section": "Hero",
+    "label": "Baggrund",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "art.title",
+    "page": "art",
+    "section": "Hero",
+    "label": "Overskrift",
+    "kind": "text",
+    "default": "Kunst",
+    "multiline": true
+  },
+  {
+    "id": "art.intro",
+    "page": "art",
+    "section": "Hero",
+    "label": "Introduktion",
+    "kind": "text",
+    "default": "Udstil hos os",
+    "multiline": true
+  },
+  {
+    "id": "art.hero",
+    "page": "art",
+    "section": "Hero",
+    "label": "Baggrund",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "contact.title",
+    "page": "contact",
+    "section": "Hero",
+    "label": "Overskrift",
+    "kind": "text",
+    "default": "Kontakt",
+    "multiline": true
+  },
+  {
+    "id": "contact.intro",
+    "page": "contact",
+    "section": "Hero",
+    "label": "Introduktion",
+    "kind": "text",
+    "default": "Find vej & åbningstider",
+    "multiline": true
+  },
+  {
+    "id": "contact.hero",
+    "page": "contact",
+    "section": "Hero",
+    "label": "Baggrund",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek oplyst om aftenen",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "about.body.0",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 1",
+    "kind": "text",
+    "default": "Blågårds Apotek – en ikonisk lokal bar og spillested på Nørrebro",
+    "multiline": true
+  },
+  {
+    "id": "about.body.1",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 2",
+    "kind": "text",
+    "default": "Blågårds Apotek er en fondsdrevet og non-profit bar og spillested beliggende i hjertet af Indre Nørrebro ved Blågårds Plads. I den gamle apoteksfilial fyldes lokalerne i dag med live musik hver mandag, onsdag og lørdag.",
+    "multiline": true
+  },
+  {
+    "id": "about.body.2",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 3",
+    "kind": "text",
+    "default": "Mandage byder på Jazz Jam fra 20.00-23.00, og onsdage kan man møde et væld af singer-songwriters fra 20.00-23.00. Derudover byder lørdag på livemusik fra 21.00-00.00 – her er der entré på 50,- som man betaler i døren. Det er ikke muligt at købe entrébilletter på forhånd.",
+    "multiline": true
+  },
+  {
+    "id": "about.body.3",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 4",
+    "kind": "text",
+    "default": "I folkemunde bliver Apoteket kaldt “Kroteket” og vi byder på et udvalg af 18 ølhaner med både traditionelle og unikke øl fra ind- og udland. Er man ikke til øl, serverer vi også lækker vin, forfriskende cider, spændende whiskey eller en dejlig rom. Vi skifter løbende hanerne ud, så der er noget for enhver smag.",
+    "multiline": true
+  },
+  {
+    "id": "about.body.4",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 5",
+    "kind": "text",
+    "default": "Det brede og unikke udvalg af drikkevarer kombineret med en autentisk barstemning skaber en atmosfære, der ikke findes andre steder i København. Den gamle apotekerdisk udgør stadig baren, og her bliver verdenssituationen vendt såvel som daglige gøremål, hvilket giver stedet en helt unik stemning fra åben til luk.",
+    "multiline": true
+  },
+  {
+    "id": "about.body.5",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 6",
+    "kind": "text",
+    "default": "Blågårds Apotek byder på en charme, som opnås, fordi stedet har eksisteret så længe – den nuværende bygning blev opført tilbage i år 1932.",
+    "multiline": true
+  },
+  {
+    "id": "about.body.6",
+    "page": "about",
+    "section": "Om stedet",
+    "label": "Afsnit 7",
+    "kind": "text",
+    "default": "Vi byder alle velkommen på Apoteket!",
+    "multiline": true
+  },
+  {
+    "id": "play.body.0",
+    "page": "play",
+    "section": "Information",
+    "label": "Afsnit 1",
+    "kind": "text",
+    "default": "På Blågårds Apotek er der livemusik tre gange om ugen.",
+    "multiline": true
+  },
+  {
+    "id": "play.body.1",
+    "page": "play",
+    "section": "Information",
+    "label": "Afsnit 2",
+    "kind": "text",
+    "default": "Hver mandag er der Jazz Jam fra 20.00-23.00.Her kommer du blot ned og jammer med.",
+    "multiline": true
+  },
+  {
+    "id": "play.body.2",
+    "page": "play",
+    "section": "Information",
+    "label": "Afsnit 3",
+    "kind": "text",
+    "default": "Hver onsdag er der singer-songwriter fra 20.00-23.00.Her kommer du også blot ned og prikker Benjamin på skuldren, hvis man vil være med. Spørg evt. efter Benjamin i baren.Har du også lyst til at være feature, skal du sende en mail til Benjamin på: benjaminaggerbeck@gmail.com",
+    "multiline": true
+  },
+  {
+    "id": "play.body.3",
+    "page": "play",
+    "section": "Information",
+    "label": "Afsnit 4",
+    "kind": "text",
+    "default": "Hver lørdag er der livemusik fra 21.00-00.Er du interesseret i at give koncert her, så send en mail til: booker@kroteket.dk",
+    "multiline": true
+  },
+  {
+    "id": "art.body.0",
+    "page": "art",
+    "section": "Information",
+    "label": "Afsnit 1",
+    "kind": "text",
+    "default": "På Blågårds Apotek kan du opleve ægte Nørrebro-stemning med ugentlige koncerter og en fyldt bar hver aften.",
+    "multiline": true
+  },
+  {
+    "id": "art.body.1",
+    "page": "art",
+    "section": "Information",
+    "label": "Afsnit 2",
+    "kind": "text",
+    "default": "Men vi vil også gerne understøtte så mange fra det kunstneriske vækstlag som muligt.",
+    "multiline": true
+  },
+  {
+    "id": "art.body.2",
+    "page": "art",
+    "section": "Information",
+    "label": "Afsnit 3",
+    "kind": "text",
+    "default": "Derfor har vi valgt at dedikere vores vægge til kunstnere, der hver måned sætter et nyt unikt aftryk på Kroteket. Kunsten varierer meget fra udstilling til udstilling, men på Apoteket er der højt til loftet og plads til fri kunstnerisk udfoldelse. Apoteket er dermed et dynamisk udstillingsrum, hvor værkerne ikke bare betragtes fra afstand, men bliver en naturlig del af en livlig og velbesøgt bar. Derfor er kunsten på væggene også ofte omdrejningspunkt for spændende samtaler på baren.",
+    "multiline": true
+  },
+  {
+    "id": "art.body.3",
+    "page": "art",
+    "section": "Information",
+    "label": "Afsnit 4",
+    "kind": "text",
+    "default": "Hvis du også har lyst til at sætte dit kunstneriske aftryk på Kroteket, så send os en mail på kunst@kroteket.dk med et lille udsnit af din portefolie.",
+    "multiline": true
+  },
+  {
+    "id": "art.body.4",
+    "page": "art",
+    "section": "Information",
+    "label": "Afsnit 5",
+    "kind": "text",
+    "default": "Vi ser frem til at høre fra dig!",
+    "multiline": true
+  },
+  {
+    "id": "play.booking.label",
+    "page": "play",
+    "section": "Kontakt",
+    "label": "Knap",
+    "kind": "text",
+    "default": "Kontakt booker",
+    "multiline": true
+  },
+  {
+    "id": "play.booking.link",
+    "page": "play",
+    "section": "Kontakt",
+    "label": "Link",
+    "kind": "link",
+    "default": "mailto:booker@kroteket.dk"
+  },
+  {
+    "id": "play.feature.label",
+    "page": "play",
+    "section": "Kontakt",
+    "label": "Knap",
+    "kind": "text",
+    "default": "Bliv feature",
+    "multiline": true
+  },
+  {
+    "id": "play.feature.link",
+    "page": "play",
+    "section": "Kontakt",
+    "label": "Link",
+    "kind": "link",
+    "default": "mailto:benjaminaggerbeck@gmail.com"
+  },
+  {
+    "id": "art.enquiry.label",
+    "page": "art",
+    "section": "Kontakt",
+    "label": "Knap",
+    "kind": "text",
+    "default": "Skriv til os",
+    "multiline": true
+  },
+  {
+    "id": "art.enquiry.link",
+    "page": "art",
+    "section": "Kontakt",
+    "label": "Link",
+    "kind": "link",
+    "default": "mailto:kunst@kroteket.dk"
+  },
+  {
+    "id": "contact.0.label",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Type",
+    "kind": "text",
+    "default": "Generelle henvendelser",
+    "multiline": true
+  },
+  {
+    "id": "contact.0.email",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Email",
+    "kind": "text",
+    "default": "bestyrer@kroteket.dk",
+    "multiline": true
+  },
+  {
+    "id": "contact.0.link",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Mail link",
+    "kind": "link",
+    "default": "mailto:bestyrer@kroteket.dk"
+  },
+  {
+    "id": "contact.1.label",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Type",
+    "kind": "text",
+    "default": "Presse",
+    "multiline": true
+  },
+  {
+    "id": "contact.1.email",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Email",
+    "kind": "text",
+    "default": "zoe@kroteket.dk",
+    "multiline": true
+  },
+  {
+    "id": "contact.1.link",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Mail link",
+    "kind": "link",
+    "default": "mailto:zoe@kroteket.dk"
+  },
+  {
+    "id": "contact.2.label",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Type",
+    "kind": "text",
+    "default": "Musik & booking",
+    "multiline": true
+  },
+  {
+    "id": "contact.2.email",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Email",
+    "kind": "text",
+    "default": "booker@kroteket.dk",
+    "multiline": true
+  },
+  {
+    "id": "contact.2.link",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Mail link",
+    "kind": "link",
+    "default": "mailto:booker@kroteket.dk"
+  },
+  {
+    "id": "contact.3.label",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Type",
+    "kind": "text",
+    "default": "Kunst & udstillinger",
+    "multiline": true
+  },
+  {
+    "id": "contact.3.email",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Email",
+    "kind": "text",
+    "default": "kunst@kroteket.dk",
+    "multiline": true
+  },
+  {
+    "id": "contact.3.link",
+    "page": "contact",
+    "section": "Henvendelser",
+    "label": "Mail link",
+    "kind": "link",
+    "default": "mailto:kunst@kroteket.dk"
+  },
+  {
+    "id": "events.0.name",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "name",
+    "kind": "text",
+    "default": "Thorsens Jazzy Mondays",
+    "multiline": true
+  },
+  {
+    "id": "events.0.date",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "date",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.0.time",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "time",
+    "kind": "text",
+    "default": "20:00",
+    "multiline": true
+  },
+  {
+    "id": "events.0.note",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "note",
+    "kind": "text",
+    "default": "Jazz Jam hver mandag",
+    "multiline": true
+  },
+  {
+    "id": "events.0.group",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "group",
+    "kind": "text",
+    "default": "tilbagevendende koncerter",
+    "multiline": true
+  },
+  {
+    "id": "events.0.link",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1055926063969749/1055926077303081/"
+  },
+  {
+    "id": "events.0.image",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/caf3b118-The-Songwriters-Playground-5.webp",
+      "alt": "Thorsens Jazzy Mondays",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.1.name",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "name",
+    "kind": "text",
+    "default": "Syv-tommer søndag",
+    "multiline": true
+  },
+  {
+    "id": "events.1.date",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "date",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.1.time",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "time",
+    "kind": "text",
+    "default": "15:00",
+    "multiline": true
+  },
+  {
+    "id": "events.1.note",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "note",
+    "kind": "text",
+    "default": "Første søndag i måneden",
+    "multiline": true
+  },
+  {
+    "id": "events.1.group",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "group",
+    "kind": "text",
+    "default": "tilbagevendende koncerter",
+    "multiline": true
+  },
+  {
+    "id": "events.1.link",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1909715073773016/1909715093773014/"
+  },
+  {
+    "id": "events.1.image",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/8705a0bb-848439360_1704509191684851_7562132932381417985_n.webp",
+      "alt": "Syv-tommer søndag",
+      "width": 1280,
+      "height": 720,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.2.name",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "name",
+    "kind": "text",
+    "default": "Songwriters Playground",
+    "multiline": true
+  },
+  {
+    "id": "events.2.date",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "date",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.2.time",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "time",
+    "kind": "text",
+    "default": "20:00",
+    "multiline": true
+  },
+  {
+    "id": "events.2.note",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "note",
+    "kind": "text",
+    "default": "Hver onsdag",
+    "multiline": true
+  },
+  {
+    "id": "events.2.group",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "group",
+    "kind": "text",
+    "default": "tilbagevendende koncerter",
+    "multiline": true
+  },
+  {
+    "id": "events.2.link",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1060421443299608/1060421499966269?event_time_id=1060421483299604"
+  },
+  {
+    "id": "events.2.image",
+    "page": "events",
+    "section": "tilbagevendende koncerter",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/83ef2f84-The-Songwriters-Playground-hjemmeside-.webp",
+      "alt": "Songwriters Playground",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.3.name",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Brasil Night m. Aline Paes",
+    "multiline": true
+  },
+  {
+    "id": "events.3.date",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-09-05",
+    "multiline": true
+  },
+  {
+    "id": "events.3.time",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.3.note",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.3.group",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "SEPTEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.3.link",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1054175543869940"
+  },
+  {
+    "id": "events.3.image",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/85956f8e-Brasil-Night-med-Aline-Paes.webp",
+      "alt": "Brasil Night m. Aline Paes",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.4.name",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "von Bülow/Toftemark: Ginga Quartet",
+    "multiline": true
+  },
+  {
+    "id": "events.4.date",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-09-12",
+    "multiline": true
+  },
+  {
+    "id": "events.4.time",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.4.note",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.4.group",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "SEPTEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.4.link",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/2106175683314708?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.4.image",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/3367a58e-von-Bulow-Toftemark-Ginga-Quartet-4.webp",
+      "alt": "von Bülow/Toftemark: Ginga Quartet",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.5.name",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Strejf/Via Mundi",
+    "multiline": true
+  },
+  {
+    "id": "events.5.date",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-09-19",
+    "multiline": true
+  },
+  {
+    "id": "events.5.time",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.5.note",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.5.group",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "SEPTEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.5.link",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1565098551832357?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.5.image",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/82937a27-Strejfvia-mundi.webp",
+      "alt": "Strejf/Via Mundi",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.6.name",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Søren Høst Kvartet",
+    "multiline": true
+  },
+  {
+    "id": "events.6.date",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-09-26",
+    "multiline": true
+  },
+  {
+    "id": "events.6.time",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.6.note",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.6.group",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "SEPTEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.6.link",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/2134367734090915/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.6.image",
+    "page": "events",
+    "section": "SEPTEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/f10584e3-Soeren-Hoest-3.webp",
+      "alt": "Søren Høst Kvartet",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.7.name",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Trainman Blues",
+    "multiline": true
+  },
+  {
+    "id": "events.7.date",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-10-03",
+    "multiline": true
+  },
+  {
+    "id": "events.7.time",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.7.note",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.7.group",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "OKTOBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.7.link",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1558145535601136/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.7.image",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/59d135cc-Trainman-Blues-2.webp",
+      "alt": "Trainman Blues",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.8.name",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Emma Cherono",
+    "multiline": true
+  },
+  {
+    "id": "events.8.date",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-10-10",
+    "multiline": true
+  },
+  {
+    "id": "events.8.time",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.8.note",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.8.group",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "OKTOBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.8.link",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/3482610781919984/?acontext=%7B%22event_action_history%22%3A[%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.8.image",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/43db856c-Emma-Cherono-2.webp",
+      "alt": "Emma Cherono",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.9.name",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Deodato Siquir Trio",
+    "multiline": true
+  },
+  {
+    "id": "events.9.date",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-10-17",
+    "multiline": true
+  },
+  {
+    "id": "events.9.time",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.9.note",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.9.group",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "OKTOBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.9.link",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/4673482492883617/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.9.image",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e3eaae81-Deodato-Siquir-Trio-2.webp",
+      "alt": "Deodato Siquir Trio",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.10.name",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Jaya May",
+    "multiline": true
+  },
+  {
+    "id": "events.10.date",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-10-24",
+    "multiline": true
+  },
+  {
+    "id": "events.10.time",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.10.note",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.10.group",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "OKTOBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.10.link",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/2134438400505176?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.10.image",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/75cfbc17-Jaya-May.webp",
+      "alt": "Jaya May",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.11.name",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Balkan, Tango & andre danse",
+    "multiline": true
+  },
+  {
+    "id": "events.11.date",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-10-31",
+    "multiline": true
+  },
+  {
+    "id": "events.11.time",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.11.note",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.11.group",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "OKTOBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.11.link",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1071312679234200/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.11.image",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/a0d96655-Balkan-Tango-og-andre-danse-2.webp",
+      "alt": "Balkan, Tango & andre danse",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.12.name",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Halloween på Blågårds Apotek",
+    "multiline": true
+  },
+  {
+    "id": "events.12.date",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-10-30",
+    "multiline": true
+  },
+  {
+    "id": "events.12.time",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "17:00",
+    "multiline": true
+  },
+  {
+    "id": "events.12.note",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "30. oktober kl. 17–19; year inferred from October 2026 section",
+    "multiline": true
+  },
+  {
+    "id": "events.12.group",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "OKTOBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.12.link",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/2348693162539231"
+  },
+  {
+    "id": "events.12.image",
+    "page": "events",
+    "section": "OKTOBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/b8a790a0-sammen-om-noerrebroparken-2.webp",
+      "alt": "Halloween på Blågårds Apotek",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.13.name",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "All Inclusive m. Mig & Peter",
+    "multiline": true
+  },
+  {
+    "id": "events.13.date",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-11-07",
+    "multiline": true
+  },
+  {
+    "id": "events.13.time",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.13.note",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.13.group",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "NOVEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.13.link",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/953954281090028/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.13.image",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/0146901d-The-blues-overdrive-7.webp",
+      "alt": "All Inclusive m. Mig & Peter",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.14.name",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Fredrik Kronkvist Quartet",
+    "multiline": true
+  },
+  {
+    "id": "events.14.date",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-11-14",
+    "multiline": true
+  },
+  {
+    "id": "events.14.time",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.14.note",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.14.group",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "NOVEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.14.link",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1604200054535963/?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.14.image",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/114a512a-The-blues-overdrive-11.webp",
+      "alt": "Fredrik Kronkvist Quartet",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.15.name",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Love in Stereo",
+    "multiline": true
+  },
+  {
+    "id": "events.15.date",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-11-21",
+    "multiline": true
+  },
+  {
+    "id": "events.15.time",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.15.note",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.15.group",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "NOVEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.15.link",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1502636371893495/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.15.image",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/932b6155-The-blues-overdrive-2.webp",
+      "alt": "Love in Stereo",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.16.name",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Kræet",
+    "multiline": true
+  },
+  {
+    "id": "events.16.date",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-11-28",
+    "multiline": true
+  },
+  {
+    "id": "events.16.time",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.16.note",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.16.group",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "NOVEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.16.link",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1637024994455615?acontext=%7B%22event_action_history%22%3A[%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment%22%2C%22surface%22%3A%22newsfeed%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.16.image",
+    "page": "events",
+    "section": "NOVEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/b34542b0-The-blues-overdrive-4.webp",
+      "alt": "Kræet",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.17.name",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "Simon Thorsen – The Brazilian Project",
+    "multiline": true
+  },
+  {
+    "id": "events.17.date",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "2026-12-05",
+    "multiline": true
+  },
+  {
+    "id": "events.17.time",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "21:00",
+    "multiline": true
+  },
+  {
+    "id": "events.17.note",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.17.group",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "DECEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.17.link",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "https://www.facebook.com/events/1789753962233380/?acontext=%7B%22event_action_history%22%3A[%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22unknown%22%2C%22surface%22%3A%22user_timeline%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22permalink%22%7D%2C%7B%22extra_data%22%3A%22%22%2C%22mechanism%22%3A%22surface%22%2C%22surface%22%3A%22edit_dialog%22%7D]%2C%22ref_notif_type%22%3Anull%7D"
+  },
+  {
+    "id": "events.17.image",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/df3a9c0a-The-blues-overdrive-9.webp",
+      "alt": "Simon Thorsen – The Brazilian Project",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.18.name",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "TBA",
+    "multiline": true
+  },
+  {
+    "id": "events.18.date",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.18.time",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.18.note",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "Undated placeholder in December 2026 section",
+    "multiline": true
+  },
+  {
+    "id": "events.18.group",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "DECEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.18.link",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "/kontakt"
+  },
+  {
+    "id": "events.18.image",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/b3498cf0-Koncert-paa-vej-15.webp",
+      "alt": "TBA",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "events.19.name",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "name",
+    "kind": "text",
+    "default": "TBA",
+    "multiline": true
+  },
+  {
+    "id": "events.19.date",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "date",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.19.time",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "time",
+    "kind": "text",
+    "default": "",
+    "multiline": true
+  },
+  {
+    "id": "events.19.note",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "note",
+    "kind": "text",
+    "default": "Undated placeholder in December 2026 section",
+    "multiline": true
+  },
+  {
+    "id": "events.19.group",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "group",
+    "kind": "text",
+    "default": "DECEMBER 2026",
+    "multiline": true
+  },
+  {
+    "id": "events.19.link",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "Event link",
+    "kind": "link",
+    "default": "/kontakt"
+  },
+  {
+    "id": "events.19.image",
+    "page": "events",
+    "section": "DECEMBER 2026",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/f23d09ba-Koncert-paa-vej-15.webp",
+      "alt": "TBA",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.0.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 1",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/6729d91e-FACADE-2-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 1",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.1.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 2",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/017574ea-JONAS-DUE-EXPERIENCE-1-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 2",
+      "width": 1600,
+      "height": 1067,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.2.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 3",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/d9fda8cb-MORTEN-SCHANTZ-TRIO-6-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 3",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.3.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 4",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/f447b92c-SEB-6-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 4",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.4.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 5",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/08f3487d-JAZZ-JAM-10-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 5",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.5.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 6",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/b721082e-SEB-3-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 6",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.6.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 7",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/dfd7433d-SONGWRITER-14-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 7",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.7.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 8",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/cc4a760f-JAZZ-JAM-1-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 8",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.8.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 9",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/787949cb-SONGWRITER-8-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 9",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.9.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 10",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/00e396c1-SELMA-HIGGINS-4-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 10",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.10.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 11",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/be416452-Bla-ga-rds-Apotek-31-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 11",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.11.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 12",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/51eaeefa-1F89AA09-39A8-4B74-B319-5E90848B5392.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 12",
+      "width": 1440,
+      "height": 1800,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.12.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 13",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/8ac7a721-Bla-ga-rds-Apotek-24-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 13",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.13.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 14",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/f8d76b49-IMG_0913-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 14",
+      "width": 2400,
+      "height": 1800,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.14.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 15",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/c60be2ce-Bla-ga-rds-Apotek-21-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 15",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.15.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 16",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/c8b7681d-Bla-ga-rds-Apotek-14-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 16",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.16.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 17",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/c939bf75-IMG_3214-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 17",
+      "width": 1800,
+      "height": 2400,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.17.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 18",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/d069f9a3-Bla-ga-rds-Apotek-13-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 18",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.18.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 19",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/b11ded27-Bla-ga-rds-Apotek-10-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 19",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.19.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 20",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/4debd5a3-Bla-ga-rds-Apotek-9-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 20",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.20.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 21",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/283a6cad-Bla-ga-rds-Apotek-8-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 21",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.21.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 22",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/3892131b-Bla-ga-rds-Apotek-7-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 22",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.22.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 23",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/3391fbaf-Bla-ga-rds-Apotek-6-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 23",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.23.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 24",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/0f7d2eba-Bla-ga-rds-Apotek-5-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 24",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.24.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 25",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/89d8a63f-Bla-ga-rds-Apotek-4-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 25",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.25.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 26",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/8cd0447d-Bla-ga-rds-Apotek-3-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 26",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.26.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 27",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/1ae92b1d-Bla-ga-rds-Apotek-2-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 27",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.27.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 28",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/ce45e461-SELMA-HIGGINS-8-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 28",
+      "width": 2400,
+      "height": 1599,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.28.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 29",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/9968fe34-IMG_3212-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 29",
+      "width": 1800,
+      "height": 2400,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.29.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 30",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/d70e1a3d-SEB-10-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 30",
+      "width": 2400,
+      "height": 1600,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.30.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 31",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/e8bfa276-Bla-ga-rds-Apotek-1-1300x867-1.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 31",
+      "width": 1300,
+      "height": 867,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "gallery.31.image",
+    "page": "gallery",
+    "section": "Billeder",
+    "label": "Foto 32",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/3ed9dd73-IMG_4322-scaled.webp",
+      "alt": "Blågårds Apotek – stemning, musik og indretning, foto 32",
+      "width": 1800,
+      "height": 2400,
+      "x": 50,
+      "y": 50
+    }
+  },
+  {
+    "id": "art.poster",
+    "page": "art",
+    "section": "Månedens udstilling",
+    "label": "Plakat",
+    "kind": "image",
+    "default": {
+      "src": "/kroteket/4eed019c-Kopi-af-Maanedens-kunstudstilling-640-x-360-px.webp",
+      "alt": "November 2026 – månedens kunstudstilling",
+      "width": 2000,
+      "height": 1125,
+      "x": 50,
+      "y": 50
+    }
+  }
+]

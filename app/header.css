@@ -1,0 +1,90 @@
+/* Only the controls are fixed; no full-width Safari tint surface. */
+
+.floating-header {
+  display: contents;
+  pointer-events: none;
+  color: var(--amber);
+}
+
+.floating-header > * {
+  position: fixed;
+  z-index: 90;
+  top: max(clamp(20px, 3vw, 38px), env(safe-area-inset-top, 0px));
+  pointer-events: auto;
+}
+
+.floating-header .brand-logo {
+  left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  width: 130px;
+  display: block;
+  background-color: var(--brand-green);
+  mask: url('/brand/venue-logo.png') center / contain no-repeat;
+  -webkit-mask: url('/brand/venue-logo.png') center / contain no-repeat;
+}
+
+.brand-logo img {
+  width: 100%;
+  height: auto;
+  visibility: hidden;
+}
+
+.floating-header .burger-button {
+  right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
+.burger-button {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--amber);
+  padding: 8px;
+}
+
+.burger-button svg {
+  display: block;
+  flex: none;
+}
+
+.burger-button:focus-visible svg {
+  stroke-width: 2.5;
+}
+
+.floating-header[data-page='financials'] {
+  color: var(--brand-green);
+}
+
+/* Tone is supplied inline by useHeaderTone; financial routes provide the first-paint contract. */
+
+html:not(.menu-open) .floating-header[data-page='financials'] .burger-button {
+  transition: none;
+}
+
+html:not(.menu-open) .floating-header[data-page='financials'] .brand-logo img {
+  transition: none;
+}
+
+html.menu-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+html.menu-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Route jumps must never inherit in-page anchor smoothing. */
+
+html.menu-navigating {
+  scroll-behavior: auto;
+}
+
+@media (max-width: 600px) {
+  .floating-header .brand-logo {
+    width: 107px;
+  }
+}

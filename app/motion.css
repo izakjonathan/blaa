@@ -1,0 +1,269 @@
+/* Plaisir motion: stronger arrivals and a softer menu cadence.
+   Animate only transform and opacity; keep one owner for motion rules. */
+
+:root {
+  --duration-menu: 680ms;
+  --duration-reveal: 850ms;
+  --ease-menu: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-distance: 36px;
+}
+
+.site-menu {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  background: var(--green);
+  color: var(--amber);
+  padding: max(120px, calc(env(safe-area-inset-top, 0px) + 100px)) var(--gutter) max(30px, env(safe-area-inset-bottom, 0px));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0, -100%, 0);
+  backface-visibility: hidden;
+  contain: paint;
+  will-change: transform;
+  transition: transform var(--duration-menu) var(--ease-menu);
+}
+
+.site-menu[data-phase="open"] {
+  transform: translate3d(0, 0, 0);
+}
+
+.site-menu nav {
+  display: grid;
+  max-width: 1400px;
+  margin: auto;
+}
+
+.site-menu nav > a {
+  display: block;
+  font: clamp(42px, 7vw, 98px)/1.08 var(--display);
+  padding: 27px 0;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  transition: none;
+}
+
+.site-menu small {
+  display: block;
+  margin-top: 18px;
+  font: 14px/1.5 var(--sans);
+}
+
+.site-menu:is([data-phase="open"], [data-phase="closing"]) nav > a {
+  opacity: 1;
+}
+
+html[data-motion="full"] .site-menu:is([data-phase="open"], [data-phase="closing"]) nav > a {
+  animation: menuLinkArrival 520ms var(--ease-reveal) backwards;
+  animation-delay: calc(150ms + var(--item, 0) * 65ms);
+}
+
+@keyframes menuLinkArrival {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Readable SSR; conceal only safely enrolled off-screen text blocks.
+   Full-bleed images are stationary. */
+
+html.reveal-enabled [data-reveal].reveal-pending {
+  opacity: 0;
+  transform: translate3d(0, var(--arrival-distance, var(--reveal-distance)), 0);
+  transition: none;
+}
+
+html.reveal-enabled [data-reveal].reveal-visible {
+  opacity: 1;
+  transform: none;
+  transition: opacity 650ms ease-out, transform var(--duration-reveal) var(--ease-reveal);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+html.reveal-enabled [data-reveal]:focus-within {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+@media (min-width: 760px) {
+  :root {
+    --duration-menu: 720ms;
+    --duration-reveal: 950ms;
+    --reveal-distance: 44px;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-menu nav > a {
+    font-size: clamp(38px, 10.5vw, 60px);
+    padding: 24px 0;
+  }
+  .site-menu small {
+    font-size: 13px;
+    margin-top: 15px;
+  }
+}
+
+html.reveal-enabled [data-reveal-kind="heading"] {
+  --arrival-distance: 48px;
+}
+
+/* Keep the icon's geometry stable while its two strokes turn into the X. */
+
+.burger-stroke {
+  transform-box: view-box;
+  transform-origin: 14px 14px;
+  transition: transform 420ms var(--ease-menu);
+}
+
+.burger-button[aria-expanded="true"] .burger-top {
+  transform: rotate(45deg) translateY(4px);
+}
+
+.burger-button[aria-expanded="true"] .burger-bottom {
+  transform: rotate(-45deg) translateY(-4px);
+}
+
+html.reveal-enabled [data-reveal].reveal-visible.reveal-settled {
+  transition: none;
+}
+
+/* The hero's masked, staggered line arrival is the shared heading vocabulary.
+   The untouched source preserves natural wrapping, layout and accessible text. */
+
+.line-heading {
+  position: relative;
+}
+
+.line-heading :is(.heading-source, .heading-visual, .heading-line, .heading-line-inner) {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.heading-source {
+  display: block;
+}
+
+.heading-visual {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heading-lines-ready > .heading-source {
+  opacity: 0;
+}
+
+.heading-line {
+  position: absolute;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  padding-bottom: .13em;
+  box-sizing: content-box;
+}
+
+.heading-line-inner {
+  display: block;
+}
+
+html.reveal-enabled .line-heading.heading-lines-ready:is(.reveal-pending, .reveal-visible) {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+html.reveal-enabled .line-heading.reveal-pending .heading-line-inner {
+  opacity: 0;
+  transform: translate3d(0,110%,0);
+}
+
+html.reveal-enabled .line-heading.reveal-visible:not(.reveal-settled) .heading-line-inner {
+  animation: lineArrival 1000ms var(--ease-reveal) calc(var(--reveal-delay,0ms) + var(--line-delay,0ms)) backwards;
+}
+
+/* Shared keyframes. Splash/hero use the same line-arrival vocabulary. */
+
+@keyframes viewIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width:379px) {
+  .site-menu nav > a {
+    font-size: 38px;
+  }
+}
+
+@media (orientation:landscape) and (max-height:500px) {
+  .site-menu {
+    padding-top: max(84px,calc(env(safe-area-inset-top,0px) + 70px));
+  }
+  .site-menu nav > a {
+    font-size: 40px;
+    padding: 14px 0;
+  }
+  .site-menu small {
+    margin-top: 8px;
+  }
+}
+
+/* Accessibility overrides deliberately outrank running animation/state styles. */
+
+html[data-motion="reduced"] {
+  scroll-behavior: auto;
+}
+
+html[data-motion="reduced"] .brand-hero * {
+  animation: none !important;
+}
+
+html[data-motion="reduced"] .brand-hero *::before {
+  animation: none !important;
+}
+
+html[data-motion="reduced"] .burger-stroke {
+  transition: none;
+}
+
+html[data-motion="reduced"] .pill::after {
+  transition: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  html:not([data-motion="full"]) {
+    scroll-behavior: auto;
+  }
+  html:not([data-motion="full"]) :is(.site-menu, .site-menu nav > a, [data-reveal]) {
+    animation: none;
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+  html:not([data-motion="full"]) .brand-hero * {
+    animation: none !important;
+  }
+  html:not([data-motion="full"]) .burger-stroke {
+    transition: none;
+  }
+  .pill::after {
+    transition: none;
+    transform: none;
+  }
+}

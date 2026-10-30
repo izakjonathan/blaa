@@ -1,0 +1,11 @@
+/* Editorial prose follows the retained Plaisir type scale. */
+.experience :is(.scene-content > p:not(.eyebrow), .manifesto-bottom > p, .split-copy > p:not(.eyebrow), .world-heading > p) {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--body-statement-size);
+  line-height: var(--body-statement-leading);
+  letter-spacing: var(--body-tracking);
+  text-align: left;
+  text-wrap: pretty;
+  max-width: 32ch;
+}

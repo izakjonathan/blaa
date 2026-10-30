@@ -1,0 +1,322 @@
+/* Full viewport brand scene. The artwork, light and foreground shadows are separate layers. */
+
+.hero.brand-hero {
+  height: auto;
+  background: var(--green);
+  color: var(--amber);
+}
+
+.hero-light {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 65% 25%, color-mix(in srgb, var(--brand-gold) 12.9412%, transparent), transparent 60%), linear-gradient(125deg, #ffffff04, transparent 60%);
+}
+
+.hero-shadow {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(117deg, transparent 15%, color-mix(in srgb, var(--brand-dark) 40.0000%, transparent) 29%, transparent 40%, transparent 57%, color-mix(in srgb, var(--brand-dark) 50.1961%, transparent) 72%, transparent 86%);
+  transform: rotate(-9deg) scale(1.1);
+}
+
+.hero.brand-hero .hero-copy {
+  z-index: 4;
+  padding-top: max(125px,env(safe-area-inset-top));
+  padding-bottom: max(65px,env(safe-area-inset-bottom));
+}
+
+.hero.brand-hero h1 {
+  font-size: clamp(80px,10vw,164px);
+  max-width: 70%;
+  margin-bottom: 38px;
+}
+
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: .13em;
+  margin-bottom: -.13em;
+}
+
+.hero-line > * {
+  display: block;
+}
+
+.hero-bottle {
+  position: absolute;
+  z-index: 2;
+  right: 12%;
+  top: 20%;
+  width: min(25vw,310px);
+  height: 65%;
+  transform: rotate(9deg);
+}
+
+.hero-bottle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.splash-bottle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-discover {
+  display: inline-flex;
+  gap: 30px;
+}
+
+.brand-splash {
+  display: none;
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+  background: #000;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.brand-splash .splash-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(calc(1 - .45 * var(--image-overlay-strength, 1)));
+}
+
+.splash-green {
+  position: absolute;
+  inset: 0;
+  background: rgb(var(--brand-green-rgb) / var(--splash-overlay,.87));
+}
+
+.brand-splash .splash-art {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px,6vh,70px);
+  padding: max(30px,env(safe-area-inset-top)) 24px max(30px,env(safe-area-inset-bottom));
+}
+
+.splash-bottle {
+  width: min(calc(22vw * var(--splash-bottle-scale,1)),calc(150px * var(--splash-bottle-scale,1)));
+  height: min(calc(31svh * var(--splash-bottle-scale,1)),calc(290px * var(--splash-bottle-scale,1)));
+  flex-shrink: 1;
+}
+
+.splash-logo {
+  width: min(calc(44vw * var(--splash-logo-scale,1)),calc(220px * var(--splash-logo-scale,1)));
+  height: auto;
+  display: block;
+  aspect-ratio: 1300 / 768;
+  flex-shrink: 0;
+  background: var(--brand-gold);
+  mask: url('/brand/venue-logo.png') center / contain no-repeat;
+  -webkit-mask: url('/brand/venue-logo.png') center / contain no-repeat;
+}
+
+html.brand-intro-active {
+  overflow: hidden;
+}
+
+html.brand-intro-active body {
+  overflow: hidden;
+}
+
+html.brand-intro-active .floating-header > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-intro="splash"] .brand-splash {
+  display: block;
+}
+
+[data-intro="leaving"] .brand-splash {
+  display: block;
+}
+
+/* The readiness-gated Web Animations sequence owns these public layers. */
+
+.splash-backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.brand-splash:not(.splash-preview) :is(.splash-backdrop, .splash-bottle, .splash-logo) {
+  opacity: 0;
+}
+
+[data-intro="splash"] .hero-line > * {
+  opacity: 0;
+}
+
+[data-intro="splash"] .hero-bottle {
+  opacity: 0;
+}
+
+[data-intro="splash"] .hero-discover {
+  opacity: 0;
+}
+
+[data-intro="leaving"] .hero-bottle {
+  animation: bottleArrival 1100ms var(--ease-reveal) 100ms both;
+}
+
+[data-intro="ready"] .hero-bottle {
+  animation: bottleArrival 1100ms var(--ease-reveal) 100ms both;
+  animation-fill-mode: backwards;
+}
+
+[data-intro="leaving"] .hero-line > * {
+  animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both;
+}
+
+[data-intro="ready"] .hero-line > * {
+  animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both;
+  animation-fill-mode: backwards;
+}
+
+[data-intro="leaving"] .hero-discover {
+  animation: brandArrival 800ms var(--ease-reveal) 850ms both;
+}
+
+[data-intro="ready"] .hero-discover {
+  animation: brandArrival 800ms var(--ease-reveal) 850ms both;
+  animation-fill-mode: backwards;
+}
+
+/* Do not restart hero animations when the splash is removed. */
+
+@keyframes brandArrival {
+  from {
+    opacity: 0;
+    transform: translate3d(0,22px,0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bottleArrival {
+  from {
+    opacity: 0;
+    transform: translate3d(0,40px,0) rotate(15deg);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(9deg);
+  }
+}
+
+@keyframes lineArrival {
+  from {
+    opacity: 0;
+    transform: translate3d(0,110%,0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width:600px) {
+  .hero.brand-hero {
+    align-items: flex-end;
+  }
+  .hero.brand-hero .hero-copy {
+    padding-top: 130px;
+    padding-bottom: max(44px,calc(env(safe-area-inset-bottom) + 28px));
+  }
+  .hero.brand-hero h1 {
+    max-width: 100%;
+    font-size: clamp(64px,18vw,100px);
+    line-height: 1.02;
+    margin-bottom: 28px;
+  }
+  .hero-bottle {
+    width: 30vw;
+    height: 27%;
+    right: 15%;
+    top: 14%;
+  }
+  .splash-bottle {
+    width: calc(25vw * var(--splash-bottle-scale,1));
+    height: calc(28svh * var(--splash-bottle-scale,1));
+  }
+  .splash-logo {
+    width: calc(42vw * var(--splash-logo-scale,1));
+  }
+  .hero-discover {
+    gap: 26px;
+  }
+}
+
+@media (orientation:landscape) and (max-height:600px) {
+  .hero.brand-hero h1 {
+    font-size: clamp(55px,12vh,85px);
+    margin-bottom: 20px;
+  }
+  .hero.brand-hero .hero-copy {
+    padding-top: 100px;
+    padding-bottom: 25px;
+  }
+  .hero-bottle {
+    top: 22%;
+    height: 65%;
+    right: 15%;
+    width: 20vw;
+  }
+  .brand-splash .splash-art {
+    flex-direction: row;
+    gap: 55px;
+  }
+  .splash-bottle {
+    height: calc(46svh * var(--splash-bottle-scale,1));
+    width: calc(18vw * var(--splash-bottle-scale,1));
+  }
+  .splash-logo {
+    width: calc(21vw * var(--splash-logo-scale,1));
+  }
+}
+
+/* A live editor preview uses the same layers, without session gating. */
+
+.brand-splash.splash-preview {
+  background: var(--green);
+  z-index: 0;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: min(65svh,620px);
+  min-height: 320px;
+}
+
+.splash-preview .splash-art {
+  padding: 24px;
+  gap: 30px;
+}
+
+.splash-preview .splash-bottle {
+  max-width: 35%;
+  max-height: 50%;
+}
+
+.splash-preview .splash-logo {
+  max-width: 70%;
+}
