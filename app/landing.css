@@ -248,24 +248,3 @@ html.brand-intro-active .floating-header > * {
   background: var(--hero-video-overlay, #1A1E3A);
   opacity: var(--hero-video-opacity, .45);
 }
-
-.hero-video-toggle {
-  position: absolute;
-  right: 20px;
-  bottom: max(12px, env(safe-area-inset-bottom));
-  z-index: 5;
-  min-height: 44px;
-  padding: 8px 14px;
-  border: 1px solid currentColor;
-  border-radius: 0;
-  color: #fff;
-  background: #0009;
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-.hero-video-toggle:focus-visible {
-  outline: 2px solid currentColor;
-  outline-offset: 4px;
-}

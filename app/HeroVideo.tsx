@@ -1,51 +1,48 @@
 'use client';
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 import { useContent } from './Content';
 import { heroVideoSettings } from '../lib/hero-video';
 
 export default function HeroVideo() {
   const settings = heroVideoSettings(useContent());
   const video = useRef<HTMLVideoElement>(null);
-  const userPaused = useRef(false);
-  const [playing, setPlaying] = useState(false);
   useEffect(() => {
     const media = video.current;
     if (!media) return;
+    // Set DOM properties before play() for muted inline playback on Safari.
+    media.muted = true;
+    media.defaultMuted = true;
+    media.playsInline = true;
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     const sync = () => {
-      if (reduced.matches || document.hidden || userPaused.current) media.pause();
-      else void media.play().catch(() => setPlaying(false));
+      if (reduced.matches || document.hidden) media.pause();
+      else if (media.paused) void media.play().catch(() => { /* Keep the poster if autoplay is blocked. */ });
     };
     sync();
     reduced.addEventListener('change', sync);
     document.addEventListener('visibilitychange', sync);
+    media.addEventListener('loadeddata', sync);
+    // A tap can release autoplay restrictions without adding player controls.
+    document.addEventListener('pointerdown', sync, { passive: true });
     return () => {
       media.pause();
       reduced.removeEventListener('change', sync);
       document.removeEventListener('visibilitychange', sync);
+      media.removeEventListener('loadeddata', sync);
+      document.removeEventListener('pointerdown', sync);
     };
   }, []);
-  const toggle = () => {
-    const media = video.current;
-    if (!media) return;
-    if (!media.paused) { userPaused.current = true; media.pause(); }
-    else { userPaused.current = false; void media.play().catch(() => setPlaying(false)); }
-  };
-  return <>
+  return (
     <div className="hero-video-layer" aria-hidden="true" style={{
       '--hero-video-saturation': settings.saturation / 100,
       '--hero-video-overlay': settings.color,
       '--hero-video-opacity': settings.opacity / 100,
     } as CSSProperties}>
-      <video ref={video} className="hero-video" autoPlay muted loop playsInline preload="auto"
-        poster="/kroteket/hero-poster.jpg" tabIndex={-1} disablePictureInPicture
-        onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)}>
+      <video ref={video} className="hero-video" autoPlay muted loop playsInline controls={false} preload="auto"
+        poster="/kroteket/hero-poster.jpg" tabIndex={-1} disablePictureInPicture disableRemotePlayback>
         <source src="/kroteket/hero.mp4" type="video/mp4" />
       </video>
       <div className="hero-video-overlay" />
     </div>
-    <button type="button" className="hero-video-toggle" onClick={toggle} aria-label={playing ? 'Pause background video' : 'Play background video'}>
-      {playing ? 'Pause video' : 'Play video'}
-    </button>
-  </>;
+  );
 }

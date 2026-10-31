@@ -20,8 +20,8 @@ test('video treatment survives validation and rejects invalid editor values', ()
 });
 
 // Exercise playback policy with a controlled browser environment, including
-// rejected autoplay, reduced motion and the visitor's explicit pause choice.
-test('playback respects reduced motion, visibility and manual pause', async () => {
+// rejected autoplay, gesture retries, reduced motion and background tabs.
+test('background autoplay has no controls and respects reduced motion and visibility', async () => {
   const {readFileSync} = await import('node:fs');
   const {default: ts} = await import('typescript');
   const {default: vm} = await import('node:vm');
@@ -29,14 +29,20 @@ test('playback respects reduced motion, visibility and manual pause', async () =
   const compiled = ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;
   let effect: (() => (() => void)) | undefined;
   let playCalls = 0, pauseCalls = 0;
-  const media = {paused:true, play(){playCalls++;this.paused=false;return Promise.reject(new Error('Autoplay blocked'));},pause(){pauseCalls++;this.paused=true;}};
+  let blocked = true;
+  const mediaListeners: Record<string,()=>void> = {};
+  const media = {paused:true, muted:false, defaultMuted:false, playsInline:false,
+    play(){playCalls++;if(blocked)return Promise.reject(new Error('Autoplay blocked'));this.paused=false;return Promise.resolve();},
+    pause(){pauseCalls++;this.paused=true;},
+    addEventListener(name:string,fn:()=>void){mediaListeners[name]=fn;},
+    removeEventListener(name:string){delete mediaListeners[name];}};
   const reduced = {matches:true, addEventListener(_name:string,fn:()=>void){listeners.reduced=fn;},removeEventListener(){delete listeners.reduced;}};
   const listeners: Record<string,()=>void> = {};
-  const document = {hidden:false,addEventListener(_name:string,fn:()=>void){listeners.visibility=fn;},removeEventListener(){delete listeners.visibility;}};
+  const document = {hidden:false,addEventListener(name:string,fn:()=>void){listeners[name]=fn;},removeEventListener(name:string){delete listeners[name];}};
   const jsx = (type:unknown,props:Record<string,unknown>) => ({type,props});
   const exports: {default?: () => {props:{children:{type:unknown;props:Record<string,unknown>}[]}}} = {};
   vm.runInNewContext(compiled,{exports,document,matchMedia:()=>reduced,require:(name:string)=>{
-    if(name==='react')return {useEffect:(fn:typeof effect)=>{effect=fn;},useRef:(value:unknown)=>({current:value===null?media:value}),useState:()=>[false,()=>{}]};
+    if(name==='react')return {useEffect:(fn:typeof effect)=>{effect=fn;},useRef:()=>({current:media})};
     if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'fragment'};
     if(name==='./Content')return {useContent:()=>emptyDocument};
     if(name==='../lib/hero-video')return {heroVideoSettings};
@@ -46,12 +52,25 @@ test('playback respects reduced motion, visibility and manual pause', async () =
   const cleanup = effect!();
   assert.equal(playCalls,0);
   assert.equal(pauseCalls,1);
+  assert.equal(media.muted,true);
+  assert.equal(media.defaultMuted,true);
+  assert.equal(media.playsInline,true);
+  const video=tree.props.children.find(child=>child.type==='video')!.props;
+  assert.equal(video.autoPlay,true);
+  assert.equal(video.muted,true);
+  assert.equal(video.loop,true);
+  assert.equal(video.playsInline,true);
+  assert.equal(video.controls,false);
+  assert.equal(tree.props.children.some(child=>child.type==='button'),false);
+  listeners.pointerdown();assert.equal(playCalls,0); // Taps respect reduced motion.
   reduced.matches=false;listeners.reduced();await Promise.resolve();
   assert.equal(playCalls,1); // Rejection is handled without breaking the page.
-  const toggle=tree.props.children.find(child=>child.type==='button')!.props.onClick as ()=>void;
-  toggle(); // Explicitly pause the playing media.
-  document.hidden=true;listeners.visibility();document.hidden=false;listeners.visibility();
-  assert.equal(playCalls,1); // A return to the tab must not undo a manual pause.
-  toggle();await Promise.resolve();assert.equal(playCalls,2);
+  blocked=false;listeners.pointerdown();await Promise.resolve();assert.equal(playCalls,2);
+  mediaListeners.loadeddata();listeners.pointerdown();assert.equal(playCalls,2); // No redundant play calls.
+  document.hidden=true;listeners.visibilitychange();assert.equal(media.paused,true);
+  listeners.pointerdown();assert.equal(playCalls,2); // Hidden tabs stay paused.
+  document.hidden=false;listeners.visibilitychange();await Promise.resolve();assert.equal(playCalls,3);
+  reduced.matches=true;listeners.reduced();assert.equal(media.paused,true);
   cleanup();assert.deepEqual(listeners,{});
+  assert.deepEqual(mediaListeners,{});
 });
