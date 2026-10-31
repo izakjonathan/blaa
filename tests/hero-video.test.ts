@@ -28,6 +28,7 @@ test('background starts without gestures, has no controls and resumes when visib
   const source = readFileSync(new URL('../app/HeroVideo.tsx', import.meta.url), 'utf8');
   const compiled = ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;
   let effect: (() => (() => void)) | undefined;
+  let dependencies: unknown[] = [];
   let playCalls = 0, pauseCalls = 0;
   let playing = false;
   let blocked = true;
@@ -40,15 +41,16 @@ test('background starts without gestures, has no controls and resumes when visib
   const listeners: Record<string,()=>void> = {};
   const document = {hidden:false,addEventListener(name:string,fn:()=>void){listeners[name]=fn;},removeEventListener(name:string){delete listeners[name];}};
   const jsx = (type:unknown,props:Record<string,unknown>) => ({type,props});
-  const exports: {default?: () => {props:{children:{type:unknown;props:Record<string,unknown>}[]}}} = {};
+  const exports: {default?: (props?: {revealed?: boolean}) => {props:{children:{type:unknown;props:Record<string,unknown>}[]}}} = {};
   vm.runInNewContext(compiled,{exports,document,matchMedia:()=>({matches:true}),require:(name:string)=>{
-    if(name==='react')return {useEffect:(fn:typeof effect)=>{effect=fn;},useRef:()=>({current:media}),useState:()=>[playing,(value:boolean)=>{playing=value;}]};
+    if(name==='react')return {useEffect:(fn:typeof effect,deps:unknown[])=>{effect=fn;dependencies=deps;},useRef:()=>({current:media}),useState:()=>[playing,(value:boolean)=>{playing=value;}]};
     if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'fragment'};
     if(name==='./Content')return {useContent:()=>emptyDocument};
     if(name==='../lib/hero-video')return {heroVideoSettings};
     throw new Error(name);
   }});
-  const tree = exports.default!();
+  const tree = exports.default!({revealed:false});
+  assert.equal(dependencies[0],false);
   const cleanup = effect!();
   await Promise.resolve();
   assert.equal(playCalls,1); // Autoplay is attempted immediately, even with reduced motion.
@@ -86,4 +88,12 @@ test('background starts without gestures, has no controls and resumes when visib
   assert.match(readCSS(new URL('../app/landing.css',import.meta.url),'utf8'), /\.hero-video\s*\{[^}]*pointer-events:\s*none/);
   cleanup();assert.deepEqual(listeners,{});
   assert.deepEqual(mediaListeners,{});
+  // A splash reveal retries even if readiness events already fired while hidden.
+  exports.default!({revealed:true});
+  assert.equal(dependencies[0],true);
+  const revealCleanup=effect!();
+  await Promise.resolve();
+  assert.equal(playCalls,5);
+  assert.equal(media.paused,false);
+  revealCleanup();
 });

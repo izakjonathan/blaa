@@ -87,7 +87,7 @@ export default function LandingHero() {
   }, [settings.enabled, settings.duration, settings.showLogo]);
 
   return <section ref={section} className="scene hero brand-hero" data-intro={intro} aria-labelledby="home-title">
-    <HeroVideo />
+    <HeroVideo revealed={intro !== 'splash'} />
     <div className="scene-content hero-copy">
       <h1 id="home-title"><TitleLines field="experience.hero.title"/></h1>
       <ContentLink className="pill hero-discover" field="experience.hero.link1"><Copy field="experience.hero.text5"/></ContentLink>

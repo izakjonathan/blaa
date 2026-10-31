@@ -29,6 +29,9 @@ html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .brand-footer,
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .skip-link,
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .floating-header > * { visibility:hidden; }
 html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .brand-splash { display:block; visibility:visible; }
+/* Keep the decorative video renderable behind the covering splash so WebKit
+   can start playback while the rest of main remains concealed. */
+html:is([data-intro-boot="splash"],[data-intro-boot="running"]) .hero-video-layer { visibility:visible; }
 html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) .brand-splash { display:none!important; }
 html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) [data-intro="splash"] .hero-line > *,
 html:is([data-intro-boot="skip"],[data-intro-boot="failed"]) [data-intro="splash"] .hero-discover { opacity:1; animation:none; }

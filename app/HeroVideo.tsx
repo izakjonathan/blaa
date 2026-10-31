@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useContent } from './Content';
 import { heroVideoSettings } from '../lib/hero-video';
 
-export default function HeroVideo() {
+export default function HeroVideo({ revealed = true }: { revealed?: boolean } = {}) {
   const settings = heroVideoSettings(useContent());
   const video = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -30,7 +30,9 @@ export default function HeroVideo() {
       media.removeEventListener('pause', sync);
       media.pause();
     };
-  }, []);
+    // Retry after the splash releases the hero. A rejected attempt while the
+    // page was hidden does not emit another canplay or visibilitychange event.
+  }, [revealed]);
   return (
     <div className="hero-video-layer" aria-hidden="true" style={{
       '--hero-video-saturation': settings.saturation / 100,
