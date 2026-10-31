@@ -48,7 +48,7 @@
   background: none;
 }
 
-.scene:has(> img[data-overlay="off"]) > :is(.scene-shade, .hero-light, .hero-shadow) {
+.scene:has(> img[data-overlay="off"]) > .scene-shade {
   background: none;
 }
 
@@ -66,13 +66,7 @@ body :is(.scene-photo, .split-photo > img, .photo-story figure > img, .company-p
   opacity: var(--image-overlay-strength,1);
 }
 
-.scene > .hero-light {
-  opacity: var(--image-overlay-strength,1);
-}
 
-.scene > .hero-shadow {
-  opacity: calc(.32 * var(--image-overlay-strength,1));
-}
 
 body .scene-photo {
   filter: brightness(var(--scene-photo-brightness, calc(1 - .28 * var(--image-overlay-strength,1))));

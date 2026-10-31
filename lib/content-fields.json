@@ -249,10 +249,43 @@
     "multiline": false
   },
   {
+    "id": "experience.hero.videoOverlayColor",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Video overlay colour",
+    "kind": "text",
+    "default": "#1A1E3A",
+    "control": "color"
+  },
+  {
+    "id": "experience.hero.videoOverlayOpacity",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Video overlay strength",
+    "kind": "text",
+    "default": "45",
+    "control": "range",
+    "min": 0,
+    "max": 100,
+    "step": 1
+  },
+  {
+    "id": "experience.hero.videoSaturation",
+    "page": "experience",
+    "section": "scene hero brand-hero",
+    "label": "Video saturation",
+    "kind": "text",
+    "default": "100",
+    "control": "range",
+    "min": 0,
+    "max": 200,
+    "step": 1
+  },
+  {
     "id": "experience.hero.image1",
     "page": "experience",
     "section": "scene hero brand-hero",
-    "label": "Wine glasses and a Plaisir menu in warm evening light",
+    "label": "Splash fallback photograph",
     "kind": "image",
     "default": {
       "src": "/kroteket/d069f9a3-Bla-ga-rds-Apotek-13-1300x867-1.webp",

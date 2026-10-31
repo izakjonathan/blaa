@@ -6,21 +6,7 @@
   color: var(--amber);
 }
 
-.hero-light {
-  position: absolute;
-  inset: -10%;
-  pointer-events: none;
-  background: radial-gradient(ellipse at 65% 25%, color-mix(in srgb, var(--brand-gold) 12.9412%, transparent), transparent 60%), linear-gradient(125deg, #ffffff04, transparent 60%);
-}
 
-.hero-shadow {
-  position: absolute;
-  inset: -10%;
-  pointer-events: none;
-  z-index: 3;
-  background: linear-gradient(117deg, transparent 15%, color-mix(in srgb, var(--brand-dark) 40.0000%, transparent) 29%, transparent 40%, transparent 57%, color-mix(in srgb, var(--brand-dark) 50.1961%, transparent) 72%, transparent 86%);
-  transform: rotate(-9deg) scale(1.1);
-}
 
 .hero.brand-hero .hero-copy {
   z-index: 4;
@@ -237,4 +223,49 @@ html.brand-intro-active .floating-header > * {
 
 .splash-preview .splash-logo {
   max-width: 70%;
+}
+
+/* The video's colour wash is independent of photographic treatments. */
+.hero-video-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: url('/kroteket/hero-poster.jpg') center / cover;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(var(--hero-video-saturation, 1));
+}
+
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--hero-video-overlay, #1A1E3A);
+  opacity: var(--hero-video-opacity, .45);
+}
+
+.hero-video-toggle {
+  position: absolute;
+  right: 20px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  z-index: 5;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  color: #fff;
+  background: #0009;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.hero-video-toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
 }
