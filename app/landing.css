@@ -243,6 +243,7 @@ html.brand-intro-active .floating-header > * {
 
 .hero-video {
   position: relative;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   object-fit: cover;

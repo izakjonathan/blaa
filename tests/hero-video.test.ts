@@ -20,8 +20,8 @@ test('video treatment survives validation and rejects invalid editor values', ()
 });
 
 // Exercise playback policy with a controlled browser environment, including
-// rejected autoplay, gesture retries, reduced motion and background tabs.
-test('background autoplay has no controls and respects reduced motion and visibility', async () => {
+// rejected autoplay, media readiness, non-interaction and background tabs.
+test('background starts without gestures, has no controls and resumes when visible', async () => {
   const {readFileSync} = await import('node:fs');
   const {default: ts} = await import('typescript');
   const {default: vm} = await import('node:vm');
@@ -37,12 +37,11 @@ test('background autoplay has no controls and respects reduced motion and visibi
     pause(){pauseCalls++;this.paused=true;},
     addEventListener(name:string,fn:()=>void){mediaListeners[name]=fn;},
     removeEventListener(name:string){delete mediaListeners[name];}};
-  const reduced = {matches:true, addEventListener(_name:string,fn:()=>void){listeners.reduced=fn;},removeEventListener(){delete listeners.reduced;}};
   const listeners: Record<string,()=>void> = {};
   const document = {hidden:false,addEventListener(name:string,fn:()=>void){listeners[name]=fn;},removeEventListener(name:string){delete listeners[name];}};
   const jsx = (type:unknown,props:Record<string,unknown>) => ({type,props});
   const exports: {default?: () => {props:{children:{type:unknown;props:Record<string,unknown>}[]}}} = {};
-  vm.runInNewContext(compiled,{exports,document,matchMedia:()=>reduced,require:(name:string)=>{
+  vm.runInNewContext(compiled,{exports,document,matchMedia:()=>({matches:true}),require:(name:string)=>{
     if(name==='react')return {useEffect:(fn:typeof effect)=>{effect=fn;},useRef:()=>({current:media}),useState:()=>[playing,(value:boolean)=>{playing=value;}]};
     if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'fragment'};
     if(name==='./Content')return {useContent:()=>emptyDocument};
@@ -51,8 +50,9 @@ test('background autoplay has no controls and respects reduced motion and visibi
   }});
   const tree = exports.default!();
   const cleanup = effect!();
-  assert.equal(playCalls,0);
-  assert.equal(pauseCalls,1);
+  await Promise.resolve();
+  assert.equal(playCalls,1); // Autoplay is attempted immediately, even with reduced motion.
+  assert.equal(pauseCalls,0);
   assert.equal(media.muted,true);
   assert.equal(media.defaultMuted,true);
   assert.equal(media.playsInline,true);
@@ -71,15 +71,19 @@ test('background autoplay has no controls and respects reduced motion and visibi
   onPause();assert.equal(playing,false);
   onPlaying();onError();assert.equal(playing,false);
   assert.equal(tree.props.children.some(child=>child.type==='button'),false);
-  listeners.pointerdown();assert.equal(playCalls,0); // Taps respect reduced motion.
-  reduced.matches=false;listeners.reduced();await Promise.resolve();
-  assert.equal(playCalls,1); // Rejection is handled without breaking the page.
-  blocked=false;listeners.touchend();await Promise.resolve();assert.equal(playCalls,2);
-  mediaListeners.loadeddata();listeners.pointerdown();assert.equal(playCalls,2); // No redundant play calls.
+  assert.equal(video.onClick,undefined);
+  assert.equal(video.onTouchEnd,undefined);
+  assert.equal(video.onPointerDown,undefined);
+  assert.deepEqual(Object.keys(listeners),['visibilitychange']);
+  blocked=false;mediaListeners.canplay();await Promise.resolve();
+  assert.equal(playCalls,2); // Media readiness retries without a user gesture.
+  mediaListeners.loadeddata();assert.equal(playCalls,2); // No redundant play calls.
   document.hidden=true;listeners.visibilitychange();assert.equal(media.paused,true);
-  listeners.pointerdown();assert.equal(playCalls,2); // Hidden tabs stay paused.
+  mediaListeners.pause();assert.equal(playCalls,2); // Hidden tabs stay paused.
   document.hidden=false;listeners.visibilitychange();await Promise.resolve();assert.equal(playCalls,3);
-  reduced.matches=true;listeners.reduced();assert.equal(media.paused,true);
+  media.paused=true;mediaListeners.pause();await Promise.resolve();assert.equal(playCalls,4);
+  const {readFileSync:readCSS}=await import('node:fs');
+  assert.match(readCSS(new URL('../app/landing.css',import.meta.url),'utf8'), /\.hero-video\s*\{[^}]*pointer-events:\s*none/);
   cleanup();assert.deepEqual(listeners,{});
   assert.deepEqual(mediaListeners,{});
 });
