@@ -231,10 +231,18 @@ html.brand-intro-active .floating-header > * {
   inset: 0;
   z-index: -3;
   pointer-events: none;
+}
+
+.hero-video-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: url('/kroteket/hero-poster.jpg') center / cover;
+  filter: saturate(var(--hero-video-saturation, 1));
 }
 
 .hero-video {
+  position: relative;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -243,6 +251,7 @@ html.brand-intro-active .floating-header > * {
      Expose the video only after playback starts; the poster stays underneath. */
   opacity: 0;
   filter: saturate(var(--hero-video-saturation, 1));
+  transition: opacity 240ms ease-out;
 }
 
 .hero-video[data-playing="true"] {
@@ -254,4 +263,8 @@ html.brand-intro-active .floating-header > * {
   inset: 0;
   background: var(--hero-video-overlay, #1A1E3A);
   opacity: var(--hero-video-opacity, .45);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { transition: none; }
 }
