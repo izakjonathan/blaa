@@ -239,7 +239,14 @@ html.brand-intro-active .floating-header > * {
   height: 100%;
   object-fit: cover;
   display: block;
+  /* Safari can force native controls in Low Power Mode despite controls=false.
+     Expose the video only after playback starts; the poster stays underneath. */
+  opacity: 0;
   filter: saturate(var(--hero-video-saturation, 1));
+}
+
+.hero-video[data-playing="true"] {
+  opacity: 1;
 }
 
 .hero-video-overlay {

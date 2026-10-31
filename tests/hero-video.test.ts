@@ -29,6 +29,7 @@ test('background autoplay has no controls and respects reduced motion and visibi
   const compiled = ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;
   let effect: (() => (() => void)) | undefined;
   let playCalls = 0, pauseCalls = 0;
+  let playing = false;
   let blocked = true;
   const mediaListeners: Record<string,()=>void> = {};
   const media = {paused:true, muted:false, defaultMuted:false, playsInline:false,
@@ -42,7 +43,7 @@ test('background autoplay has no controls and respects reduced motion and visibi
   const jsx = (type:unknown,props:Record<string,unknown>) => ({type,props});
   const exports: {default?: () => {props:{children:{type:unknown;props:Record<string,unknown>}[]}}} = {};
   vm.runInNewContext(compiled,{exports,document,matchMedia:()=>reduced,require:(name:string)=>{
-    if(name==='react')return {useEffect:(fn:typeof effect)=>{effect=fn;},useRef:()=>({current:media})};
+    if(name==='react')return {useEffect:(fn:typeof effect)=>{effect=fn;},useRef:()=>({current:media}),useState:()=>[playing,(value:boolean)=>{playing=value;}]};
     if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'fragment'};
     if(name==='./Content')return {useContent:()=>emptyDocument};
     if(name==='../lib/hero-video')return {heroVideoSettings};
@@ -61,11 +62,19 @@ test('background autoplay has no controls and respects reduced motion and visibi
   assert.equal(video.loop,true);
   assert.equal(video.playsInline,true);
   assert.equal(video.controls,false);
+  assert.equal(video['data-playing'],false); // Native overlay stays hidden until actual playback.
+  const onPlaying=video.onPlaying as ()=>void;
+  const onPause=video.onPause as ()=>void;
+  const onError=video.onError as ()=>void;
+  onPlaying();assert.equal(playing,true);
+  assert.equal(exports.default!().props.children.find(child=>child.type==='video')!.props['data-playing'],true);
+  onPause();assert.equal(playing,false);
+  onPlaying();onError();assert.equal(playing,false);
   assert.equal(tree.props.children.some(child=>child.type==='button'),false);
   listeners.pointerdown();assert.equal(playCalls,0); // Taps respect reduced motion.
   reduced.matches=false;listeners.reduced();await Promise.resolve();
   assert.equal(playCalls,1); // Rejection is handled without breaking the page.
-  blocked=false;listeners.pointerdown();await Promise.resolve();assert.equal(playCalls,2);
+  blocked=false;listeners.touchend();await Promise.resolve();assert.equal(playCalls,2);
   mediaListeners.loadeddata();listeners.pointerdown();assert.equal(playCalls,2); // No redundant play calls.
   document.hidden=true;listeners.visibilitychange();assert.equal(media.paused,true);
   listeners.pointerdown();assert.equal(playCalls,2); // Hidden tabs stay paused.
