@@ -10,8 +10,6 @@ export function useHeaderTone(pathname: string) {
         if (pathname === "/financials" || pathname === "/financials-v2") {
             root.dataset.headerTone = "dark";
             setTone("dark");
-            root.style.setProperty("--document-canvas-image", "none");
-            root.style.setProperty("--document-canvas-color", "var(--brand-gold)");
             return;
         }
         let frame = 0;
@@ -33,14 +31,8 @@ export function useHeaderTone(pathname: string) {
                 return {...{left:box.left,right:box.right,top:box.top,bottom:box.bottom},photo:element!==section || element.matches('.company-photo,.scene'),gold:element.matches('.gold-section,.brand-footer')};
             });
             const tone = headerSurfaceTone(surfaces,x,y) ?? "gold";
-            const dark = tone === "dark";
             setTone(tone);
             if (root.dataset.headerTone !== tone) root.dataset.headerTone = tone;
-            const photo = section.querySelector<HTMLImageElement>("img.scene-photo");
-            const canvas = photo?.currentSrc ? `linear-gradient(color-mix(in srgb, var(--brand-dark) 53.3333%, transparent),color-mix(in srgb, var(--brand-dark) 53.3333%, transparent)),url(${JSON.stringify(photo.currentSrc)})` : "none";
-            if (root.style.getPropertyValue("--document-canvas-image") !== canvas)
-                root.style.setProperty("--document-canvas-image", canvas);
-            root.style.setProperty("--document-canvas-color", dark ? "var(--brand-gold)" : "var(--brand-dark)");
         };
         const schedule = () => {
             if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(); });

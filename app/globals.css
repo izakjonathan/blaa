@@ -17,7 +17,6 @@
   --display: Agilera, Georgia, serif;
   --sans: 'Bricolage Grotesque', sans-serif;
   --gutter: clamp(24px, 5vw, 88px);
-  --document-canvas-color: var(--brand-dark);
   --body-copy-size: clamp(14px, 3.6vw, 26px);
   --body-statement-size: clamp(20px, 5.13vw, 38px);
   --body-statement-leading: 1.125;
@@ -36,7 +35,8 @@ html {
   scrollbar-gutter: stable;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
-  background: var(--document-canvas-color) var(--document-canvas-image, none) center / cover fixed;
+  /* Keep Safari browser chrome and overscroll independent of section colours. */
+  background: #000;
 }
 
 body {
