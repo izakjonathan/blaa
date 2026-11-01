@@ -41,7 +41,8 @@
   display: block;
   font: clamp(42px, 7vw, 98px)/1.08 var(--display);
   padding: 27px 0;
-  border-bottom: 1px solid var(--rule);
+  position: relative;
+  border-bottom: 0;
   opacity: 0;
   transition: none;
 }

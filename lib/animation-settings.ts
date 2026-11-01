@@ -11,6 +11,8 @@ export function animationStyle(document:ContentDocument){
  const on=(id:string)=>textValue(document,'motion.'+id)!=='false';
  const ease=(id:string)=>curves[textValue(document,'motion.'+id)]||curves.soft;
  const declarations:Record<string,string>={
+  '--heading-char-duration':n('headingDuration')+'ms','--menu-roll-duration':n('menuRollDuration')+'ms','--menu-roll-stagger':n('menuRollStagger')+'ms','--menu-divider-duration':n('menuDividerDuration')+'ms',
+  '--photo-zoom-start':String(1+n('photoZoomAmount')/100),'--photo-zoom-duration':n('photoZoomDuration')+'ms',
   '--duration-menu':(on('menu')?n('menuDuration'):0)+'ms','--duration-reveal':n('revealDuration')+'ms','--duration-reveal-fade':n('revealFade')+'ms','--reveal-distance':n('revealDistance')+'px',
   '--ease-menu':ease('menuEase'),'--ease-reveal':ease('revealEase'),'--motion-line-duration':n('lineDuration')+'ms','--motion-line-stagger':n('lineStagger')+'ms',
   '--menu-link-duration':n('menuLinkDuration')+'ms','--menu-link-delay':n('menuLinkDelay')+'ms','--menu-link-stagger':n('menuLinkStagger')+'ms',
@@ -25,5 +27,6 @@ export function animationStyle(document:ContentDocument){
  if(!on('menu'))css+='html:root[data-motion] .site-menu:is([data-phase="open"],[data-phase="closing"]) nav>a{animation:none}';
  if(!on('hero'))css+='html .brand-hero[data-intro] .hero-line>* , html .brand-hero[data-intro] .hero-discover{animation:none;opacity:1;transform:none}';
  if(!on('footerReveal'))css+='html[data-motion] .brand-footer[data-entered] .footer-panel>*{animation:none}';
+ if(!on('menuDividers')||!on('menu'))css+='html[data-motion] .site-menu nav>a::after{transition:none;transform:scaleX(1)}';
  return css;
 }

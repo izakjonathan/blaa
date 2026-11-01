@@ -69,3 +69,7 @@ Release 1.4.1 preserves scrolling speed as the footer takes over and leaves ongo
 ## Photo parallax
 
 Release 1.5.0 adds subtle photo movement inside stationary containers. Defaults are 20px total travel on mobile and 32px on desktop, with 120ms smoothing. Change these in **Admin → Animations → Photo parallax** and use Preview to review the draft. Posters, logos, the hero video and splash stay stationary. Reduce Motion and the animation master switch disable the effect. Overlays and crop settings are preserved.
+
+## Editorial motion
+
+Release 1.6.0 adds Agrumea-inspired masked heading letters, selected scroll-expanding photo frames, gentle independent photo zoom, rolling menu labels and drawn menu dividers. Fifteen new controls are available under **Admin → Animations → Heading letters / Photo frames / Menu details**. Existing layouts, gradient/crop controls, native scrolling, poster readability and reduced-motion behaviour are retained. See [release notes](docs/release-1.6.0.md) for scope and verification limits.

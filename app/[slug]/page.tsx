@@ -24,7 +24,7 @@ export default async function VenuePage({params}:{params:Promise<{slug:string}>}
   <section className="scene venue-hero">
    <ContentImage field={`${slug}.hero`} className="scene-photo" loading="eager" fetchPriority="high" sizes="100vw"/>
    <div className="scene-shade"/>
-   <div className="scene-content"><h1><Copy field={`${slug}.title`}/></h1><p><Copy field={`${slug}.intro`}/></p><a href="#content" className="pill">Læs mere <span aria-hidden="true">↓</span></a></div>
+   <div className="scene-content"><Heading as="h1" data-reveal><Copy field={`${slug}.title`}/></Heading><p><Copy field={`${slug}.intro`}/></p><a href="#content" className="pill">Læs mere <span aria-hidden="true">↓</span></a></div>
   </section>
   <div id="content">
    {page.copy.length>0 && <section className="venue-prose gold-section">{page.copy.map((id,index)=><p key={id} data-reveal className={index===0?'venue-lead':undefined}><Copy field={id}/></p>)}

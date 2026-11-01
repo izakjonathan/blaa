@@ -131,6 +131,13 @@ export default function PageMotion() {
             if (event.propertyName === "transform" && event.target instanceof HTMLElement && event.target.matches(SELECTOR))
                 event.target.classList.add("reveal-settled");
         };
+        const headingSettled = (event: AnimationEvent) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement) || !target.matches('.heading-char-inner,.heading-line-inner')) return;
+            const visual = target.closest('.heading-visual');
+            if (target.parentElement === visual?.lastElementChild) target.closest('[data-reveal]')?.classList.add('reveal-settled');
+        };
+        document.addEventListener("animationend", headingSettled);
         document.addEventListener("transitionend", settle);
         document.addEventListener("focusin", focus);
         return () => {
@@ -142,6 +149,7 @@ export default function PageMotion() {
             pendingPaints.forEach(cancel => cancel());
             document.removeEventListener("focusin", focus);
             document.removeEventListener("transitionend", settle);
+            document.removeEventListener("animationend", headingSettled);
             root.classList.remove("reveal-enabled");
             tracked.forEach(element => {
                 element.classList.remove("reveal-pending", "reveal-visible", "reveal-settled");

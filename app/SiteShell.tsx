@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode, type MouseEvent, type CSSProperties } from "react";
 import { afterPaint, cssTimeMs, isReducedMotion } from "../lib/motion";
 import PageMotion from "./PageMotion";
+import EditorialPhotos from "./EditorialPhotos";
+import MenuLabel from "./MenuLabel";
 import PhotoParallax from "./PhotoParallax";
 import { useHeaderTone } from "./useHeaderTone";
 import { useFooterEntrance } from "./useFooterEntrance";
@@ -183,13 +185,14 @@ function MarketingShell({ children }: {
             }}>
           <nav aria-label="Hovednavigation">
             {areas.map((area, index) => (<Link key={area.href} href={area.href} prefetch={true} aria-current={pathname === area.href ? "page" : undefined} onClick={event => navigate(event, area.href)} style={{ "--item": Math.min(index, 5) } as CSSProperties}>
-                <span><Copy field={`shared.menu.${index}.label`}/></span><small><Copy field={`shared.menu.${index}.description`}/></small>
+                <MenuLabel field={`shared.menu.${index}.label`}/><small><Copy field={`shared.menu.${index}.description`}/></small>
               </Link>))}
           </nav>
         </div>)}
       {children}
       <PageMotion />
       <PhotoParallax />
+      <EditorialPhotos />
       <footer className="brand-footer">
        <div className="footer-panel">
         <div className="footer-top">

@@ -1,9 +1,15 @@
 'use client';
 import {useLayoutEffect,useRef,type HTMLAttributes} from 'react';
+import {useContent} from './Content';
+import {editorialSettings,letterDelay} from '../lib/editorial-motion';
+import {textValue} from '../lib/content-schema';
 
 type Tag='h1'|'h2'|'h3'|'h4'|'h5'|'h6';
 /** Keep React's text untouched; visual line copies are owned by this effect only. */
 export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<HTMLHeadingElement>&{as?:Tag;"data-reveal"?:string|boolean}) {
+ const content=useContent(),settings=editorialSettings(content);
+ const letters=settings.enabled&&settings.letters;
+ const stagger=Number(textValue(content,'motion.headingStagger'));
  const source=useRef<HTMLSpanElement>(null),visual=useRef<HTMLSpanElement>(null);
  useLayoutEffect(()=>{
   const text=source.current,layer=visual.current,heading=text?.parentElement;
@@ -11,6 +17,7 @@ export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<H
   let active=true,frame=0,lastWidth=-1;
   const split=()=>{
    if(!active)return;
+   if(heading.classList.contains('heading-lines-ready')&&heading.classList.contains('reveal-visible'))heading.classList.add('reveal-settled');
    layer.replaceChildren();
    const walker=document.createTreeWalker(text,NodeFilter.SHOW_TEXT);
    const chars:{node:Text;start:number;end:number;top:number}[]=[];
@@ -18,10 +25,11 @@ export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<H
    const range=document.createRange();
    while((node=walker.nextNode())){
     const value=node.textContent??'';
-    for(let i=0;i<value.length;i++){
-     range.setStart(node,i);range.setEnd(node,i+1);
+    for(const part of new Intl.Segmenter('da',{granularity:'grapheme'}).segment(value)){
+     const i=part.index,end=i+part.segment.length;
+     range.setStart(node,i);range.setEnd(node,end);
      const rect=range.getBoundingClientRect();
-     if(rect.height&&value[i].trim())chars.push({node:node as Text,start:i,end:i+1,top:rect.top});
+     if(rect.height&&part.segment.trim())chars.push({node:node as Text,start:i,end,top:rect.top});
     }
    }
    const lines:typeof chars[]=[];
@@ -30,11 +38,14 @@ export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<H
     if(!line||Math.abs(line[0].top-char.top)>3)lines.push([char]);else line.push(char);
    }
    const origin=text.getBoundingClientRect();
-   lines.forEach((line,index)=>{
+   const units=letters?chars.map(char=>[char]):lines;
+   units.forEach((line,index)=>{
     range.setStart(line[0].node,line[0].start);range.setEnd(line.at(-1)!.node,line.at(-1)!.end);
     const rect=range.getBoundingClientRect();
     const mask=document.createElement('span'),inner=document.createElement('span');
-    mask.className='heading-line';inner.className='heading-line-inner';
+    mask.className=letters?'heading-char':'heading-line';inner.className=letters?'heading-char-inner':'heading-line-inner';
+    if(letters&&line[0].node.parentElement){const style=getComputedStyle(line[0].node.parentElement);inner.style.font=style.font;inner.style.letterSpacing=style.letterSpacing;}
+    if(letters){mask.style.width=`${rect.width}px`;inner.style.setProperty('--char-delay',`${letterDelay(index,units.length,stagger)}ms`);}
     mask.style.top=`${rect.top-origin.top}px`;mask.style.left=`${rect.left-origin.left}px`;
     mask.style.height=`${rect.height+origin.height*.001}px`;
     inner.style.setProperty('--line-delay',`calc(${index} * var(--motion-line-stagger,140ms))`);
@@ -54,6 +65,6 @@ export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<H
   const mutation=new MutationObserver(schedule);mutation.observe(text,{childList:true,subtree:true,characterData:true});
   document.fonts.ready.then(schedule);schedule();
   return()=>{active=false;cancelAnimationFrame(frame);resize.disconnect();mutation.disconnect();layer.replaceChildren();heading.classList.remove('heading-lines-ready');};
- },[children]);
+ },[children,letters,stagger]);
  return <Tag {...props} data-reveal={typeof props['data-reveal']==='string'?props['data-reveal']:''} className={`line-heading ${props.className??''}`}><span className="heading-source" ref={source}>{children}</span><span className="heading-visual" ref={visual} aria-hidden="true"/></Tag>;
 }
