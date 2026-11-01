@@ -24,7 +24,7 @@ export default function EditorialPhotos(){
   if(!main||!settings.enabled||(!settings.frames&&!settings.zoom)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   let active=true,job=0;
   const photos=new Map<HTMLElement,Photo>(),paints=new Set<()=>void>();
-  const covered=()=>document.documentElement.classList.contains('menu-open');
+  const covered=()=>document.documentElement.classList.contains('menu-open')||document.documentElement.classList.contains('route-covered');
   const update=()=>{
    job=0;if(!active)return;
    const viewport=window.innerHeight;

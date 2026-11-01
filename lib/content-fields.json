@@ -3358,5 +3358,117 @@
     "max": 1200,
     "step": 50,
     "unit": "ms"
+  },
+  {
+    "page": "animations",
+    "section": "Page transitions",
+    "kind": "text",
+    "id": "motion.routeTransition",
+    "label": "Enable page transition curtain",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "page": "animations",
+    "section": "Page transitions",
+    "kind": "text",
+    "id": "motion.routeCover",
+    "label": "Curtain cover duration",
+    "control": "range",
+    "default": "300",
+    "min": 100,
+    "max": 1000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "page": "animations",
+    "section": "Page transitions",
+    "kind": "text",
+    "id": "motion.routeReveal",
+    "label": "Curtain reveal duration",
+    "control": "range",
+    "default": "400",
+    "min": 100,
+    "max": 1000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "page": "animations",
+    "section": "Page transitions",
+    "kind": "text",
+    "id": "motion.routeColor",
+    "label": "Curtain colour",
+    "control": "select",
+    "default": "green",
+    "options": [
+      {
+        "value": "green",
+        "label": "Primary brand colour"
+      },
+      {
+        "value": "gold",
+        "label": "Accent brand colour"
+      },
+      {
+        "value": "dark",
+        "label": "Deep brand colour"
+      }
+    ]
+  },
+  {
+    "page": "animations",
+    "section": "Page transitions",
+    "kind": "text",
+    "id": "motion.routeCoverEase",
+    "label": "Curtain cover easing",
+    "control": "select",
+    "default": "ease-in-out",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft settle"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "page": "animations",
+    "section": "Page transitions",
+    "kind": "text",
+    "id": "motion.routeRevealEase",
+    "label": "Curtain reveal easing",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft settle"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
   }
 ]

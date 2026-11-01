@@ -9,7 +9,7 @@ test('first-visit splash loads the masked logo without calling image methods on 
   const compiled = ts.transpileModule(source, {compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;
   let effect: (()=>void) | undefined;
   let decoded = '';
-  const root={dataset:{},classList:{add(){},remove(){}}};
+  const root={dataset:{},classList:{add(){},remove(){},contains(){return false;}}};
   const exports: Record<string, any> = {};
   const sandbox={exports,require:(name:string)=>{
     if(name==='react')return {useState:()=>['splash',()=>{}],useRef:()=>({current:{querySelector:()=>({tagName:'SPAN'}),querySelectorAll:()=>[{decode:()=>new Promise(()=>{})}]}}),useLayoutEffect:(callback:()=>void)=>{effect=callback;}};

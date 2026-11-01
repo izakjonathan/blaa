@@ -11,6 +11,10 @@ export function animationStyle(document:ContentDocument){
  const on=(id:string)=>textValue(document,'motion.'+id)!=='false';
  const ease=(id:string)=>curves[textValue(document,'motion.'+id)]||curves.soft;
  const declarations:Record<string,string>={
+  '--route-cover-duration':n('routeCover')+'ms','--route-reveal-duration':n('routeReveal')+'ms','--route-cover-ease':ease('routeCoverEase'),'--route-reveal-ease':ease('routeRevealEase'),
+  '--route-curtain-ink':textValue(document,'motion.routeColor')==='gold'?'var(--brand-green)':'var(--brand-gold)',
+  '--route-curtain-color':({green:'var(--brand-green)',gold:'var(--brand-gold)',dark:'var(--brand-dark)'}[textValue(document,'motion.routeColor')]||'var(--brand-green)'),
+  '--route-menu-duration':(on('menu')?(on('enabled')&&on('routeTransition')?n('routeReveal'):n('menuDuration')):0)+'ms','--route-menu-ease':on('routeTransition')?ease('routeRevealEase'):ease('menuEase'),
   '--heading-char-duration':n('headingDuration')+'ms','--menu-roll-duration':n('menuRollDuration')+'ms','--menu-roll-stagger':n('menuRollStagger')+'ms','--menu-divider-duration':n('menuDividerDuration')+'ms',
   '--photo-zoom-start':String(1+n('photoZoomAmount')/100),'--photo-zoom-duration':n('photoZoomDuration')+'ms',
   '--duration-menu':(on('menu')?n('menuDuration'):0)+'ms','--duration-reveal':n('revealDuration')+'ms','--duration-reveal-fade':n('revealFade')+'ms','--reveal-distance':n('revealDistance')+'px',

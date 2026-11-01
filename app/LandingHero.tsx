@@ -22,7 +22,7 @@ export default function LandingHero() {
     let seen = false;
     try { seen = sessionStorage.getItem("plaisir-intro-v2") === "seen"; } catch { /* Private storage can be unavailable. */ }
     const replay = new URLSearchParams(location.search).get('intro') === 'replay';
-    if (!settings.enabled || root.dataset.introBoot === "failed" || (seen && !replay) || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
+    if (root.classList.contains("route-covered") || !settings.enabled || root.dataset.introBoot === "failed" || (seen && !replay) || isReducedMotion() || location.hash || new URLSearchParams(location.search).get('preview') === 'draft' || window.scrollY > 50) {
       root.dataset.introBoot = "skip";
       setIntro("ready");
       return;

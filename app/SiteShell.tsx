@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode, type MouseEvent, type CSSProperties } from "react";
 import { afterPaint, cssTimeMs, isReducedMotion } from "../lib/motion";
 import PageMotion from "./PageMotion";
+import RouteCurtain from "./RouteCurtain";
 import EditorialPhotos from "./EditorialPhotos";
 import MenuLabel from "./MenuLabel";
 import PhotoParallax from "./PhotoParallax";
@@ -68,7 +69,7 @@ function MarketingShell({ children }: {
             finish();
             return;
         }
-        const timer = setTimeout(finish, cssTimeMs("--duration-menu", 680) + 100);
+        const timer = setTimeout(finish, cssTimeMs(navigating.current ? "--route-menu-duration" : "--duration-menu", 680) + 100);
         return () => clearTimeout(timer);
     }, [phase, finish]);
     useLayoutEffect(() => {
@@ -190,6 +191,7 @@ function MarketingShell({ children }: {
           </nav>
         </div>)}
       {children}
+      <RouteCurtain />
       <PageMotion />
       <PhotoParallax />
       <EditorialPhotos />

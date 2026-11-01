@@ -73,3 +73,7 @@ Release 1.5.0 adds subtle photo movement inside stationary containers. Defaults 
 ## Editorial motion
 
 Release 1.6.0 adds Agrumea-inspired masked heading letters, selected scroll-expanding photo frames, gentle independent photo zoom, rolling menu labels and drawn menu dividers. Fifteen new controls are available under **Admin → Animations → Heading letters / Photo frames / Menu details**. Existing layouts, gradient/crop controls, native scrolling, poster readability and reduced-motion behaviour are retained. See [release notes](docs/release-1.6.0.md) for scope and verification limits.
+
+## Page transitions
+
+Release 1.7.0 adds a short branded page curtain (300ms cover / 400ms reveal), immediate destination prefetch, covered scroll restoration, focus handling and interruption/timeout cleanup. Menu navigation reuses its existing panel instead of adding a second curtain. Six controls are under **Admin → Animations → Page transitions**. Reduce Motion bypasses the curtain. See [release notes](docs/release-1.7.0.md) for verification and deployment instructions.

@@ -28,7 +28,7 @@ export function useFooterEntrance(pathname: string) {
             let origin=from, began=started, lastY=from, lastTime=started;
             let motion=footerMotion(Math.max(0,target()-from),velocity,duration,curve);
             const step = (time: number) => {
-                if (isReducedMotion() || setting("scroll-enabled",1) === 0 || touching || document.documentElement.classList.contains("menu-open")) { cancel(); return; }
+                if (isReducedMotion() || setting("scroll-enabled",1) === 0 || touching || (document.documentElement.classList.contains("menu-open") || document.documentElement.classList.contains("route-transitioning"))) { cancel(); return; }
                 const current=window.scrollY,destination=target();
                 if(destination-current<=1){arrivalFrame=0;return;}
                 let progress=Math.min(1,(time-began)/motion.duration);
@@ -66,7 +66,7 @@ export function useFooterEntrance(pathname: string) {
             } else {
                 footer.dataset.entered = "true";
             }
-            if (!allowSnap || touching || (!down && !(released && lastDirection>0)) || !armed || top > height * (1-setting("scroll-trigger",.28)) || remaining < 1 || document.documentElement.classList.contains("menu-open")) return;
+            if (!allowSnap || touching || (!down && !(released && lastDirection>0)) || !armed || top > height * (1-setting("scroll-trigger",.28)) || remaining < 1 || (document.documentElement.classList.contains("menu-open") || document.documentElement.classList.contains("route-transitioning"))) return;
             armed = false;
             if (isReducedMotion()) return;
             pulse?.cancel();
