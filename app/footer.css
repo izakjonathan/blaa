@@ -1,14 +1,14 @@
 /* A closing hero, with space for the shared fixed logo and menu controls. */
 .brand-footer {
   box-sizing: border-box;
-  min-height: 100svh;
-  padding: max(150px, calc(110px + env(safe-area-inset-top))) max(var(--gutter), env(safe-area-inset-left)) max(40px, env(safe-area-inset-bottom));
+  min-height: 100dvh;
+  padding: max(120px, calc(100px + env(safe-area-inset-top))) max(var(--gutter), env(safe-area-inset-left)) max(24px, env(safe-area-inset-bottom));
   background: var(--amber);
   color: var(--green);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: clamp(40px, 7vh, 80px);
+  gap: clamp(24px, 4dvh, 48px);
 }
 
 .footer-top {
@@ -33,23 +33,67 @@
   max-width: 12ch;
 }
 
+.venue-footer-details {display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin:0;}
+.venue-footer-details p {font-size:16px;line-height:1.5;letter-spacing:-.01em;}
+.venue-footer-details a {font-size:16px;line-height:1.5;letter-spacing:-.01em;display:inline-block;min-height:32px;overflow-wrap:anywhere;}
+
 @media (max-width: 600px) {
+  .brand-footer {
+    padding-top: max(110px, calc(90px + env(safe-area-inset-top)));
+  }
+  .venue-footer-details {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px 16px;
+  }
+  .venue-footer-details p, .venue-footer-details a {
+    font-size: 14px;
+  }
+  .venue-footer-details > :last-child {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 24px;
+  }
+  .venue-footer-details > :last-child br {
+    display: none;
+  }
   .footer-heading h2 {
-    font-size: clamp(48px, 13vw, 78px);
+    font-size: clamp(42px, 12vw, 68px);
   }
   .footer-heading .eyebrow {
     font-size: 11px;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html:not([data-motion="reduced"]) .brand-footer[data-entered="true"] > * {
-    animation: footerArrival 700ms var(--ease-reveal) both;
+    animation: footerArrival 550ms var(--ease-reveal) both;
   }
 }
 
 @keyframes footerArrival {
-  from { opacity: .35; transform: translateY(24px); }
+  from { opacity: .6; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-height: 600px) {
+  .brand-footer {
+    padding-top: max(96px, calc(76px + env(safe-area-inset-top)));
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+    gap: 16px;
+  }
+  .footer-heading h2 {
+    font-size: clamp(32px, 9dvh, 54px);
+    max-width: 20ch;
+  }
+  .footer-heading .eyebrow {
+    margin-bottom: 10px;
+  }
+  .venue-footer-details {
+    gap: 12px 16px;
+  }
+  .venue-footer-details p, .venue-footer-details a {
+    font-size: 13px;
+    line-height: 1.4;
+  }
 }

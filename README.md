@@ -49,3 +49,5 @@ Release 1.1.9 restores the uploaded Plaisir reference’s public editorial text 
 ## Closing hero and editor palette
 
 Release 1.2.0 detects the background beneath each fixed header control independently, including nested venue sections and split photo/copy layouts. The footer is a full-height closing hero using the shared header logo and menu. Its content reveals at 5% viewport entry; after 28% has entered during downward scrolling, it settles smoothly with its top at the viewport top and briefly enlarges the header logo. Upward wheel, touch and keyboard input can interrupt the arrival. Reduced motion keeps normal scrolling without the automatic settle or logo pulse. Removed the duplicate footer logo, bottom caption and top link. Editor controls use fixed charcoal/eggshell tones independently of the editable site palette.
+
+Release 1.2.1 fits the closing hero to the dynamic visible viewport (`100dvh`). Mobile details use two columns with a shared social row, and short screens use smaller type and spacing. The logo pulse is reduced to 10% over 650ms and the content entrance is softer. Content can still expand naturally when accessibility text sizing requires it.

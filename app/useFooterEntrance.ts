@@ -29,9 +29,9 @@ export function useFooterEntrance(pathname: string) {
             pulse?.cancel();
             pulse = logo?.animate([
                 {transform: "scale(1)"},
-                {transform: "scale(1.22)", offset: .45},
+                {transform: "scale(1.1)", offset: .45},
                 {transform: "scale(1)"}
-            ], {duration: 800, easing: "cubic-bezier(.22,1,.36,1)"});
+            ], {duration: 650, easing: "cubic-bezier(.22,1,.36,1)"});
             settling = top > 1;
             window.scrollTo({top: y + top, behavior: "smooth"});
         };
