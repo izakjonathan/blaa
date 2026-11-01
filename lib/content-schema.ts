@@ -1,7 +1,7 @@
 import definitions from './content-fields.json' with { type: 'json' };
 
 export type ContentImageValue = { src: string; alt: string; width: number; height: number; x: number; y: number; overlay?: boolean; overlayOpacity?: number };
-export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean; control?: 'toggle' | 'range' | 'color'; min?: number; max?: number; step?: number };
+export type Field = { id: string; page: string; section: string; label: string; kind: 'text' | 'image' | 'link'; default: string | ContentImageValue; multiline?: boolean; hidden?: boolean; control?: 'toggle' | 'range' | 'color' | 'select'; unit?: string; options?: {value:string;label:string}[]; min?: number; max?: number; step?: number };
 export const fields = definitions as Field[];
 export const fieldMap = new Map(fields.map(field => [field.id, field]));
 export type ContentDocument = { text: Record<string, string>; images: Record<string, ContentImageValue> };
@@ -32,6 +32,7 @@ export function validateDocument(input: unknown): ContentDocument {
     if (!field || field.kind === 'image' || typeof value !== 'string' || value.length > (field.kind === 'link' ? 500 : 12000)) throw new Error('Invalid text field.');
     if (field.kind === 'link' && !safeLink(value)) throw new Error('Use an internal link, https://, mailto: or tel: link.');
     if (field.control === 'color' && !/^#[0-9a-f]{6}$/i.test(value)) throw new Error('Use a six-digit hex color, such as #263D32.');
+    if (field.control === 'select' && !field.options?.some(option=>option.value===value)) throw new Error('Invalid animation option.');
     if (field.control === 'toggle' && !['true','false'].includes(value)) throw new Error('Invalid splash switch.');
     if (field.control === 'range') {
       const number = Number(value);

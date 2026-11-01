@@ -59,3 +59,7 @@ Release 1.2.2 adds 140–240px of real background above a separate full-screen f
 See [the detailed comparison](docs/project-comparison-and-fixes.md) and [release verification](docs/release-1.3.0.md). This release was prepared from the uploaded baseline and has not been committed or deployed.
 
 Release 1.3.1 replaces native footer smooth scrolling with a controlled 1.5-second ease-in/ease-out animation. It retains the same full-screen destination, background extension, reduced motion and interruption behaviour.
+
+## Animation controls
+
+Release 1.4.0 adds **Admin → Animations** with 39 controls for site motion, page reveals, menu/link transitions, hero text/video fade, footer scrolling/reveal/logo pulse and splash transition speed/easing. Each has safe limits and reset controls. Choose a page in Preview and use Replay preview to restart its motion; a separate splash replay is available. Save draft and Publish use the existing editor workflow. System Reduce Motion is always respected. Existing content and media remain compatible.

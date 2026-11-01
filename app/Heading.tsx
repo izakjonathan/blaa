@@ -37,7 +37,7 @@ export default function Heading({as:Tag='h2',children,...props}:HTMLAttributes<H
     mask.className='heading-line';inner.className='heading-line-inner';
     mask.style.top=`${rect.top-origin.top}px`;mask.style.left=`${rect.left-origin.left}px`;
     mask.style.height=`${rect.height+origin.height*.001}px`;
-    inner.style.setProperty('--line-delay',`${index*140}ms`);
+    inner.style.setProperty('--line-delay',`calc(${index} * var(--motion-line-stagger,140ms))`);
     inner.style.animation="none";inner.style.transform="none";
     inner.append(range.cloneContents());mask.append(inner);layer.append(mask);
     const copy=document.createRange();copy.selectNodeContents(inner);

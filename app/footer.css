@@ -71,12 +71,12 @@
 
 @media (prefers-reduced-motion: no-preference) {
   html:not([data-motion="reduced"]) .brand-footer[data-entered="true"] .footer-panel > * {
-    animation: footerArrival 550ms var(--ease-reveal) both;
+    animation: footerArrival var(--footer-reveal-duration,550ms) var(--footer-reveal-ease,var(--ease-reveal)) both;
   }
 }
 
 @keyframes footerArrival {
-  from { opacity: .6; transform: translateY(12px); }
+  from { opacity: .6; transform: translateY(var(--footer-reveal-distance,12px)); }
   to { opacity: 1; transform: translateY(0); }
 }
 

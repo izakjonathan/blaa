@@ -11,6 +11,7 @@ import "./footer.css";
 import "./image-treatment.css";
 import "./collection.css";
 import "./brand-assets.css";
+import { animationSettings } from "../lib/animation-settings";
 import { brandStyle } from "../lib/brand";
 import SiteShell from "./SiteShell";
 import { ContentProvider } from "./Content";
@@ -36,7 +37,7 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const published = await readPublished();
   return (
-    <html lang="da" suppressHydrationWarning>
+    <html lang="da" data-motion={!animationSettings(published).enabled ? "reduced" : undefined} suppressHydrationWarning>
       <head>
         <style data-brand-palette dangerouslySetInnerHTML={{ __html: brandStyle(published) }}/>
         <link rel="preload" href="/fonts/BricolageGrotesque-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />

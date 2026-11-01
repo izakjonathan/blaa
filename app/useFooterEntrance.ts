@@ -9,7 +9,11 @@ export function useFooterEntrance(pathname: string) {
         const logo = document.querySelector<HTMLElement>(".floating-header .brand-logo");
         if (!footer) return;
         let frame = 0, arrivalFrame = 0, previousY = window.scrollY, armed = true;
-        const duration = 1500;
+        const setting = (name:string,fallback:number) => {
+            const raw = getComputedStyle(footer).getPropertyValue?.('--footer-'+name)?.trim();
+            const value = Number(raw);
+            return raw && Number.isFinite(value) ? value : fallback;
+        };
         let pulse: Animation | undefined;
         const cancel = () => {
             cancelAnimationFrame(arrivalFrame);
@@ -17,16 +21,18 @@ export function useFooterEntrance(pathname: string) {
             pulse?.cancel();
         };
         const arrive = (from: number) => {
+            const duration=setting('scroll-duration',1500);
+            const curve=getComputedStyle(footer).getPropertyValue?.('--footer-scroll-easing')?.trim() || 'cosine';
             let started: number | undefined;
             const step = (time: number) => {
-                if (isReducedMotion() || document.documentElement.classList.contains("menu-open")) {
+                if (isReducedMotion() || setting("scroll-enabled",1) === 0 || document.documentElement.classList.contains("menu-open")) {
                     cancel();
                     return;
                 }
                 started ??= time;
                 const progress = Math.min(1, (time - started) / duration);
                 // Cosine easing has zero speed at both ends of the arrival.
-                const eased = (1 - Math.cos(Math.PI * progress)) / 2;
+                const eased = curve==='linear' ? progress : curve==='ease-out' ? 1-Math.pow(1-progress,3) : curve==='cubic' ? (progress<.5 ? 4*progress**3 : 1-(-2*progress+2)**3/2) : (1 - Math.cos(Math.PI * progress)) / 2;
                 // Re-measure the destination so browser chrome/layout changes
                 // do not leave the content panel short of the viewport top.
                 const bleed = Number.parseFloat(getComputedStyle(footer).paddingTop) || 0;
@@ -48,16 +54,16 @@ export function useFooterEntrance(pathname: string) {
             } else {
                 footer.dataset.entered = "true";
             }
-            if (!allowSnap || !down || !armed || top > height * .72 || top < -1 || document.documentElement.classList.contains("menu-open")) return;
+            if (!allowSnap || !down || !armed || top > height * (1-setting("scroll-trigger",.28)) || top < -1 || document.documentElement.classList.contains("menu-open")) return;
             armed = false;
             if (isReducedMotion()) return;
             pulse?.cancel();
-            pulse = logo?.animate([
+            if(setting("logo-enabled",1)!==0)pulse = logo?.animate([
                 {transform: "scale(1)"},
-                {transform: "scale(1.1)", offset: .45},
+                {transform: `scale(${setting("logo-scale",1.1)})`, offset: .45},
                 {transform: "scale(1)"}
-            ], {duration: 650, easing: "cubic-bezier(.22,1,.36,1)"});
-            arrive(y);
+            ], {duration: setting("logo-duration",650), easing: getComputedStyle(footer).getPropertyValue?.("--footer-logo-easing")?.trim() || "cubic-bezier(.22,1,.36,1)"});
+            if(setting("scroll-enabled",1)!==0)arrive(y);
         };
         const schedule = () => {
             if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(true); });

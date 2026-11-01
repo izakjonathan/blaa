@@ -123,20 +123,20 @@ html.brand-intro-active .floating-header > * {
 }
 
 [data-intro="leaving"] .hero-line > * {
-  animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both;
+  animation: lineArrival var(--hero-line-duration,1000ms) var(--hero-ease,var(--ease-reveal)) var(--hero-line-delay,300ms) both;
 }
 
 [data-intro="ready"] .hero-line > * {
-  animation: lineArrival 1000ms var(--ease-reveal) var(--hero-line-delay,300ms) both;
+  animation: lineArrival var(--hero-line-duration,1000ms) var(--hero-ease,var(--ease-reveal)) var(--hero-line-delay,300ms) both;
   animation-fill-mode: backwards;
 }
 
 [data-intro="leaving"] .hero-discover {
-  animation: brandArrival 800ms var(--ease-reveal) 850ms both;
+  animation: brandArrival var(--hero-button-duration,800ms) var(--hero-ease,var(--ease-reveal)) var(--hero-button-delay,850ms) both;
 }
 
 [data-intro="ready"] .hero-discover {
-  animation: brandArrival 800ms var(--ease-reveal) 850ms both;
+  animation: brandArrival var(--hero-button-duration,800ms) var(--hero-ease,var(--ease-reveal)) var(--hero-button-delay,850ms) both;
   animation-fill-mode: backwards;
 }
 
@@ -252,7 +252,7 @@ html.brand-intro-active .floating-header > * {
      Expose the video only after playback starts; the poster stays underneath. */
   opacity: 0;
   filter: saturate(var(--hero-video-saturation, 1));
-  transition: opacity 240ms ease-out;
+  transition: opacity var(--video-fade-duration,240ms) var(--video-fade-ease,ease-out);
 }
 
 .hero-video[data-playing="true"] {

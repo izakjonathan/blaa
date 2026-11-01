@@ -2,6 +2,7 @@
 import { Copy, ContentLink, TitleLines, useContent } from "./Content";
 
 import { useLayoutEffect, useRef, useState } from "react";
+import {animationSettings} from "../lib/animation-settings";
 import { isReducedMotion } from "../lib/motion";
 import HeroVideo from "./HeroVideo";
 import BrandSplash from "./BrandSplash";
@@ -9,7 +10,9 @@ import { runSplashSequence, type SplashTarget } from "../lib/splash-sequence";
 import { splashSettings } from "../lib/splash";
 
 export default function LandingHero() {
-  const settings = splashSettings(useContent());
+  const content=useContent();
+  const settings = splashSettings(content);
+  const {splashSpeed,splashEase}=animationSettings(content);
   // Server HTML already includes the covering splash. Never wait for hydration
   // to turn a previously visible page into a splash screen.
   const [intro, setIntro] = useState<"splash" | "leaving" | "ready">("splash");
@@ -53,7 +56,7 @@ export default function LandingHero() {
       const movement=target==='logo';
       const from=visible?{opacity:0,transform:movement?'translate3d(0,16px,0)':'none'}:{opacity:1,transform:'none'};
       const to=visible?{opacity:1,transform:'none'}:{opacity:0,transform:movement?'translate3d(0,-10px,0)':'none'};
-      const animation=element.animate([from,to],{duration,delay,easing:'cubic-bezier(.22,1,.36,1)',fill:'forwards'});
+      const animation=element.animate([from,to],{duration:duration*100/splashSpeed,delay:delay*100/splashSpeed,easing:splashEase,fill:'forwards'});
       animations.add(animation);
       await animation.finished.catch(()=>{});
     };
@@ -84,7 +87,7 @@ export default function LandingHero() {
       root.classList.remove('brand-intro-active');root.dataset.introBoot='skip';
       document.removeEventListener('keydown',stop);document.removeEventListener('pointerdown',stop);reduced.removeEventListener('change',stop);
     };
-  }, [settings.enabled, settings.duration, settings.showLogo]);
+  }, [settings.enabled, settings.duration, settings.showLogo, splashSpeed, splashEase]);
 
   return <section ref={section} className="scene hero brand-hero" data-intro={intro} aria-labelledby="home-title">
     <HeroVideo revealed={intro !== 'splash'} />

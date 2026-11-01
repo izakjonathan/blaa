@@ -2516,5 +2516,596 @@
       "y": 50,
       "overlay": true
     }
+  },
+  {
+    "id": "motion.enabled",
+    "page": "animations",
+    "section": "General",
+    "label": "Enable site animations",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.reveals",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Enable page reveals",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.revealDuration",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Movement duration",
+    "kind": "text",
+    "control": "range",
+    "default": "850",
+    "min": 100,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.revealFade",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Fade duration",
+    "kind": "text",
+    "control": "range",
+    "default": "650",
+    "min": 100,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.revealDistance",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Movement distance",
+    "kind": "text",
+    "control": "range",
+    "default": "36",
+    "min": 0,
+    "max": 120,
+    "step": 1,
+    "unit": "px"
+  },
+  {
+    "id": "motion.revealTrigger",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Distance from viewport bottom before reveal",
+    "kind": "text",
+    "control": "range",
+    "default": "12",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "unit": "%"
+  },
+  {
+    "id": "motion.revealStagger",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Delay between arriving blocks",
+    "kind": "text",
+    "control": "range",
+    "default": "90",
+    "min": 0,
+    "max": 500,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.lineDuration",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Heading line duration",
+    "kind": "text",
+    "control": "range",
+    "default": "1000",
+    "min": 100,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.lineStagger",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Delay between heading lines",
+    "kind": "text",
+    "control": "range",
+    "default": "140",
+    "min": 0,
+    "max": 500,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.revealEase",
+    "page": "animations",
+    "section": "Scroll reveals",
+    "label": "Reveal easing",
+    "kind": "text",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.menuDuration",
+    "page": "animations",
+    "section": "Menu",
+    "label": "Menu open / close duration",
+    "kind": "text",
+    "control": "range",
+    "default": "680",
+    "min": 100,
+    "max": 2500,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.menuLinkDuration",
+    "page": "animations",
+    "section": "Menu",
+    "label": "Menu link arrival duration",
+    "kind": "text",
+    "control": "range",
+    "default": "520",
+    "min": 100,
+    "max": 2500,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.menuLinkDelay",
+    "page": "animations",
+    "section": "Menu",
+    "label": "First menu link delay",
+    "kind": "text",
+    "control": "range",
+    "default": "150",
+    "min": 0,
+    "max": 1000,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.menuLinkStagger",
+    "page": "animations",
+    "section": "Menu",
+    "label": "Delay between menu links",
+    "kind": "text",
+    "control": "range",
+    "default": "65",
+    "min": 0,
+    "max": 300,
+    "step": 5,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.menuEase",
+    "page": "animations",
+    "section": "Menu",
+    "label": "Menu easing",
+    "kind": "text",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.hero",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "Enable hero text arrivals",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.heroDuration",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "Hero line duration",
+    "kind": "text",
+    "control": "range",
+    "default": "1000",
+    "min": 100,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.heroDelay",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "First hero line delay",
+    "kind": "text",
+    "control": "range",
+    "default": "300",
+    "min": 0,
+    "max": 2000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.heroStagger",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "Delay between hero lines",
+    "kind": "text",
+    "control": "range",
+    "default": "140",
+    "min": 0,
+    "max": 500,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.heroButtonDuration",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "Hero button duration",
+    "kind": "text",
+    "control": "range",
+    "default": "800",
+    "min": 100,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.heroButtonDelay",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "Hero button delay",
+    "kind": "text",
+    "control": "range",
+    "default": "850",
+    "min": 0,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.footerAuto",
+    "page": "animations",
+    "section": "Footer scroll",
+    "label": "Enable automatic footer arrival",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.footerDuration",
+    "page": "animations",
+    "section": "Footer scroll",
+    "label": "Footer scroll duration",
+    "kind": "text",
+    "control": "range",
+    "default": "1500",
+    "min": 300,
+    "max": 5000,
+    "step": 100,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.footerTrigger",
+    "page": "animations",
+    "section": "Footer scroll",
+    "label": "Visible footer before automatic arrival",
+    "kind": "text",
+    "control": "range",
+    "default": "28",
+    "min": 10,
+    "max": 80,
+    "step": 1,
+    "unit": "%"
+  },
+  {
+    "id": "motion.footerEase",
+    "page": "animations",
+    "section": "Footer scroll",
+    "label": "Footer scroll easing",
+    "kind": "text",
+    "control": "select",
+    "default": "cosine",
+    "options": [
+      {
+        "value": "cosine",
+        "label": "Smooth ease in and out"
+      },
+      {
+        "value": "cubic",
+        "label": "Strong ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.footerReveal",
+    "page": "animations",
+    "section": "Footer content",
+    "label": "Enable footer content reveal",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.footerRevealDuration",
+    "page": "animations",
+    "section": "Footer content",
+    "label": "Footer reveal duration",
+    "kind": "text",
+    "control": "range",
+    "default": "550",
+    "min": 100,
+    "max": 3000,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.footerRevealDistance",
+    "page": "animations",
+    "section": "Footer content",
+    "label": "Footer reveal distance",
+    "kind": "text",
+    "control": "range",
+    "default": "12",
+    "min": 0,
+    "max": 100,
+    "step": 1,
+    "unit": "px"
+  },
+  {
+    "id": "motion.logoPulse",
+    "page": "animations",
+    "section": "Footer logo",
+    "label": "Enable logo pulse at footer arrival",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.logoDuration",
+    "page": "animations",
+    "section": "Footer logo",
+    "label": "Logo pulse duration",
+    "kind": "text",
+    "control": "range",
+    "default": "650",
+    "min": 100,
+    "max": 2500,
+    "step": 50,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.logoScale",
+    "page": "animations",
+    "section": "Footer logo",
+    "label": "Logo enlargement",
+    "kind": "text",
+    "control": "range",
+    "default": "10",
+    "min": 0,
+    "max": 40,
+    "step": 1,
+    "unit": "%"
+  },
+  {
+    "id": "motion.splashSpeed",
+    "page": "animations",
+    "section": "Splash transition",
+    "label": "Splash transition speed",
+    "kind": "text",
+    "control": "range",
+    "default": "100",
+    "min": 50,
+    "max": 200,
+    "step": 10,
+    "unit": "%"
+  },
+  {
+    "id": "motion.menu",
+    "page": "animations",
+    "section": "Menu",
+    "label": "Enable menu animations",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.heroEase",
+    "page": "animations",
+    "section": "Hero text",
+    "label": "Hero easing",
+    "kind": "text",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.footerRevealEase",
+    "page": "animations",
+    "section": "Footer content",
+    "label": "Footer reveal easing",
+    "kind": "text",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.logoEase",
+    "page": "animations",
+    "section": "Footer logo",
+    "label": "Logo pulse easing",
+    "kind": "text",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.videoFade",
+    "page": "animations",
+    "section": "Hero video",
+    "label": "Poster to video fade duration",
+    "kind": "text",
+    "control": "range",
+    "default": "240",
+    "min": 0,
+    "max": 2000,
+    "step": 10,
+    "unit": "ms"
+  },
+  {
+    "id": "motion.videoEase",
+    "page": "animations",
+    "section": "Hero video",
+    "label": "Video fade easing",
+    "kind": "text",
+    "control": "select",
+    "default": "ease-out",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
+  },
+  {
+    "id": "motion.splashEase",
+    "page": "animations",
+    "section": "Splash transition",
+    "label": "Splash transition easing",
+    "kind": "text",
+    "control": "select",
+    "default": "soft",
+    "options": [
+      {
+        "value": "soft",
+        "label": "Soft ease out"
+      },
+      {
+        "value": "ease-in-out",
+        "label": "Ease in and out"
+      },
+      {
+        "value": "ease-out",
+        "label": "Ease out"
+      },
+      {
+        "value": "linear",
+        "label": "Linear"
+      }
+    ]
   }
 ]

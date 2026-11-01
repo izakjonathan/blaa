@@ -57,8 +57,8 @@
 }
 
 html[data-motion="full"] .site-menu:is([data-phase="open"], [data-phase="closing"]) nav > a {
-  animation: menuLinkArrival 520ms var(--ease-reveal) backwards;
-  animation-delay: calc(150ms + var(--item, 0) * 65ms);
+  animation: menuLinkArrival var(--menu-link-duration,520ms) var(--ease-menu) backwards;
+  animation-delay: calc(var(--menu-link-delay,150ms) + var(--item, 0) * var(--menu-link-stagger,65ms));
 }
 
 @keyframes menuLinkArrival {
@@ -84,7 +84,7 @@ html.reveal-enabled [data-reveal].reveal-pending {
 html.reveal-enabled [data-reveal].reveal-visible {
   opacity: 1;
   transform: none;
-  transition: opacity 650ms ease-out, transform var(--duration-reveal) var(--ease-reveal);
+  transition: opacity var(--duration-reveal-fade,650ms) ease-out, transform var(--duration-reveal) var(--ease-reveal);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
@@ -188,7 +188,7 @@ html.reveal-enabled .line-heading.reveal-pending .heading-line-inner {
 }
 
 html.reveal-enabled .line-heading.reveal-visible:not(.reveal-settled) .heading-line-inner {
-  animation: lineArrival 1000ms var(--ease-reveal) calc(var(--reveal-delay,0ms) + var(--line-delay,0ms)) backwards;
+  animation: lineArrival var(--motion-line-duration,1000ms) var(--ease-reveal) calc(var(--reveal-delay,0ms) + var(--line-delay,0ms)) backwards;
 }
 
 /* Shared keyframes. Splash/hero use the same line-arrival vocabulary. */
@@ -229,12 +229,23 @@ html[data-motion="reduced"] {
   scroll-behavior: auto;
 }
 
+html[data-motion="reduced"] :is(.site-menu, .site-menu nav > a, [data-reveal]) {
+  animation: none;
+  transition: none;
+  transform: none;
+  opacity: 1;
+}
+
 html[data-motion="reduced"] .brand-hero * {
   animation: none !important;
 }
 
 html[data-motion="reduced"] .brand-hero *::before {
   animation: none !important;
+}
+
+html[data-motion="reduced"] .hero-video {
+  transition: none;
 }
 
 html[data-motion="reduced"] .burger-stroke {
