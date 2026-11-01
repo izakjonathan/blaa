@@ -1,7 +1,7 @@
 /* Share the hero's green wash with every editorial photograph. */
 
-:root {
-  --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--brand-dark) 85.0980%, transparent) 0%, color-mix(in srgb, var(--brand-dark) 40.0000%, transparent) 60%, color-mix(in srgb, var(--brand-dark) 13.3333%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 61.9608%, transparent), transparent 50%);
+:root, [data-photo-gradient] {
+  --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 85.0980%, transparent) 0%, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 40.0000%, transparent) 60%, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 13.3333%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 61.9608%, transparent), transparent 50%);
 }
 
 .scene-shade {
@@ -12,12 +12,12 @@
   opacity: var(--image-overlay-strength,1);
 }
 
-:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure) {
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition) {
   position: relative;
   isolation: isolate;
 }
 
-:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure)::after {
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition)::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -27,24 +27,24 @@
   opacity: var(--image-overlay-strength,1);
 }
 
-:is(.experience, [data-reveal-page="story"]) :is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure) > img {
+:is(.experience, [data-reveal-page="story"]) :is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition) > img {
   filter: brightness(calc(1 - .28 * var(--image-overlay-strength,1)));
 }
 
-:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure) > figcaption {
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition) > figcaption {
   position: relative;
   z-index: 2;
 }
 
 @media (max-width: 600px) {
-  :root {
-    --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--brand-dark) 65.8824%, transparent), color-mix(in srgb, var(--brand-dark) 20.0000%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--brand-dark) 73.3333%, transparent), transparent 75%);
+  :root, [data-photo-gradient] {
+    --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 65.8824%, transparent), color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 20.0000%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 73.3333%, transparent), transparent 75%);
   }
 }
 
 /* Per-image preference follows the image through draft, publish and restore. */
 
-:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure):has(> img[data-overlay="off"])::after {
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition):has(> img[data-overlay="off"])::after {
   background: none;
 }
 
@@ -56,22 +56,17 @@
   background: none;
 }
 
-body :is(.scene-photo, .split-photo > img, .photo-story figure > img, .company-photo > img, .collection-photos figure > img, .collection-paper figure > img, .splash-photo)[data-overlay="off"] {
+body :is(.scene-photo, .split-photo > img, .photo-story figure > img, .company-photo > img, .collection-photos figure > img, .collection-paper figure > img, .venue-gallery figure > img, .venue-exhibition > img, .splash-photo)[data-overlay="off"] {
   filter: none;
 }
 
 /* Strength is server-rendered per image and updates with the live draft. */
 
 .brand-splash .splash-green {
-  opacity: var(--image-overlay-strength,1);
+  opacity: calc(var(--image-overlay-strength,1) * var(--splash-overlay,.87));
 }
-
-
 
 body .scene-photo {
   filter: brightness(var(--scene-photo-brightness, calc(1 - .28 * var(--image-overlay-strength,1))));
 }
 
-.wine-scene {
-  --scene-photo-brightness: .66;
-}

@@ -14,3 +14,10 @@ test('image opacity inherits global strength and retains explicit overrides and 
  assert.equal(imageOverlayOpacity(doc,reset),40);
  for(const value of ['-1','101','nope'])assert.throws(()=>validateDocument({text:{'brand.overlayOpacity':value},images:{}}));
 });
+
+test('page photographs share overlay defaults while concert posters remain clear',()=>{
+ for(const field of fields.filter(field=>field.kind==='image')){
+  const image=field.default as ContentImageValue;
+  assert.equal(image.overlay,!/^events\.item\.\d+\.image$/.test(field.id),field.id);
+ }
+});

@@ -3,13 +3,17 @@ import type { Metadata } from 'next';
 import Heading from '../Heading';
 import { Copy, ContentImage, ContentLink } from '../Content';
 import pages from '../../lib/venue-pages.json';
+import { readPublished } from '../../lib/content-db';
+import { textValue } from '../../lib/content-schema';
 
 type VenuePage = {label:string;copy:string[];events?:{id:string;section:string;linked:boolean}[];photos?:string[]};
 const records:Record<string,VenuePage> = pages;
 export function generateStaticParams() { return Object.keys(records).map(slug=>({slug})); }
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata> {
  const {slug}=await params;
- return {title:records[slug] ? `${records[slug].label} · Blågårds Apotek` : 'Blågårds Apotek'};
+ const document=await readPublished();
+ const description=textValue(document,`${slug}.intro`).replace(/\*+/g,'').replace(/\s+/g,' ').trim();
+ return {title:records[slug] ? `${records[slug].label} · Blågårds Apotek` : 'Blågårds Apotek',...(description?{description}: {})};
 }
 export default async function VenuePage({params}:{params:Promise<{slug:string}>}) {
  const {slug}=await params;

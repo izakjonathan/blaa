@@ -21,7 +21,7 @@ export async function readState() { await ensureSchema(); return readStore(query
 export const readPublished = cache(async (): Promise<ContentDocument> => {
   if (!databaseConfigured()) return emptyDocument;
   try { await ensureSchema(); return await readPublishedStore(query); }
-  catch { console.error('Plaisir content database unavailable; displaying original content.'); return emptyDocument; }
+  catch { console.error('Blågårds Apotek content database unavailable; displaying original content.'); return emptyDocument; }
 });
 export async function writeContent(action: 'save' | 'publish' | 'restore', revision: number, document?: ContentDocument) {
   await ensureSchema(); return writeStore(query, action, revision, document);

@@ -16,13 +16,14 @@ export function useFooterEntrance(pathname: string) {
             previousY = y;
             const top = footer.getBoundingClientRect().top;
             const height = window.innerHeight;
+            const bleed = Number.parseFloat(getComputedStyle(footer).paddingTop) || 0;
             if (top > height * .95) {
                 armed = true;
                 footer.removeAttribute("data-entered");
             } else {
                 footer.dataset.entered = "true";
             }
-            if (settling && top <= 1) settling = false;
+            if (settling && top + bleed <= 1) settling = false;
             if (!allowSnap || !down || !armed || top > height * .72 || top < -1 || document.documentElement.classList.contains("menu-open")) return;
             armed = false;
             if (isReducedMotion()) return;
@@ -32,8 +33,8 @@ export function useFooterEntrance(pathname: string) {
                 {transform: "scale(1.1)", offset: .45},
                 {transform: "scale(1)"}
             ], {duration: 650, easing: "cubic-bezier(.22,1,.36,1)"});
-            settling = top > 1;
-            window.scrollTo({top: y + top, behavior: "smooth"});
+            settling = top + bleed > 1;
+            window.scrollTo({top: y + top + bleed, behavior: "smooth"});
         };
         const schedule = () => {
             if (!frame) frame = requestAnimationFrame(() => { frame = 0; update(true); });

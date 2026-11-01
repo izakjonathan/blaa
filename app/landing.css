@@ -53,13 +53,13 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: saturate(calc(1 - .45 * var(--image-overlay-strength, 1)));
+  filter: brightness(calc(1 - .28 * var(--image-overlay-strength, 1)));
 }
 
 .splash-green {
   position: absolute;
   inset: 0;
-  background: rgb(var(--brand-green-rgb) / var(--splash-overlay,.87));
+  background: var(--photo-overlay);
 }
 
 .brand-splash .splash-art {
@@ -281,7 +281,8 @@ html.brand-intro-active .floating-header > * {
 .hero-video-overlay {
   position: absolute;
   inset: 0;
-  background: var(--hero-video-overlay, #1A1E3A);
+  --photo-overlay-color: var(--hero-video-overlay, #1A1E3A);
+  background: var(--photo-overlay);
   opacity: var(--hero-video-opacity, .45);
 }
 

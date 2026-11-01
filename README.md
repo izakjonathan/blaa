@@ -51,3 +51,9 @@ Release 1.1.9 restores the uploaded Plaisir reference’s public editorial text 
 Release 1.2.0 detects the background beneath each fixed header control independently, including nested venue sections and split photo/copy layouts. The footer is a full-height closing hero using the shared header logo and menu. Its content reveals at 5% viewport entry; after 28% has entered during downward scrolling, it settles smoothly with its top at the viewport top and briefly enlarges the header logo. Upward wheel, touch and keyboard input can interrupt the arrival. Reduced motion keeps normal scrolling without the automatic settle or logo pulse. Removed the duplicate footer logo, bottom caption and top link. Editor controls use fixed charcoal/eggshell tones independently of the editable site palette.
 
 Release 1.2.1 fits the closing hero to the dynamic visible viewport (`100dvh`). Mobile details use two columns with a shared social row, and short screens use smaller type and spacing. The logo pulse is reduced to 10% over 650ms and the content entrance is softer. Content can still expand naturally when accessibility text sizing requires it.
+
+Release 1.2.2 adds 140–240px of real background above a separate full-screen footer content panel. The arrival lands inside this background extension rather than aligning the footer's outer edge to the screen. Gallery/exhibition photos now share the editorial gradient and editor controls; their bundled overlay defaults are enabled. Concert posters remain clear. Saved individual overlay overrides remain available. Splash/video retain dedicated controls with the shared gradient shape.
+
+## 1.3.0 cross-project review
+
+See [the detailed comparison](docs/project-comparison-and-fixes.md) and [release verification](docs/release-1.3.0.md). This release was prepared from the uploaded baseline and has not been committed or deployed.

@@ -189,11 +189,13 @@ function MarketingShell({ children }: {
       {children}
       <PageMotion />
       <footer className="brand-footer">
+       <div className="footer-panel">
         <div className="footer-top">
           <div className="footer-heading"><p className="eyebrow">Bar. Musik. Nørrebro.</p><h2><Copy field="shared.shell.text2"/></h2></div>
         </div>
 
         <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook <span aria-hidden="true">↗︎</span></ContentLink><br/><ContentLink field="shared.instagram">Instagram <span aria-hidden="true">↗︎</span></ContentLink></div></div>
+       </div>
       </footer>
     </>);
 }

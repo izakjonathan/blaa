@@ -65,7 +65,7 @@ export default function HeroVideo({ revealed = true }: { revealed?: boolean } = 
         onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)}>
         <source src={heroSource} type="video/mp4" />
       </video>}
-      <div className="hero-video-overlay" />
+      <div className="hero-video-overlay" data-photo-gradient />
     </div>
   );
 }
