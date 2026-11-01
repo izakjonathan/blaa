@@ -3107,5 +3107,33 @@
         "label": "Linear"
       }
     ]
+  },
+  {
+    "id": "brand.photoTreatment",
+    "page": "brand",
+    "section": "Image treatment",
+    "label": "Photo overlay mode",
+    "kind": "text",
+    "control": "select",
+    "default": "uniform",
+    "options": [
+      {
+        "value": "uniform",
+        "label": "One shared overlay for all photos"
+      },
+      {
+        "value": "per-image",
+        "label": "Allow individual photo overrides"
+      }
+    ]
+  },
+  {
+    "id": "brand.overlayColor",
+    "page": "brand",
+    "section": "Image treatment",
+    "label": "Photo overlay colour",
+    "kind": "text",
+    "control": "color",
+    "default": "#1A1E3A"
   }
 ]

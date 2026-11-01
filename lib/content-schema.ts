@@ -7,6 +7,7 @@ export const fieldMap = new Map(fields.map(field => [field.id, field]));
 export type ContentDocument = { text: Record<string, string>; images: Record<string, ContentImageValue> };
 export const emptyDocument: ContentDocument = { text: {}, images: {} };
 export function textValue(document: ContentDocument, id: string): string {
+  if (id === 'brand.overlayColor' && document.text[id] === undefined) return document.text['brand.green'] ?? String(fieldMap.get('brand.green')?.default ?? '#1A1E3A');
   if (id === 'experience.hero.title' && document.text[id] === undefined && ['experience.hero.text2','experience.hero.text3','experience.hero.text4'].some(key => document.text[key] !== undefined)) {
     // Existing drafts and published history may still contain separate lines.
     return ['experience.hero.text2','experience.hero.text3','experience.hero.text4']

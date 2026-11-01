@@ -4,7 +4,7 @@ import {emptyDocument,fields,validateDocument,type ContentImageValue} from '../l
 import {imageOverlayOpacity,imageOverlayStrength} from '../lib/image-treatment.ts';
 const image=fields.find(f=>f.kind==='image')!.default as ContentImageValue;
 test('image opacity inherits global strength and retains explicit overrides and off switches',()=>{
- const doc=validateDocument({text:{'brand.overlayOpacity':'40'},images:{}});
+ const doc=validateDocument({text:{'brand.overlayOpacity':'40','brand.photoTreatment':'per-image'},images:{}});
  assert.equal(imageOverlayOpacity(emptyDocument,image),55);
  assert.equal(imageOverlayStrength(doc,image),.4);
  assert.equal(imageOverlayStrength(doc,{...image,overlayOpacity:75}),.75);
@@ -20,4 +20,11 @@ test('page photographs share overlay defaults while concert posters remain clear
   const image=field.default as ContentImageValue;
   assert.equal(image.overlay,!/^events\.item\.\d+\.image$/.test(field.id),field.id);
  }
+});
+
+test('uniform photo mode overrides legacy off switches and custom opacity without rewriting them',()=>{
+ const doc=validateDocument({text:{'brand.overlayOpacity':'70'},images:{}});
+ const legacy={...image,overlay:false,overlayOpacity:0};
+ assert.equal(imageOverlayStrength(doc,legacy),.7);assert.equal(legacy.overlay,false);assert.equal(legacy.overlayOpacity,0);
+ const perImage=validateDocument({text:{...doc.text,'brand.photoTreatment':'per-image'},images:{}});assert.equal(imageOverlayStrength(perImage,legacy),0);
 });

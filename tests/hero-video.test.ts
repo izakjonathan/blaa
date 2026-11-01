@@ -5,13 +5,13 @@ import { heroVideoSettings } from '../lib/hero-video.ts';
 
 test('existing documents gain video defaults without changing saved content', () => {
   const legacy = validateDocument({text: {'experience.hero.title': 'Existing title'}, images: {}});
-  assert.deepEqual(heroVideoSettings(legacy), {color:'#1A1E3A', opacity:45, saturation:100});
+  assert.deepEqual(heroVideoSettings(legacy), {color:'#1A1E3A', opacity:55, saturation:100});
   assert.equal(legacy.text['experience.hero.title'], 'Existing title');
   assert.deepEqual(heroVideoSettings(emptyDocument), heroVideoSettings(legacy));
 });
 
 test('video treatment survives validation and rejects invalid editor values', () => {
-  const text = {'experience.hero.videoOverlayColor':'#3366ff', 'experience.hero.videoOverlayOpacity':'0', 'experience.hero.videoSaturation':'200'};
+  const text = {'brand.photoTreatment':'per-image','experience.hero.videoOverlayColor':'#3366ff', 'experience.hero.videoOverlayOpacity':'0', 'experience.hero.videoSaturation':'200'};
   const roundtrip = validateDocument(JSON.parse(JSON.stringify(validateDocument({text, images:{}}))));
   assert.deepEqual(heroVideoSettings(roundtrip), {color:'#3366ff',opacity:0,saturation:200});
   for (const [key,value] of [['videoOverlayColor','red'], ['videoOverlayColor','#fff;display:none'], ['videoOverlayOpacity','101'], ['videoOverlayOpacity','-1'], ['videoSaturation','201'], ['videoSaturation','NaN'], ['videoSaturation','']]) {

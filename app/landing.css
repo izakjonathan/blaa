@@ -238,7 +238,7 @@ html.brand-intro-active .floating-header > * {
   position: absolute;
   inset: 0;
   background: url('/kroteket/hero-poster-v4.jpg') center / cover;
-  filter: saturate(var(--hero-video-saturation, 1));
+  filter: saturate(var(--hero-video-saturation, 1)) brightness(var(--hero-photo-brightness,1));
 }
 
 .hero-video {
@@ -251,7 +251,7 @@ html.brand-intro-active .floating-header > * {
   /* Safari can force native controls in Low Power Mode despite controls=false.
      Expose the video only after playback starts; the poster stays underneath. */
   opacity: 0;
-  filter: saturate(var(--hero-video-saturation, 1));
+  filter: saturate(var(--hero-video-saturation, 1)) brightness(var(--hero-photo-brightness,1));
   transition: opacity var(--video-fade-duration,240ms) var(--video-fade-ease,ease-out);
 }
 
@@ -275,7 +275,7 @@ html.brand-intro-active .floating-header > * {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: saturate(var(--hero-video-saturation, 1));
+  filter: saturate(var(--hero-video-saturation, 1)) brightness(var(--hero-photo-brightness,1));
 }
 
 .hero-video-overlay {

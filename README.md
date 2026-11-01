@@ -63,3 +63,5 @@ Release 1.3.1 replaces native footer smooth scrolling with a controlled 1.5-seco
 ## Animation controls
 
 Release 1.4.0 adds **Admin → Animations** with 39 controls for site motion, page reveals, menu/link transitions, hero text/video fade, footer scrolling/reveal/logo pulse and splash transition speed/easing. Each has safe limits and reset controls. Choose a page in Preview and use Replay preview to restart its motion; a separate splash replay is available. Save draft and Publish use the existing editor workflow. System Reduce Motion is always respected. Existing content and media remain compatible.
+
+Release 1.4.1 preserves scrolling speed as the footer takes over and leaves ongoing user movement in control until the automatic path can continue. Brand colors → Image treatment now defaults to one uniform overlay across photos, splash and video, including images with old saved off switches. Individual photo overrides remain available through the mode selector. Concert posters and brand artwork remain clear.
