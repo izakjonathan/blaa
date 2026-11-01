@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNode, type MouseEvent, type CSSProperties } from "react";
 import { afterPaint, cssTimeMs, isReducedMotion } from "../lib/motion";
 import PageMotion from "./PageMotion";
+import PhotoParallax from "./PhotoParallax";
 import { useHeaderTone } from "./useHeaderTone";
 import { useFooterEntrance } from "./useFooterEntrance";
 const areas = [{"href": "/", "label": "Forside", "description": "Bar, musik & godt selskab"}, {"href": "/events", "label": "Koncerter", "description": "Jazz, sangskrivere & livemusik"}, {"href": "/om-os", "label": "Om os", "description": "Et samlingssted på Nørrebro"}, {"href": "/galleri", "label": "Galleri", "description": "Livet på Apoteket"}, {"href": "/spil-hos-os", "label": "Spil hos os", "description": "Bliv en del af musikken"}, {"href": "/kunst", "label": "Kunst", "description": "Udstil på Apoteket"}, {"href": "/kontakt", "label": "Kontakt", "description": "Find vej & skriv til os"}];
@@ -188,6 +189,7 @@ function MarketingShell({ children }: {
         </div>)}
       {children}
       <PageMotion />
+      <PhotoParallax />
       <footer className="brand-footer">
        <div className="footer-panel">
         <div className="footer-top">

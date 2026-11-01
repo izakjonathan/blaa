@@ -9,6 +9,7 @@ import "./buttons.css";
 import "./venue.css";
 import "./footer.css";
 import "./image-treatment.css";
+import "./photo-parallax.css";
 import "./collection.css";
 import "./brand-assets.css";
 import { animationSettings } from "../lib/animation-settings";

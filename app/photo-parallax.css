@@ -1,0 +1,20 @@
+/* Clip the moving photo without moving the layout or its overlay. */
+[data-parallax-frame] {
+  overflow: hidden;
+}
+
+img[data-photo-parallax] {
+  transform: translate3d(0,var(--photo-parallax-shift,0px),0) scale(var(--photo-parallax-scale,1));
+  transform-origin: center;
+}
+
+img[data-photo-parallax][data-parallax-active] {
+  will-change: transform;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  img[data-photo-parallax] {
+    transform: none;
+    will-change: auto;
+  }
+}

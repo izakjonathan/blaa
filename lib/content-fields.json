@@ -3135,5 +3135,53 @@
     "kind": "text",
     "control": "color",
     "default": "#1A1E3A"
+  },
+  {
+    "id": "motion.parallax",
+    "page": "animations",
+    "section": "Photo parallax",
+    "label": "Enable photo parallax",
+    "kind": "text",
+    "control": "toggle",
+    "default": "true"
+  },
+  {
+    "id": "motion.parallaxMobile",
+    "page": "animations",
+    "section": "Photo parallax",
+    "label": "Mobile photo travel",
+    "kind": "text",
+    "control": "range",
+    "default": "20",
+    "min": 0,
+    "max": 80,
+    "step": 1,
+    "unit": "px"
+  },
+  {
+    "id": "motion.parallaxDesktop",
+    "page": "animations",
+    "section": "Photo parallax",
+    "label": "Desktop photo travel",
+    "kind": "text",
+    "control": "range",
+    "default": "32",
+    "min": 0,
+    "max": 120,
+    "step": 1,
+    "unit": "px"
+  },
+  {
+    "id": "motion.parallaxSmoothing",
+    "page": "animations",
+    "section": "Photo parallax",
+    "label": "Parallax smoothing",
+    "kind": "text",
+    "control": "range",
+    "default": "120",
+    "min": 0,
+    "max": 400,
+    "step": 10,
+    "unit": "ms"
   }
 ]
