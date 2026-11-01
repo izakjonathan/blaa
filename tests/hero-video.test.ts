@@ -31,6 +31,7 @@ test('background starts without gestures, has no controls and resumes when visib
   let dependencies: unknown[] = [];
   let playCalls = 0, pauseCalls = 0;
   let playing = false;
+  let stateCalls = 0;
   let blocked = true;
   const mediaListeners: Record<string,()=>void> = {};
   const media = {paused:true, muted:false, defaultMuted:false, playsInline:false,
@@ -43,7 +44,7 @@ test('background starts without gestures, has no controls and resumes when visib
   const jsx = (type:unknown,props:Record<string,unknown>) => ({type,props});
   const exports: {default?: (props?: {revealed?: boolean}) => {props:{children:{type:unknown;props:Record<string,unknown>}[]}}} = {};
   vm.runInNewContext(compiled,{exports,document,matchMedia:()=>({matches:true}),require:(name:string)=>{
-    if(name==='react')return {useEffect:(fn:typeof effect,deps:unknown[])=>{effect=fn;dependencies=deps;},useRef:()=>({current:media}),useState:()=>[playing,(value:boolean)=>{playing=value;}]};
+    if(name==='react')return {useEffect:(fn:typeof effect,deps:unknown[])=>{effect=fn;dependencies=deps;},useRef:()=>({current:media}),useState:()=>stateCalls++%2===0?[playing,(value:boolean)=>{playing=value;}]:[false,()=>{}]};
     if(name==='react/jsx-runtime')return {jsx,jsxs:jsx,Fragment:'fragment'};
     if(name==='./Content')return {useContent:()=>emptyDocument};
     if(name==='../lib/hero-video')return {heroVideoSettings};
@@ -96,4 +97,65 @@ test('background starts without gestures, has no controls and resumes when visib
   assert.equal(playCalls,5);
   assert.equal(media.paused,false);
   revealCleanup();
+});
+
+test('native MP4 image selection handles cached loads and decoding failure without leaving a video player', async () => {
+  const {readFileSync} = await import('node:fs');
+  const {default: ts} = await import('typescript');
+  const {default: vm} = await import('node:vm');
+  const compiled = ts.transpileModule(readFileSync(new URL('../app/HeroVideo.tsx', import.meta.url), 'utf8'),
+    {compilerOptions:{module:ts.ModuleKind.CommonJS,jsx:ts.JsxEmit.ReactJSX}}).outputText;
+  type Element = {type:string;props:Record<string,unknown>};
+  const exports: {default?: () => {props:{children:Element[]}}} = {};
+  const states = [false,false];
+  let stateIndex=0, refIndex=0, playCalls=0;
+  const effects: Array<()=>void | (()=>void)> = [];
+  const image = {complete:true,naturalWidth:1920,currentSrc:'https://example.test/kroteket/hero-original-v4.mp4'};
+  const media = {paused:true,muted:false,defaultMuted:false,playsInline:false,
+    play(){playCalls++;this.paused=false;return Promise.resolve();},pause(){this.paused=true;},
+    addEventListener(){},removeEventListener(){}};
+  const refs = [media,image];
+  const jsx = (type:string,props:Record<string,unknown>)=>({type,props});
+  vm.runInNewContext(compiled,{exports,document:{hidden:false,addEventListener(){},removeEventListener(){}},require:(name:string)=>{
+    if(name==='react')return {
+      useRef:()=>({current:refs[refIndex++]}),
+      useState:()=>{const index=stateIndex++;return [states[index],(value:boolean)=>{states[index]=value;}];},
+      useEffect:(effect:()=>void | (()=>void))=>{effects.push(effect);},
+    };
+    if(name==='react/jsx-runtime')return {jsx,jsxs:jsx};
+    if(name==='./Content')return {useContent:()=>emptyDocument};
+    if(name==='../lib/hero-video')return {heroVideoSettings};
+    throw new Error(name);
+  }});
+  const render = () => {stateIndex=0;refIndex=0;effects.length=0;return exports.default!();};
+  const pictureIn = (tree:ReturnType<typeof render>) => tree.props.children.find(child=>child.type==='picture')!;
+  const imageIn = (tree:ReturnType<typeof render>) => (pictureIn(tree).props.children as Element[]).find(child=>child.type==='img')!;
+  const serverTree=render();
+  const source=(pictureIn(serverTree).props.children as Element[]).find(child=>child.type==='source')!;
+  assert.equal(source.props.type,'video/mp4');
+  assert.equal(source.props.srcSet,'/kroteket/hero-original-v4.mp4');
+  assert.equal(imageIn(serverTree).props.loading,'eager');
+  // The cached image completed before React attached onLoad; mount still finds it.
+  effects[0]();
+  assert.equal(states[1],true);
+  const nativeTree=render();
+  assert.equal(pictureIn(nativeTree).props['data-active'],true);
+  assert.equal(nativeTree.props.children.some(child=>child.type==='video'),false);
+  effects[1]();assert.equal(playCalls,0); // No video-player playback on the image path.
+  const img=imageIn(nativeTree).props;
+  assert.equal(img.onClick,undefined);assert.equal(img.onTouchEnd,undefined);
+  (img.onError as ()=>void)();
+  const failedTree=render();
+  assert.equal(pictureIn(failedTree).props['data-active'],false);
+  assert.equal(failedTree.props.children.some(child=>child.type==='video'),true);
+  // Browsers choosing the JPEG fallback must retain the regular video renderer.
+  image.currentSrc='https://example.test/kroteket/hero-poster-v4.jpg';
+  (imageIn(failedTree).props.onLoad as (event:{currentTarget:typeof image})=>void)({currentTarget:image});
+  assert.equal(states[1],false);
+  const fallbackTree=render();
+  const cleanup=effects[1]();await Promise.resolve();assert.equal(playCalls,1);
+  if(cleanup)cleanup();
+  image.currentSrc='https://example.test/kroteket/hero-original-v4.mp4';image.naturalWidth=0;
+  (imageIn(fallbackTree).props.onLoad as (event:{currentTarget:typeof image})=>void)({currentTarget:image});
+  assert.equal(states[1],false); // A failed decode never displaces the working fallback.
 });
