@@ -1,1 +1,25 @@
 /* Editorial prose only: data, controls and the editor keep their own type scales. */
+
+/* Restore the Plaisir reference's statement rhythm on the public pages. */
+.experience :is(
+  .scene-content > p:not(.eyebrow),
+  .manifesto-bottom > p,
+  .split-copy > p:not(.eyebrow),
+  .world-heading > p
+) {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: var(--body-statement-size);
+  line-height: var(--body-statement-leading);
+  letter-spacing: var(--body-tracking);
+  text-align: left;
+  text-wrap: pretty;
+  max-width: 32ch;
+}
+
+/* Address and opening hours are information rather than a display statement. */
+.experience .visit-scene .scene-content > p {
+  font-size: var(--body-reading-size);
+  line-height: var(--body-reading-leading);
+  letter-spacing: -.01em;
+}

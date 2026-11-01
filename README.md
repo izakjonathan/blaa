@@ -41,3 +41,11 @@ See `docs/release-1.0.0.md` for verification and remaining setup.
 ## Artwork colours
 
 All interface logos use one alpha-mask renderer driven by the current editor document. The Brand colors tab previews the venue logo, music and art illustrations in both palette colours. The same colours apply to the header, footer, splash and draft previews. Inherited bottle artwork and its controls have been removed. Older saved bottle settings are accepted as hidden compatibility data and have no rendering effect.
+
+## Typography
+
+Release 1.1.9 restores the uploaded Plaisir reference’s public editorial text scale, tracking, line height and 32ch measure. Venue pages use the same statement style for introductions, a 56ch reading measure for longer information, and consistent display headings and metadata. Long Danish titles wrap naturally, with smaller mobile page titles. Agilera is unchanged; Bricolage Grotesque is now a bundled variable WOFF2 font with its OFL licence in public/fonts, so text no longer depends on Google Fonts loading. The editor keeps its own type scale.
+
+## Closing hero and editor palette
+
+Release 1.2.0 detects the background beneath each fixed header control independently, including nested venue sections and split photo/copy layouts. The footer is a full-height closing hero using the shared header logo and menu. Its content reveals at 5% viewport entry; after 28% has entered during downward scrolling, it settles smoothly with its top at the viewport top and briefly enlarges the header logo. Upward wheel, touch and keyboard input can interrupt the arrival. Reduced motion keeps normal scrolling without the automatic settle or logo pulse. Removed the duplicate footer logo, bottom caption and top link. Editor controls use fixed charcoal/eggshell tones independently of the editable site palette.

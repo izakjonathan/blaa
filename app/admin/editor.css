@@ -1,9 +1,9 @@
 .content-editor {
   --editor-bg: #f4f1e9;
   --editor-card: #fffdf8;
-  --editor-ink: #24331a;
-  --editor-rule: #d9dccf;
-  --editor-muted: #59634e;
+  --editor-ink: #202020;
+  --editor-rule: #d5d2ca;
+  --editor-muted: #62615d;
   background: var(--editor-bg);
   color: var(--editor-ink);
   font-family: var(--sans);
@@ -161,7 +161,7 @@ html:has(.content-editor) {
 }
 
 .content-editor :focus-visible {
-  outline: 2px solid #7e641c;
+  outline: 2px solid #202020;
   outline-offset: 3px;
 }
 
@@ -183,7 +183,7 @@ html:has(.content-editor) {
 }
 
 .editor-setup {
-  background: #e7eadf;
+  background: #e8e5dd;
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 22px;
@@ -306,7 +306,7 @@ html:has(.content-editor) {
   aspect-ratio: 4/3;
   border-radius: 10px;
   overflow: hidden;
-  background: #e7eadf;
+  background: #e8e5dd;
   margin-bottom: 18px;
 }
 
@@ -365,14 +365,14 @@ html:has(.content-editor) {
 
 .editor-message {
   font-size: 14px;
-  color: #2f582c;
+  color: #343434;
   margin: 18px 0;
   overflow-wrap: anywhere;
 }
 
 .editor-error {
   font-size: 14px;
-  color: #8b2420;
+  color: #343434;
   margin: 12px 0;
   overflow-wrap: anywhere;
 }
@@ -397,7 +397,7 @@ html:has(.content-editor) {
   background: var(--editor-bg);
   border-top: 1px solid var(--editor-rule);
   padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
-  box-shadow: 0 -5px 24px #24331a08;
+  box-shadow: 0 -5px 24px #20202008;
 }
 
 .editor-actions .editor-button {
@@ -447,11 +447,11 @@ html:has(.content-editor) {
 }
 
 .editor-dialog::backdrop {
-  background: color-mix(in srgb, var(--brand-dark) 65.8824%, transparent);
+  background: color-mix(in srgb, var(--editor-ink) 65.8824%, transparent);
 }
 
 .editor-preview::backdrop {
-  background: color-mix(in srgb, var(--brand-dark) 65.8824%, transparent);
+  background: color-mix(in srgb, var(--editor-ink) 65.8824%, transparent);
 }
 
 .editor-dialog-header {
@@ -528,7 +528,7 @@ html:has(.content-editor) {
 .editor-gallery button {
   padding: 0;
   border: 0;
-  background: #e7eadf;
+  background: #e8e5dd;
   border-radius: 9px;
   overflow: hidden;
   aspect-ratio: 3/4;
@@ -555,7 +555,7 @@ html:has(.content-editor) {
   width: 100%;
   flex: 1;
   min-height: 0;
-  background: var(--brand-green);
+  background: var(--editor-bg);
 }
 
 @media (max-width:500px) {
@@ -615,7 +615,7 @@ html:has(.content-editor) {
 .content-editor .editor-splash-toggle input {
   width: 24px;
   height: 24px;
-  accent-color: var(--brand-green);
+  accent-color: var(--editor-ink);
 }
 
 .editor-splash-range {
@@ -627,7 +627,7 @@ html:has(.content-editor) {
 .editor-splash-range input {
   flex: 1;
   min-width: 0;
-  accent-color: var(--brand-green);
+  accent-color: var(--editor-ink);
 }
 
 .editor-splash-range output {

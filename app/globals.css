@@ -8,6 +8,15 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/BricolageGrotesque-variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --green: var(--brand-green);
   --deep: var(--brand-deep);
@@ -21,6 +30,10 @@
   --body-statement-size: clamp(20px, 5.13vw, 38px);
   --body-statement-leading: 1.125;
   --body-tracking: -0.025em;
+  --body-reading-size: clamp(18px, 2vw, 24px);
+  --body-reading-leading: 1.45;
+  --body-reading-measure: 56ch;
+  --heading-card-size: clamp(28px, 3vw, 42px);
 }
 
 * {

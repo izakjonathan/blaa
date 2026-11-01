@@ -1,5 +1,4 @@
 "use client";
-import Heading from "./Heading";
 import { Copy, ContentLink, BrandArtwork } from "./Content";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -7,6 +6,7 @@ import { useEffect, useLayoutEffect, useRef, useState, useCallback, type ReactNo
 import { afterPaint, cssTimeMs, isReducedMotion } from "../lib/motion";
 import PageMotion from "./PageMotion";
 import { useHeaderTone } from "./useHeaderTone";
+import { useFooterEntrance } from "./useFooterEntrance";
 const areas = [{"href": "/", "label": "Forside", "description": "Bar, musik & godt selskab"}, {"href": "/events", "label": "Koncerter", "description": "Jazz, sangskrivere & livemusik"}, {"href": "/om-os", "label": "Om os", "description": "Et samlingssted på Nørrebro"}, {"href": "/galleri", "label": "Galleri", "description": "Livet på Apoteket"}, {"href": "/spil-hos-os", "label": "Spil hos os", "description": "Bliv en del af musikken"}, {"href": "/kunst", "label": "Kunst", "description": "Udstil på Apoteket"}, {"href": "/kontakt", "label": "Kontakt", "description": "Find vej & skriv til os"}];
 type Phase = "closed" | "opening" | "open" | "closing";
 function MarketingShell({ children }: {
@@ -15,6 +15,7 @@ function MarketingShell({ children }: {
     const pathname = usePathname();
     const router = useRouter();
     const headerTone = useHeaderTone(pathname);
+    useFooterEntrance(pathname);
     const panel = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLButtonElement>(null);
     const keyboard = useRef(false);
@@ -152,9 +153,9 @@ function MarketingShell({ children }: {
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" inert={mounted}>
-          <BrandArtwork alt="Blågårds Apotek" tone={!mounted && headerTone === "dark" ? "green" : "gold"}/>
+          <BrandArtwork alt="Blågårds Apotek" tone={!mounted && headerTone.logo === "dark" ? "green" : "gold"}/>
         </Link>
-        <button ref={button} className="burger-button" style={{color: !mounted && headerTone === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
+        <button ref={button} className="burger-button" style={{color: !mounted && headerTone.menu === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
                 keyboard.current = true;
         }} onClick={event => {
@@ -189,11 +190,10 @@ function MarketingShell({ children }: {
       <PageMotion />
       <footer className="brand-footer">
         <div className="footer-top">
-          <div className="footer-heading"><p className="eyebrow">Bar. Musik. Nørrebro.</p><Heading as="h2" data-reveal><Copy field="shared.shell.text2"/></Heading></div>
-        <Link href="/" className="footer-signature" aria-label="Blågårds Apotek — forsiden"><BrandArtwork alt="Blågårds Apotek" tone="green"/></Link>
+          <div className="footer-heading"><p className="eyebrow">Bar. Musik. Nørrebro.</p><h2><Copy field="shared.shell.text2"/></h2></div>
         </div>
 
-        <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook <span aria-hidden="true">↗︎</span></ContentLink><br/><ContentLink field="shared.instagram">Instagram <span aria-hidden="true">↗︎</span></ContentLink></div></div><div className="footer-bottom"><p><Copy field="shared.shell.text3"/></p><a href="#main" className="footer-top-link">Til toppen <span aria-hidden="true">↑</span></a></div>
+        <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook <span aria-hidden="true">↗︎</span></ContentLink><br/><ContentLink field="shared.instagram">Instagram <span aria-hidden="true">↗︎</span></ContentLink></div></div>
       </footer>
     </>);
 }

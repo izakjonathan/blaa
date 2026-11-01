@@ -39,9 +39,7 @@ export default async function RootLayout({
     <html lang="da" suppressHydrationWarning>
       <head>
         <style data-brand-palette dangerouslySetInnerHTML={{ __html: brandStyle(published) }}/>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet" />
+        <link rel="preload" href="/fonts/BricolageGrotesque-variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <style dangerouslySetInnerHTML={{ __html: INTRO_CRITICAL_CSS }}/>
         <script dangerouslySetInnerHTML={{ __html: createIntroBootstrap(splashSettings(published).enabled) }}/>
         <noscript><style>{INTRO_NO_SCRIPT_CSS}</style></noscript>
