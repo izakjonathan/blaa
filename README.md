@@ -57,3 +57,5 @@ Release 1.2.2 adds 140–240px of real background above a separate full-screen f
 ## 1.3.0 cross-project review
 
 See [the detailed comparison](docs/project-comparison-and-fixes.md) and [release verification](docs/release-1.3.0.md). This release was prepared from the uploaded baseline and has not been committed or deployed.
+
+Release 1.3.1 replaces native footer smooth scrolling with a controlled 1.5-second ease-in/ease-out animation. It retains the same full-screen destination, background extension, reduced motion and interruption behaviour.
