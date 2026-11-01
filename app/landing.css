@@ -237,7 +237,7 @@ html.brand-intro-active .floating-header > * {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('/kroteket/hero-poster.jpg') center / cover;
+  background: url('/kroteket/hero-poster-v3.jpg') center / cover;
   filter: saturate(var(--hero-video-saturation, 1));
 }
 

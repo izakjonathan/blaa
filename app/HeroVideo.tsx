@@ -40,10 +40,10 @@ export default function HeroVideo({ revealed = true }: { revealed?: boolean } = 
       '--hero-video-opacity': settings.opacity / 100,
     } as CSSProperties}>
       <video ref={video} className="hero-video" data-playing={playing} autoPlay muted loop playsInline controls={false} preload="auto"
-        poster="/kroteket/hero-poster.jpg" tabIndex={-1} disablePictureInPicture disableRemotePlayback
+        poster="/kroteket/hero-poster-v3.jpg" tabIndex={-1} disablePictureInPicture disableRemotePlayback
         controlsList="nodownload nofullscreen noremoteplayback"
         onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)} onError={() => setPlaying(false)}>
-        <source src="/kroteket/hero-v2.mp4" type="video/mp4" />
+        <source src="/kroteket/hero-v3.mp4" type="video/mp4" />
       </video>
       <div className="hero-video-overlay" />
     </div>
