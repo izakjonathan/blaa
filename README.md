@@ -90,3 +90,7 @@ Release 1.9.0 makes `/admin` the tools hub, moves the website editor to `/admin/
 ## Shared tool design
 
 Release 1.10.0 brings the website navigation, palette and display typography to Editor, SoMe Generator and all Stock Control screens. Tool controls share pills, rounded fields and responsive layouts. Change the shared tool background under **Brand colors → Backend**. See [release notes](docs/release-1.10.0.md) for scope and verification.
+
+## Simpler stock setup
+
+Release 1.11.0 introduces draft product creation, common purchase sizes, optional product details, searchable products and pack-first weekly counts. See [release notes](docs/release-1.11.0.md).

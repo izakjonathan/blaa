@@ -27,3 +27,27 @@
 .stock-control ul,.stock-control ol {padding-left:25px}
 .stock-control :focus-visible {outline:2px solid #f5f0e7;outline-offset:3px}
 @media(max-width:600px){.stock-control {padding:16px}.stock-control h1 {font-size:30px}.stock-metrics {grid-template-columns:1fr 1fr}.stock-metrics strong {font-size:24px}.stock-numbers {grid-template-columns:1fr}.stock-control header {flex-direction:column}}
+
+/* Product setup follows the buying and counting workflow. */
+.stock-settings {max-width:1000px}
+.stock-section-heading {display:flex;align-items:center;justify-content:space-between;gap:20px;margin:24px 0}
+.admin-workspace .stock-control .stock-section-heading h2 {margin:0 0 8px}
+.admin-workspace .stock-control .stock-section-heading p {margin:0}
+.stock-product-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}
+.stock-product-actions {display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+.admin-workspace .stock-control .stock-product-create {background:var(--tool-card);border:1px solid var(--tool-rule);border-radius:20px;padding:24px;margin:20px 0}
+.admin-workspace .stock-control .stock-primary {background:var(--tool-ink);color:var(--tool-bg);border-color:var(--tool-ink)}
+.admin-workspace .stock-control .stock-product-options {background:transparent;padding:16px;border-radius:14px}
+.admin-workspace .stock-control .stock-product-help {font-size:14px;margin:4px 0 16px}
+.stock-product-search {display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:20px;margin:24px 0 8px}
+.admin-workspace .stock-control .stock-product-row>summary>small {margin:8px 0 0 18px;font-size:13px;color:var(--tool-muted)}
+.stock-get-started ol {display:grid;gap:20px;margin:24px 0}
+.stock-get-started li>span {display:block;font-size:14px;color:var(--tool-muted);margin-top:4px}
+.admin-workspace .stock-control .stock-save {position:sticky;top:100px;z-index:60;background:var(--tool-bg);margin:0 0 20px}
+@media(max-width:600px){
+ .stock-section-heading {align-items:stretch;flex-direction:column;gap:16px}
+ .stock-product-fields,.stock-product-search {grid-template-columns:1fr;gap:0}
+ .admin-workspace .stock-control .stock-product-create {padding:18px}
+ .stock-product-actions>button {flex:1}
+ .admin-workspace .stock-control .stock-save {top:88px}
+}
