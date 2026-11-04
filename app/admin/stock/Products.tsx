@@ -1,7 +1,9 @@
 'use client';
 import {useState} from 'react';
-import type {Product} from '../../../lib/stock';
+import type {Product,Sale} from '../../../lib/stock';
 import {newProduct,purchaseSizes,purchaseSize,packDescription,productProblems,packsToUnits,unitsToPacks} from '../../../lib/stock-product';
+
+import TillItems from './TillItems';
 
 const price=(value:number)=>new Intl.NumberFormat('da-DK',{style:'currency',currency:'DKK',maximumFractionDigits:2}).format(value);
 function ProductFields({product:p,change,locked=false,isNew=false}:{product:Product;change:(patch:Partial<Product>)=>void;locked?:boolean;isNew?:boolean}){
@@ -29,15 +31,15 @@ function ProductFields({product:p,change,locked=false,isNew=false}:{product:Prod
   {locked&&<small>Stock measure is locked because this product has been counted. Changes to sizes and prices apply to new periods.</small>}
  </>;
 }
-export default function Products({products,usedIds,draft,setDraft,onAdd,onChange}:{products:Product[];usedIds:Set<string>;draft:Product|null;setDraft:(draft:Product|null)=>void;onAdd:(product:Product)=>void;onChange:(id:string,patch:Partial<Product>)=>void}){
- const [search,setSearch]=useState(''),[archived,setArchived]=useState(false),[error,setError]=useState('');
+export default function Products({products,usedIds,draft,setDraft,onAdd,onChange,sales,onAddSale,onChangeSale,onRemoveSale}:{products:Product[];usedIds:Set<string>;draft:Product|null;setDraft:(draft:Product|null)=>void;onAdd:(product:Product)=>void;onChange:(id:string,patch:Partial<Product>)=>void;sales:Sale[];onAddSale:(sale:Sale)=>void;onChangeSale:(id:string,patch:Partial<Sale>)=>void;onRemoveSale:(id:string)=>void}){
+ const [search,setSearch]=useState(''),[archived,setArchived]=useState(false),[error,setError]=useState(''),[expanded,setExpanded]=useState<string|null>(null);
  const visible=products.filter(p=>(archived||p.active)&&`${p.name} ${p.category} ${p.supplier} ${p.sku}`.toLowerCase().includes(search.toLowerCase()));
  return <section aria-labelledby="stock-products-title">
-  <div className="stock-section-heading"><div><h2 id="stock-products-title">Products</h2><p>Add what you buy. You can connect it to till sales below.</p></div>{!draft&&<button className="stock-primary" onClick={()=>{setError('');setDraft(newProduct(crypto.randomUUID()));}}>Add product</button>}</div>
-  {draft&&<section className="stock-product-create" aria-labelledby="stock-new-product"><h3 id="stock-new-product">New product</h3><ProductFields key={draft.id} product={draft} isNew change={patch=>{setError('');setDraft({...draft,...patch});}}/>{error&&<p role="alert">{error}</p>}<div className="stock-product-actions"><button className="stock-primary" onClick={()=>{const problems=productProblems(draft);if(problems.length){setError(problems.join(' '));return;}onAdd({...draft,name:draft.name.trim()});setDraft(null);setSearch('');setError('');}}>Add to products</button><button onClick={()=>{setDraft(null);setError('');}}>Cancel</button></div><small>Added products are saved with Save changes at the top.</small></section>}
+  <div className="stock-section-heading"><div><h2 id="stock-products-title">Products</h2><p>Add what you buy. Open a product to edit its details and connect till items.</p></div>{!draft&&<button className="stock-primary" onClick={()=>{setError('');setDraft(newProduct(crypto.randomUUID()));}}>Add product</button>}</div>
+  {draft&&<section className="stock-product-create" aria-labelledby="stock-new-product"><h3 id="stock-new-product">New product</h3><ProductFields key={draft.id} product={draft} isNew change={patch=>{setError('');setDraft({...draft,...patch});}}/>{error&&<p role="alert">{error}</p>}<div className="stock-product-actions"><button className="stock-primary" onClick={()=>{const problems=productProblems(draft);if(problems.length){setError(problems.join(' '));return;}onAdd({...draft,name:draft.name.trim()});setExpanded(draft.id);setDraft(null);setSearch('');setError('');}}>Add to products</button><button onClick={()=>{setDraft(null);setError('');}}>Cancel</button></div><small>Added products are saved with Save changes at the top.</small></section>}
   {products.length>0&&<div className="stock-product-search"><label>Find a product<input type="search" placeholder="Search name, category or supplier" value={search} onChange={e=>setSearch(e.target.value)}/></label><label><input type="checkbox" checked={archived} onChange={e=>setArchived(e.target.checked)}/> Show inactive products</label></div>}
   {!products.length&&!draft&&<p>No products yet. Start with one bottle, keg, case or other item you buy.</p>}
   {products.length>0&&!visible.length&&<p>No matching products. Try another search or show inactive products.</p>}
-  {visible.map(p=><details className="stock-product-row" key={p.id}><summary><span>{p.name}{p.active?'':' · Inactive'}</span><small>{packDescription(p)} · {p.packCost?price(p.packCost):'Price not set'}</small></summary><ProductFields product={p} locked={usedIds.has(p.id)} change={patch=>onChange(p.id,patch)}/>{productProblems(p).length>0&&<p role="alert">{productProblems(p).join(' ')}</p>}</details>)}
+  {visible.map(p=><details className="stock-product-row" key={p.id} open={expanded===p.id} onToggle={e=>{const open=e.currentTarget.open;setExpanded(previous=>open?p.id:previous===p.id?null:previous);}}><summary><span>{p.name}{p.active?'':' · Inactive'}</span><small>{packDescription(p)} · {p.packCost?price(p.packCost):'Price not set'}</small></summary><ProductFields product={p} locked={usedIds.has(p.id)} change={patch=>onChange(p.id,patch)}/>{productProblems(p).length>0&&<p role="alert">{productProblems(p).join(' ')}</p>}<TillItems product={p} products={products} sales={sales} onAdd={onAddSale} onChange={onChangeSale} onRemove={onRemoveSale}/></details>)}
  </section>;
 }
