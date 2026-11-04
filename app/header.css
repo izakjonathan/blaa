@@ -76,3 +76,16 @@ html.menu-navigating {
     width: 107px;
   }
 }
+
+/* Backend navigation stays readable while forms scroll underneath. */
+.floating-header[data-admin=true] {
+ display:flex;position:fixed;inset:0 0 auto;z-index:90;align-items:center;justify-content:space-between;
+ min-height:100px;padding:20px max(var(--gutter),env(safe-area-inset-right)) 20px max(var(--gutter),env(safe-area-inset-left));
+ background:var(--backend-bg);border-bottom:1px solid var(--rule);color:var(--brand-gold);
+}
+.floating-header[data-admin-home=true] {background:var(--green);border-bottom:0}
+.floating-header[data-admin=true]> * {position:static;pointer-events:auto}
+.admin-home-button {display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 22px;border:1px solid var(--rule);border-radius:999px;color:inherit;text-decoration:none;font:15px/1.3 var(--sans)}
+.admin-home-button:is(:hover,:focus-visible) {background:color-mix(in srgb,var(--brand-gold) 10%,transparent)}
+.admin-home-button:focus-visible {outline:2px solid currentColor;outline-offset:4px}
+@media(max-width:600px){.floating-header[data-admin=true] {min-height:88px;padding-block:18px}.admin-home-button {padding-inline:18px}}

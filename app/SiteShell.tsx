@@ -159,11 +159,11 @@ function MarketingShell({ children }: {
     return (<>
       <div className="brand-grain" aria-hidden="true"/>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
-      <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
+      <header className="floating-header" data-admin={tools || undefined} data-admin-home={pathname==='/admin' || undefined} data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" onClick={event=>{if(tools&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&document.documentElement.dataset.adminUnsaved==='true'&&!window.confirm('Leave without saving your changes?'))event.preventDefault();}} inert={mounted}>
           <BrandArtwork alt="Blågårds Apotek" tone={!mounted && headerTone.logo === "dark" ? "green" : "gold"}/>
         </Link>
-        <button ref={button} className="burger-button" style={{color: !mounted && headerTone.menu === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
+        {tools ? <Link href="/admin" className="admin-home-button" onClick={event=>{if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&pathname!=='/admin'&&document.documentElement.dataset.adminUnsaved==='true'&&!window.confirm('Leave without saving your changes?'))event.preventDefault();}}>Back</Link> : <button ref={button} className="burger-button" style={{color: !mounted && headerTone.menu === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
                 keyboard.current = true;
         }} onClick={event => {
@@ -182,9 +182,9 @@ function MarketingShell({ children }: {
             <path className="burger-stroke burger-top" d="M3 10H25"/>
             <path className="burger-stroke burger-bottom" d="M3 18H25"/>
           </svg>
-        </button>
+        </button>}
       </header>
-      {mounted && (<div ref={panel} id="site-menu" className="site-menu" data-phase={phase} role="dialog" aria-modal="true" aria-label="Udforsk Blågårds Apotek" aria-hidden={!visible} inert={!visible} onPointerDown={() => { keyboard.current = false; }} onTransitionEnd={event => {
+      {!tools && mounted && (<div ref={panel} id="site-menu" className="site-menu" data-phase={phase} role="dialog" aria-modal="true" aria-label="Udforsk Blågårds Apotek" aria-hidden={!visible} inert={!visible} onPointerDown={() => { keyboard.current = false; }} onTransitionEnd={event => {
                 if (phase === "closing" && event.target === event.currentTarget && event.propertyName === "transform")
                     finish();
             }}>

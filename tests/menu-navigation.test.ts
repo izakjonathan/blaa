@@ -25,7 +25,8 @@ function harness(initialPath='/',leaveConfirmed=true){
  function paint(){const work=[...frames.values()];frames.clear();work.forEach(fn=>fn());}
  function open(){render();nodes(tree).find(n=>n.props.className==='burger-button')!.props.onClick({detail:1});render();paint();paint();render();}
  function choose(href:string){nodes(tree).find(n=>n.props.href===href&&n.props.onClick&&Object.hasOwn(n.props,'aria-current'))!.props.onClick({preventDefault(){},metaKey:false,ctrlKey:false,shiftKey:false,altKey:false});}
- return {dataset,confirmations,open,choose,render,paint,menu,pushes,prefetches,scrolls,classes,route:(p:string)=>{pathname=p;render();},unmount:()=>slots.forEach(s=>s?.cleanup?.())};
+ function back(){const link=nodes(tree).find(n=>n.props.className==='admin-home-button');let prevented=false;link!.props.onClick({preventDefault(){prevented=true;},metaKey:false,ctrlKey:false,shiftKey:false,altKey:false});return {href:link!.props.href,prevented};}
+ return {dataset,confirmations,back,hasBurger:()=>nodes(tree).some(n=>n.props.className==='burger-button'),open,choose,render,paint,menu,pushes,prefetches,scrolls,classes,route:(p:string)=>{pathname=p;render();},unmount:()=>slots.forEach(s=>s?.cleanup?.())};
 }
 test('menu route selection disables Next scrolling and jumps instantly before revealing the destination',()=>{
  const h=harness();h.open();h.choose('/om-os');
@@ -54,9 +55,11 @@ test('opening the menu warms every other destination before a selection',()=>{
  h.unmount();
 });
 
-for(const confirmed of [false,true])test(`backend menu ${confirmed?'allows':'cancels'} leaving unsaved changes after confirmation`,()=>{
- const h=harness('/admin/editor',confirmed);h.open();h.dataset.adminUnsaved='true';h.choose('/admin/stock');
- assert.equal(h.confirmations.length,1);
- assert.equal(h.pushes.length,confirmed?1:0);
- assert.equal(h.classes.has('menu-navigating'),confirmed);h.unmount();
+for(const confirmed of [false,true])test(`backend back link ${confirmed?'allows':'cancels'} leaving unsaved changes after confirmation`,()=>{
+ const h=harness('/admin/editor',confirmed);h.render();h.dataset.adminUnsaved='true';const link=h.back();
+ assert.equal(link.href,'/admin');assert.equal(link.prevented,!confirmed);assert.equal(h.confirmations.length,1);
+ assert.equal(h.hasBurger(),false);assert.equal(h.menu(),undefined);h.unmount();
+});
+test('backend landing back link is safe to activate without an unsaved warning',()=>{
+ const h=harness('/admin',false);h.render();h.dataset.adminUnsaved='true';assert.equal(h.back().prevented,false);assert.equal(h.confirmations.length,0);h.unmount();
 });
