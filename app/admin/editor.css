@@ -1,9 +1,9 @@
 .content-editor {
-  --editor-bg: #f4f1e9;
-  --editor-card: #fffdf8;
-  --editor-ink: #202020;
-  --editor-rule: #d5d2ca;
-  --editor-muted: #62615d;
+  --editor-bg: var(--tool-bg);
+  --editor-card: var(--tool-card);
+  --editor-ink: var(--tool-ink);
+  --editor-rule: var(--tool-rule);
+  --editor-muted: var(--tool-muted);
   background: var(--editor-bg);
   color: var(--editor-ink);
   font-family: var(--sans);
@@ -11,12 +11,7 @@
   padding-bottom: calc(110px + env(safe-area-inset-bottom));
   line-height: 1.5;
   font-size: 16px;
-  color-scheme: light;
-}
-
-html:has(.content-editor) {
-  background: #f4f1e9;
-  background-image: none;
+  color-scheme: dark;
 }
 
 .content-editor h1 {
@@ -67,11 +62,7 @@ html:has(.content-editor) {
   background: var(--editor-bg);
 }
 
-.editor-brand {
-  font-family: var(--display),serif;
-  font-size: 32px;
-  line-height: 1.2;
-}
+
 
 .editor-header h1 {
   font-size: 12px;
@@ -161,7 +152,7 @@ html:has(.content-editor) {
 }
 
 .content-editor :focus-visible {
-  outline: 2px solid #202020;
+  outline: 2px solid var(--tool-ink);
   outline-offset: 3px;
 }
 
@@ -183,7 +174,7 @@ html:has(.content-editor) {
 }
 
 .editor-setup {
-  background: #e8e5dd;
+  background: var(--tool-card);
   border-radius: 16px;
   padding: 20px;
   margin-bottom: 22px;
@@ -214,7 +205,7 @@ html:has(.content-editor) {
 
 .editor-tabs button[aria-pressed=true] {
   background: var(--editor-ink);
-  color: #fffdf8;
+  color: var(--tool-bg);
   border-color: var(--editor-ink);
 }
 
@@ -306,7 +297,7 @@ html:has(.content-editor) {
   aspect-ratio: 4/3;
   border-radius: 10px;
   overflow: hidden;
-  background: #e8e5dd;
+  background: var(--tool-card);
   margin-bottom: 18px;
 }
 
@@ -365,14 +356,14 @@ html:has(.content-editor) {
 
 .editor-message {
   font-size: 14px;
-  color: #343434;
+  color: var(--tool-muted);
   margin: 18px 0;
   overflow-wrap: anywhere;
 }
 
 .editor-error {
   font-size: 14px;
-  color: #343434;
+  color: var(--tool-muted);
   margin: 12px 0;
   overflow-wrap: anywhere;
 }
@@ -397,7 +388,7 @@ html:has(.content-editor) {
   background: var(--editor-bg);
   border-top: 1px solid var(--editor-rule);
   padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
-  box-shadow: 0 -5px 24px #20202008;
+  box-shadow: 0 -5px 24px transparent;
 }
 
 .editor-actions .editor-button {
@@ -408,7 +399,7 @@ html:has(.content-editor) {
 
 .editor-actions .editor-publish {
   background: var(--editor-ink);
-  color: #fffdf8;
+  color: var(--tool-bg);
 }
 
 .editor-actions.editor-keyboard {
@@ -528,7 +519,7 @@ html:has(.content-editor) {
 .editor-gallery button {
   padding: 0;
   border: 0;
-  background: #e8e5dd;
+  background: var(--tool-card);
   border-radius: 9px;
   overflow: hidden;
   aspect-ratio: 3/4;

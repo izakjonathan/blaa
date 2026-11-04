@@ -86,3 +86,7 @@ Release 1.8.0 adds **Admin → Content Studio · Social posts** at `/admin/socia
 ## Backend tools and stock control
 
 Release 1.9.0 makes `/admin` the tools hub, moves the website editor to `/admin/editor`, and adds `/admin/stock` alongside the SoMe Generator. The hub uses the public top navigation and a background editable under Brand colors → Backend. Stock Control includes product/recipe settings, weekly counts and movements, till quantities, cost-weighted waste/loss dashboards, period locking, audit revisions and exports. See [the release guide](docs/release-1.9.0.md) and [detailed inventory research](docs/stock-control-research.md).
+
+## Shared tool design
+
+Release 1.10.0 brings the website navigation, palette and display typography to Editor, SoMe Generator and all Stock Control screens. Tool controls share pills, rounded fields and responsive layouts. Change the shared tool background under **Brand colors → Backend**. See [release notes](docs/release-1.10.0.md) for scope and verification.

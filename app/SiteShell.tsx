@@ -18,7 +18,7 @@ function MarketingShell({ children }: {
     children: ReactNode;
 }) {
     const pathname = usePathname();
-    const tools = pathname === '/admin';
+    const tools = pathname.startsWith('/admin');
     const areas = tools ? toolAreas : publicAreas;
     const router = useRouter();
     const headerTone = useHeaderTone(pathname);
@@ -146,6 +146,7 @@ function MarketingShell({ children }: {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
             return;
         event.preventDefault();
+        if(tools && href!==pathname && document.documentElement.dataset.adminUnsaved==='true' && !window.confirm('Leave without saving your changes?'))return;
         if (href === pathname) {
             close();
             return;
@@ -159,7 +160,7 @@ function MarketingShell({ children }: {
       <div className="brand-grain" aria-hidden="true"/>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
       <header className="floating-header" data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
-        <Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" inert={mounted}>
+        <Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" onClick={event=>{if(tools&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&document.documentElement.dataset.adminUnsaved==='true'&&!window.confirm('Leave without saving your changes?'))event.preventDefault();}} inert={mounted}>
           <BrandArtwork alt="Blågårds Apotek" tone={!mounted && headerTone.logo === "dark" ? "green" : "gold"}/>
         </Link>
         <button ref={button} className="burger-button" style={{color: !mounted && headerTone.menu === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
@@ -194,10 +195,7 @@ function MarketingShell({ children }: {
           </nav>
         </div>)}
       {children}
-      <RouteCurtain />
-      <PageMotion />
-      <PhotoParallax />
-      <EditorialPhotos />
+      {!tools && <><RouteCurtain /><PageMotion /><PhotoParallax /><EditorialPhotos /></>}
       {!tools && <footer className="brand-footer">
        <div className="footer-panel">
         <div className="footer-top">
@@ -212,5 +210,5 @@ function MarketingShell({ children }: {
 
 export default function SiteShell({children}:{children:ReactNode}) {
  const pathname=usePathname();
- return pathname.startsWith("/admin/") ? <>{children}</> : <MarketingShell>{children}</MarketingShell>;
+ return <MarketingShell>{pathname.startsWith("/admin")?<div className="admin-workspace">{children}</div>:children}</MarketingShell>;
 }

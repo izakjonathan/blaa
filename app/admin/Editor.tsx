@@ -91,8 +91,9 @@ export default function Editor(){
   }catch(error){setError(error instanceof Error?error.message:'Image upload failed.');}
   finally{setBusy('');if(fileInput.current)fileInput.current.value='';}
  };
+ useEffect(()=>{window.document.documentElement.dataset.adminUnsaved=String(dirty);return()=>{delete window.document.documentElement.dataset.adminUnsaved;};},[dirty]);
  return <main id="main" className="content-editor">
-  <header className="editor-header"><div><span className="editor-brand">Blågårds Apotek</span><h1>Content editor</h1><a href="/admin" className="editor-button" onClick={e=>{if(dirty&&!window.confirm('Leave without saving your draft?'))e.preventDefault();}}>All tools</a><a href="/admin/social-generator" className="editor-button" onClick={e=>{if(dirty&&!window.confirm('Leave without saving your draft?'))e.preventDefault();}}>Content Studio · Social posts</a></div><a href="/" className="editor-button" onClick={e=>{if(dirty&&!window.confirm('Leave without saving your draft?'))e.preventDefault();}}>View site</a></header>
+  <header className="editor-header"><h1>Editor</h1><a href="/admin" className="editor-button" onClick={e=>{if(dirty&&!window.confirm('Leave without saving your draft?'))e.preventDefault();}}>All tools</a></header>
   <div className="editor-body">
    {!ready&&!loading&&<aside className="editor-setup"><strong>Storage setup needed</strong><p>Connect Neon Postgres and a private Blob store to the Blågårds Apotek project in Vercel, then redeploy. You can explore fields and preview changes now; saving and new uploads become available after setup.</p><button onClick={()=>void load()} className="editor-button">Check connection</button></aside>}
    {ready&&!mediaReady&&<aside className="editor-setup"><strong>Image uploads need a Blob store</strong><p>Text editing and the existing image library are available. Connect a private Vercel Blob store to upload new photos.</p></aside>}

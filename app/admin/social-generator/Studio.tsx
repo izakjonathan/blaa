@@ -31,8 +31,8 @@ export default function Studio(){
  const upload=(event:ChangeEvent<HTMLInputElement>,fn:(file:File)=>Promise<void>)=>{const file=event.target.files?.[0];event.target.value='';if(file)void attempt(()=>fn(file));};
  const number=(label:string,value:number,min:number,max:number,step:number,change:(value:number)=>void)=><label>{label}<input type="number" value={value} min={min} max={max} step={step} onChange={e=>change(Math.max(min,Math.min(max,Number(e.target.value)||min)))}/></label>;
  const move=(offset:number)=>{if(!current)return;const layers=[...template.layers],index=layers.indexOf(current),to=index+offset;if(to<0||to>=layers.length)return;[layers[index],layers[to]]=[layers[to],layers[index]];update({layers});};
- return <main className="social-studio">
-  <header><div><p>Blågårds Apotek</p><h1>Content Studio</h1></div><a href="/admin">All tools</a></header>
+ return <main id="main" className="social-studio">
+  <header><div><h1>SoMe Generator</h1></div><a href="/admin">All tools</a></header>
   <div className="social-workspace"><div className="social-controls"><fieldset className="social-form" disabled={busy}>
    <section><h2>1. Choose a template</h2><label>Template<select disabled={busy} value={template.id} onChange={event=>{const id=event.target.value,token=++load.current;if(id==='square'||id==='story'){choose(starter(id==='story'));return;}void attempt(async()=>{const data=await request('/api/editor/social?id='+encodeURIComponent(id));if(token!==load.current)return;if(!data.record)throw Error('Template is no longer available.');choose(validateTemplate(data.record.document),data.record.revision);});}}>
     <option value="square">Starter · Square</option><option value="story">Starter · Story</option>{saved.map(t=><option key={t.id} value={t.id}>{t.name}</option>)}{!['square','story',...saved.map(t=>t.id)].includes(template.id)&&<option value={template.id}>{template.name} (unsaved)</option>}

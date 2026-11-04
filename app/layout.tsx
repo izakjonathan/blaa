@@ -14,6 +14,7 @@ import "./collection.css";
 import "./brand-assets.css";
 import "./editorial-motion.css";
 import "./route-curtain.css";
+import "./admin/tool-theme.css";
 import { animationSettings } from "../lib/animation-settings";
 import { brandStyle } from "../lib/brand";
 import SiteShell from "./SiteShell";
