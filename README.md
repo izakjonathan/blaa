@@ -77,3 +77,7 @@ Release 1.6.0 adds Agrumea-inspired masked heading letters, selected scroll-expa
 ## Page transitions
 
 Release 1.7.0 adds a short branded page curtain (300ms cover / 400ms reveal), immediate destination prefetch, covered scroll restoration, focus handling and interruption/timeout cleanup. Menu navigation reuses its existing panel instead of adding a second curtain. Six controls are under **Admin → Animations → Page transitions**. Reduce Motion bypasses the curtain. See [release notes](docs/release-1.7.0.md) for verification and deployment instructions.
+
+## Social Content Studio
+
+Release 1.8.0 adds **Admin → Content Studio · Social posts** at `/admin/social-generator`: reusable uploaded/saved templates, background and artwork layers, custom fonts, replaceable photos, automatic text fitting, draggable/numeric placement and full-resolution PNG download. Templates can be shared through the existing database or transferred as self-contained JSON files. See [the studio guide](docs/release-1.8.0.md) for limits, persistence and verification.

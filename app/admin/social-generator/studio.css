@@ -1,0 +1,24 @@
+.social-studio {min-height:100vh;background:#171717;color:#f5f0e7;padding:24px;font:16px/1.5 var(--sans,Arial)}
+.social-studio header {display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:28px}
+.social-studio h1 {font:32px/1.2 var(--sans,Arial);margin:0}
+.social-studio h2 {font:20px/1.3 var(--sans,Arial);margin:0 0 16px}
+.social-studio p {font:14px/1.5 var(--sans,Arial);margin:12px 0}
+.social-studio a {color:#f5f0e7;text-decoration:underline}
+.social-workspace {display:grid;grid-template-columns:minmax(300px,480px) minmax(0,1fr);gap:32px;max-width:1400px;margin:auto}
+.social-controls section,.social-controls details {padding:20px;border:1px solid #555;margin-bottom:20px;background:#222}
+.social-studio label {display:grid;gap:6px;margin:12px 0;font-size:14px}
+.social-studio input,.social-studio select,.social-studio textarea {font:inherit;min-width:0;width:100%;padding:10px;color:#f5f0e7;background:#171717;border:1px solid #777;border-radius:3px}
+.social-studio input[type=color] {height:46px}
+.social-studio button {font:inherit;padding:10px 14px;border:1px solid #777;border-radius:3px;color:#171717;background:#f5f0e7;min-height:44px;cursor:pointer}
+.social-studio button:disabled {opacity:.45;cursor:default}
+.social-buttons {display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.social-numbers {display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.social-studio fieldset {border:1px solid #666;padding:12px;min-width:0;margin-top:16px}
+.social-studio summary {cursor:pointer;min-height:44px}
+.social-preview {position:sticky;top:24px;align-self:start;min-width:0;text-align:center}
+.social-preview canvas {display:block;width:min(100%,calc(78vh * var(--social-ratio)));max-width:600px;height:auto;margin:auto;background:#111;border:1px solid #555}
+.social-studio :focus-visible {outline:2px solid #f5f0e7;outline-offset:3px}
+@media(max-width:800px){.social-workspace {display:flex;flex-direction:column}.social-preview {position:static;order:-1}.social-studio {padding:16px}.social-preview canvas {width:min(100%,calc(55vh * var(--social-ratio)))}.social-studio header {align-items:flex-start}}
+
+.social-studio .social-form {border:0;padding:0;margin:0;min-width:0}
+.social-preview canvas[data-design="true"] {touch-action:none;cursor:move}

@@ -6,9 +6,8 @@ export function requireSameOrigin(request: Request) {
   const expected = forwardedHost ? `${target.protocol}//${forwardedHost}` : target.origin;
   if (!origin || (origin !== target.origin && origin !== expected) || request.headers.get('sec-fetch-site') === 'cross-site') throw new Error('This request must come from the editor on this website.');
 }
-export async function readJSON(request: Request) {
+export async function readJSON(request: Request, limit = 320000) {
   if (!request.headers.get('content-type')?.includes('application/json')) throw new Error('Expected JSON.');
-  const limit = 320000;
   const declared = Number(request.headers.get('content-length'));
   if (Number.isFinite(declared) && declared > limit) throw new Error('Request is too large.');
   if (!request.body) throw new Error('Invalid JSON request.');
