@@ -159,7 +159,7 @@ function MarketingShell({ children }: {
     return (<>
       <div className="brand-grain" aria-hidden="true"/>
       <a className="skip-link" href="#main"><Copy field="shared.shell.text1"/></a>
-      <header className="floating-header" data-admin={tools || undefined} data-admin-home={pathname==='/admin' || undefined} data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
+      <header className="floating-header" data-admin={tools || undefined} data-admin-stock={pathname==='/admin/stock'||undefined} data-admin-home={pathname==='/admin' || undefined} data-page={(pathname === "/financials" || pathname === "/financials-v2") ? "financials" : "experience"}>
         <Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" onClick={event=>{if(tools&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&document.documentElement.dataset.adminUnsaved==='true'&&!window.confirm('Leave without saving your changes?'))event.preventDefault();}} inert={mounted}>
           <BrandArtwork alt="Blågårds Apotek" tone={!mounted && headerTone.logo === "dark" ? "green" : "gold"}/>
         </Link>

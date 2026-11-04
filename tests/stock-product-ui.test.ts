@@ -23,13 +23,13 @@ test('new product opens a draft and Cancel discards it without adding a stock re
  h.click('Cancel');assert.equal(h.draft(),null);assert.equal(h.added.length,0);
 });
 test('Add requires a valid named product and commits exactly once before clearing the draft',()=>{
- const h=harness();h.click('Add product');h.click('Add to products');assert.equal(h.added.length,0);
+ const h=harness();h.click('Add product');h.click('Add product');assert.equal(h.added.length,0);
  assert.ok(h.nodes().some(n=>n.props.role==='alert'&&n.props.children.includes('product name')));
- h.draft()!.name='  House gin  ';h.click('Add to products');assert.equal(h.added.length,1);assert.equal(h.added[0].name,'House gin');assert.equal(h.draft(),null);
+ h.draft()!.name='  House gin  ';h.click('Add product');assert.equal(h.added.length,1);assert.equal(h.added[0].name,'House gin');assert.equal(h.draft(),null);
 });
 
 test('a newly added product opens its own card with the connected till section',()=>{
- const h=harness();h.click('Add product');h.draft()!.name='Beer';h.click('Add to products');
+ const h=harness();h.click('Add product');h.draft()!.name='Beer';h.click('Add product');
  const card=h.nodes().find(n=>n.props.className==='stock-product-row');assert.equal(card.props.open,true);
  assert.ok(h.nodes().some(n=>n.props.product?.id===h.added[0].id&&n.props.onAdd));
 });

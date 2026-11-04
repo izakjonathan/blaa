@@ -6,86 +6,66 @@
  --tool-muted:color-mix(in srgb,var(--tool-ink) 78%,var(--tool-bg));
  min-height:100svh;background:var(--tool-bg);color:var(--tool-ink);color-scheme:dark;
 }
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) {
+.admin-workspace :is(.content-editor,.social-studio) {
  background:var(--tool-bg);color:var(--tool-ink);padding:144px max(var(--gutter),env(safe-area-inset-right)) 80px max(var(--gutter),env(safe-area-inset-left));
  max-width:1600px;margin:auto;min-width:0;font:16px/1.55 var(--sans);
 }
 .admin-workspace .content-editor {max-width:1200px;padding-bottom:calc(120px + env(safe-area-inset-bottom))}
-.admin-workspace :is(.editor-header,.stock-control>header,.social-studio>header) {
+.admin-workspace :is(.editor-header,.social-studio>header) {
  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;
  padding:0 0 28px;margin:0 0 30px;border-bottom:1px solid var(--tool-rule);background:transparent;
 }
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) h1 {
+.admin-workspace :is(.content-editor,.social-studio) h1 {
  font:clamp(38px,5vw,68px)/1.05 var(--display);letter-spacing:-.025em;text-transform:none;
  color:var(--tool-ink);margin:0;overflow-wrap:anywhere;
 }
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) h2 {font:clamp(24px,2.5vw,34px)/1.15 var(--display);color:var(--tool-ink);letter-spacing:-.015em;margin:32px 0 16px}
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) p {font-size:15px;line-height:1.6;color:var(--tool-muted);overflow-wrap:anywhere}
-.admin-workspace :is(.stock-control,.social-studio) a {color:var(--tool-ink)}
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) button,
+.admin-workspace :is(.content-editor,.social-studio) h2 {font:clamp(24px,2.5vw,34px)/1.15 var(--display);color:var(--tool-ink);letter-spacing:-.015em;margin:32px 0 16px}
+.admin-workspace :is(.content-editor,.social-studio) p {font-size:15px;line-height:1.6;color:var(--tool-muted);overflow-wrap:anywhere}
+.admin-workspace :is(.social-studio) a {color:var(--tool-ink)}
+.admin-workspace :is(.content-editor,.social-studio) button,
 .admin-workspace .editor-button {
  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;
  border:1px solid var(--tool-rule);border-radius:999px;padding:11px 20px;
  background:transparent;color:var(--tool-ink);font:15px/1.3 var(--sans);font-weight:400;cursor:pointer;
  text-decoration:none;text-align:center;white-space:normal;max-width:100%;margin:0;touch-action:manipulation;
 }
-.admin-workspace :is(.editor-tabs button[aria-pressed=true],.stock-control button[aria-current=page],.editor-actions .editor-publish) {background:var(--tool-ink);color:var(--tool-bg);border-color:var(--tool-ink)}
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) button:disabled {opacity:.4;cursor:default}
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) :is(input:not([type=checkbox]):not([type=range]):not([type=color]),select,textarea) {
+.admin-workspace :is(.editor-tabs button[aria-pressed=true],.editor-actions .editor-publish) {background:var(--tool-ink);color:var(--tool-bg);border-color:var(--tool-ink)}
+.admin-workspace :is(.content-editor,.social-studio) button:disabled {opacity:.4;cursor:default}
+.admin-workspace :is(.content-editor,.social-studio) :is(input:not([type=checkbox]):not([type=range]):not([type=color]),select,textarea) {
  width:100%;min-width:0;max-width:100%;border:1px solid var(--tool-rule);border-radius:14px;
  background:var(--tool-card);color:var(--tool-ink);padding:13px 15px;min-height:48px;font:16px/1.5 var(--sans);
 }
 .admin-workspace input[type=checkbox] {accent-color:var(--tool-ink);flex-shrink:0}
 .admin-workspace input[type=file]::file-selector-button {border:1px solid var(--tool-rule);border-radius:999px;padding:8px 12px;background:var(--tool-bg);color:var(--tool-ink);margin-right:12px}
-.admin-workspace :is(.social-controls section,.social-controls details,.stock-control details,.stock-control fieldset,.social-studio fieldset,.stock-metrics article) {background:var(--tool-card);border:1px solid var(--tool-rule);border-radius:20px}
-.admin-workspace :is(.stock-control,.social-studio) :is(.social-form,.stock-form) {background:transparent;border:0;padding:0;margin:0;min-width:0}
-.admin-workspace :is(.stock-control,.social-studio) summary {padding:4px 0;font:18px/1.4 var(--sans);overflow-wrap:anywhere}
-.admin-workspace .stock-alert {background:var(--tool-card);border-color:var(--tool-ink);border-radius:18px}
-.admin-workspace .stock-table :is(td,th) {border-color:var(--tool-rule);font-size:14px}
-.admin-workspace :is(.stock-save,.stock-filters) {padding:18px 0;border-bottom:1px solid var(--tool-rule)}
+.admin-workspace :is(.social-controls section,.social-controls details,.social-studio fieldset) {background:var(--tool-card);border:1px solid var(--tool-rule);border-radius:20px;padding:24px;margin-block:20px}
+.admin-workspace :is(.social-studio) :is(.social-form) {background:transparent;border:0;padding:0;margin:0;min-width:0}
+.admin-workspace :is(.social-studio) summary {padding:4px 0;font:18px/1.4 var(--sans);overflow-wrap:anywhere}
 .admin-workspace .editor-body {max-width:none;padding:0;margin:auto}
 .admin-workspace .editor-actions {background:var(--tool-bg);border-color:var(--tool-rule);z-index:70;gap:12px}
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) :focus-visible {outline:2px solid var(--tool-ink);outline-offset:3px}
+.admin-workspace :is(.content-editor,.social-studio) :focus-visible {outline:2px solid var(--tool-ink);outline-offset:3px}
 .admin-workspace .social-preview {top:130px}
 .admin-workspace .social-preview canvas {border-color:var(--tool-rule);border-radius:16px}
-@media(min-width:1200px){.admin-workspace .stock-form {max-width:1380px;margin:auto}}
 @media(max-width:800px){
- .admin-workspace :is(.content-editor,.stock-control,.social-studio) {padding-top:120px;padding-left:var(--gutter);padding-right:var(--gutter)}
- .admin-workspace .stock-control nav {display:grid;grid-template-columns:1fr 1fr;gap:10px}
- .admin-workspace .stock-control nav>button {width:100%;margin:0}
+ .admin-workspace :is(.content-editor,.social-studio) {padding-top:120px;padding-left:var(--gutter);padding-right:var(--gutter)}
  .admin-workspace .social-numbers {grid-template-columns:1fr}
  .admin-workspace .editor-tabs {flex-wrap:nowrap;overflow-x:auto;padding-bottom:16px}
  .admin-workspace .editor-tabs button {flex-shrink:0;white-space:nowrap}
- .admin-workspace :is(.social-buttons,.stock-filters) {display:flex;flex-direction:column;align-items:stretch;gap:12px}
- .admin-workspace :is(.social-buttons,.stock-filters)>button {width:100%;margin:0}
- .admin-workspace .stock-metrics {grid-template-columns:repeat(2,minmax(0,1fr))}
+ .admin-workspace :is(.social-buttons) {display:flex;flex-direction:column;align-items:stretch;gap:12px}
+ .admin-workspace :is(.social-buttons)>button {width:100%;margin:0}
  .admin-workspace .editor-actions .editor-button {min-width:0;padding:10px 8px;font-size:14px}
  .admin-workspace .social-preview {position:static}
 }
-@media(max-width:380px){.admin-workspace .stock-metrics {grid-template-columns:1fr}.admin-workspace .stock-control nav {grid-template-columns:1fr}}
 
-.admin-workspace :is(.content-editor,.stock-control,.social-studio) h3 {font:600 18px/1.35 var(--sans);margin:0 0 12px;letter-spacing:0}
-.admin-workspace :is(.stock-control,.social-studio) label {font:14px/1.5 var(--sans);margin:16px 0;min-width:0}
-.admin-workspace .stock-control label {display:grid;gap:8px}
-.admin-workspace .stock-control label:has(>input[type=checkbox]) {display:flex;align-items:flex-start;gap:10px}
-.admin-workspace :is(.stock-control,.social-studio) input[type=checkbox] {width:20px;height:20px;margin:1px 0 0}
-.admin-workspace :is(.social-controls section,.social-controls details,.stock-control details,.stock-control fieldset,.social-studio fieldset) {padding:24px;margin-block:20px}
+.admin-workspace :is(.content-editor,.social-studio) h3 {font:600 18px/1.35 var(--sans);margin:0 0 12px;letter-spacing:0}
+.admin-workspace :is(.social-studio) label {font:14px/1.5 var(--sans);margin:16px 0;min-width:0}
+.admin-workspace :is(.social-studio) input[type=checkbox] {width:20px;height:20px;margin:1px 0 0}
 .admin-workspace .social-controls section>h2 {font:26px/1.2 var(--display);margin:0 0 20px}
-.admin-workspace :is(.stock-control,.social-studio) legend {padding:0 8px;font-size:14px}
-.admin-workspace :is(.stock-control,.social-studio) p {max-width:75ch}
-.admin-workspace :is(.stock-control,.social-studio) p[role=status]:empty {display:none}
-.admin-workspace .stock-save>span {margin-right:auto;font-size:14px;color:var(--tool-muted)}
-.admin-workspace .stock-metrics strong {font-variant-numeric:tabular-nums;font-size:clamp(24px,3vw,34px);overflow-wrap:anywhere}
-.admin-workspace .stock-metrics article>p {margin:0 0 10px}
-.admin-workspace .stock-table {border:1px solid var(--tool-rule);border-radius:16px}
-.admin-workspace .stock-table th {font-weight:500}
-.admin-workspace .stock-table td {font-variant-numeric:tabular-nums}
+.admin-workspace :is(.social-studio) legend {padding:0 8px;font-size:14px}
+.admin-workspace :is(.social-studio) p {max-width:75ch}
+.admin-workspace :is(.social-studio) p[role=status]:empty {display:none}
 .admin-workspace .editor-controls {padding:0 0 20px;margin-bottom:24px;border-bottom:1px solid var(--tool-rule)}
 .admin-workspace .editor-state {max-width:none;text-align:left;padding:0;font-size:14px}
 @media(max-width:800px){
- .admin-workspace .stock-save {display:grid;grid-template-columns:1fr 1fr;gap:12px}
- .admin-workspace .stock-save>span {grid-column:1/-1}
- .admin-workspace .stock-save>button {width:100%}
- .admin-workspace :is(.social-controls section,.social-controls details,.stock-control details,.stock-control fieldset,.social-studio fieldset) {padding:18px;margin-block:16px}
+ .admin-workspace :is(.social-controls section,.social-controls details,.social-studio fieldset) {padding:18px;margin-block:16px}
  .admin-workspace .social-preview canvas {width:min(100%,calc(42svh * var(--social-ratio)))}
 }

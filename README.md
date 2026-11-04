@@ -98,3 +98,7 @@ Release 1.11.0 introduces draft product creation, common purchase sizes, optiona
 ## Product-linked till setup
 
 Release 1.12.0 puts till-item setup inside product cards, uses ml/grams for serving quantities, separates date/time controls and moves stock Save/Reload to a bottom action bar. See [release notes](docs/release-1.12.0.md).
+
+## Compact stock workspace
+
+Release 1.13.0 refines Stock Control with a single layout stylesheet, denser forms and cards, one-row tabs/save actions and keyboard-aware mobile controls. See [release notes](docs/release-1.13.0.md).
