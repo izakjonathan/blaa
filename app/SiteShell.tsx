@@ -11,12 +11,15 @@ import MenuLabel from "./MenuLabel";
 import PhotoParallax from "./PhotoParallax";
 import { useHeaderTone } from "./useHeaderTone";
 import { useFooterEntrance } from "./useFooterEntrance";
-const areas = [{"href": "/", "label": "Forside", "description": "Bar, musik & godt selskab"}, {"href": "/events", "label": "Koncerter", "description": "Jazz, sangskrivere & livemusik"}, {"href": "/om-os", "label": "Om os", "description": "Et samlingssted på Nørrebro"}, {"href": "/galleri", "label": "Galleri", "description": "Livet på Apoteket"}, {"href": "/spil-hos-os", "label": "Spil hos os", "description": "Bliv en del af musikken"}, {"href": "/kunst", "label": "Kunst", "description": "Udstil på Apoteket"}, {"href": "/kontakt", "label": "Kontakt", "description": "Find vej & skriv til os"}];
+const publicAreas = [{"href": "/", "label": "Forside", "description": "Bar, musik & godt selskab"}, {"href": "/events", "label": "Koncerter", "description": "Jazz, sangskrivere & livemusik"}, {"href": "/om-os", "label": "Om os", "description": "Et samlingssted på Nørrebro"}, {"href": "/galleri", "label": "Galleri", "description": "Livet på Apoteket"}, {"href": "/spil-hos-os", "label": "Spil hos os", "description": "Bliv en del af musikken"}, {"href": "/kunst", "label": "Kunst", "description": "Udstil på Apoteket"}, {"href": "/kontakt", "label": "Kontakt", "description": "Find vej & skriv til os"}];
+const toolAreas=[{href:'/admin',label:'Tools',description:'Backend overview'},{href:'/admin/editor',label:'Editor',description:'Website content & brand colours'},{href:'/admin/social-generator',label:'SoMe Generator',description:'Create social posts'},{href:'/admin/stock',label:'Stock Control',description:'Counts, sales & deliveries'},{href:'/',label:'View site',description:'Blågårds Apotek'}];
 type Phase = "closed" | "opening" | "open" | "closing";
 function MarketingShell({ children }: {
     children: ReactNode;
 }) {
     const pathname = usePathname();
+    const tools = pathname === '/admin';
+    const areas = tools ? toolAreas : publicAreas;
     const router = useRouter();
     const headerTone = useHeaderTone(pathname);
     useFooterEntrance(pathname);
@@ -186,7 +189,7 @@ function MarketingShell({ children }: {
             }}>
           <nav aria-label="Hovednavigation">
             {areas.map((area, index) => (<Link key={area.href} href={area.href} prefetch={true} aria-current={pathname === area.href ? "page" : undefined} onClick={event => navigate(event, area.href)} style={{ "--item": Math.min(index, 5) } as CSSProperties}>
-                <MenuLabel field={`shared.menu.${index}.label`}/><small><Copy field={`shared.menu.${index}.description`}/></small>
+                <span>{tools?area.label:<MenuLabel field={`shared.menu.${index}.label`}/>}</span><small>{tools?area.description:<Copy field={`shared.menu.${index}.description`}/>}</small>
               </Link>))}
           </nav>
         </div>)}
@@ -195,7 +198,7 @@ function MarketingShell({ children }: {
       <PageMotion />
       <PhotoParallax />
       <EditorialPhotos />
-      <footer className="brand-footer">
+      {!tools && <footer className="brand-footer">
        <div className="footer-panel">
         <div className="footer-top">
           <div className="footer-heading"><p className="eyebrow">Bar. Musik. Nørrebro.</p><h2><Copy field="shared.shell.text2"/></h2></div>
@@ -203,11 +206,11 @@ function MarketingShell({ children }: {
 
         <div className="venue-footer-details"><div><p><Copy field="shared.address"/></p><ContentLink field="shared.emailLink"><Copy field="shared.email"/></ContentLink><br/><ContentLink field="shared.phoneLink"><Copy field="shared.phone"/></ContentLink></div><div><p><Copy field="shared.hours"/></p></div><div><ContentLink field="shared.facebook">Facebook <span aria-hidden="true">↗︎</span></ContentLink><br/><ContentLink field="shared.instagram">Instagram <span aria-hidden="true">↗︎</span></ContentLink></div></div>
        </div>
-      </footer>
+      </footer>}
     </>);
 }
 
 export default function SiteShell({children}:{children:ReactNode}) {
  const pathname=usePathname();
- return pathname.startsWith("/admin") ? <>{children}</> : <MarketingShell>{children}</MarketingShell>;
+ return pathname.startsWith("/admin/") ? <>{children}</> : <MarketingShell>{children}</MarketingShell>;
 }

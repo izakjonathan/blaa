@@ -1,0 +1,29 @@
+.stock-control {min-height:100vh;background:#171717;color:#f5f0e7;padding:28px;font:16px/1.5 var(--sans,Arial);max-width:none}
+.stock-control header {display:flex;justify-content:space-between;gap:24px;margin-bottom:25px}
+.stock-control h1 {font:36px/1.2 var(--sans);margin:8px 0}
+.stock-control h2 {font:24px/1.3 var(--sans);margin:30px 0 15px}
+.stock-control p {font:15px/1.5 var(--sans);max-width:85ch;margin:12px 0}
+.stock-control a {color:inherit;text-decoration:underline}
+.stock-control nav,.stock-save,.stock-filters {display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.stock-control button {font:inherit;color:#171717;background:#f5f0e7;border:1px solid #777;border-radius:3px;padding:10px 16px;min-height:44px;cursor:pointer;margin:4px}
+.stock-control button[aria-current=page] {background:#555;color:#fff}
+.stock-control button:disabled {opacity:.4;cursor:default}
+.stock-control input,.stock-control select,.stock-control textarea {font:inherit;background:#222;color:#f5f0e7;border:1px solid #777;border-radius:3px;padding:10px;width:100%;min-width:0}
+.stock-control input[type=checkbox] {width:22px;height:22px;vertical-align:middle}
+.stock-control label {display:block;margin:14px 0;max-width:720px}
+.stock-control small {display:block;font-size:13px}
+.stock-control fieldset {border:1px solid #555;margin:20px 0;padding:18px;min-width:0}
+.stock-control .stock-form {border:0;padding:0}
+.stock-control details {border:1px solid #555;padding:16px;margin:16px 0}
+.stock-control summary {cursor:pointer;min-height:44px;font-size:18px}
+.stock-numbers {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0 18px}
+.stock-metrics {display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:25px 0}
+.stock-metrics article {background:#282828;border:1px solid #555;padding:20px}
+.stock-metrics strong {font-size:32px;line-height:1.3}
+.stock-table {overflow:auto;margin:22px 0}
+.stock-table table {border-collapse:collapse;width:100%;min-width:850px}
+.stock-table td,.stock-table th {padding:14px;text-align:left;border-bottom:1px solid #666}
+.stock-alert {background:#352c20;border:1px solid #ac8d59;padding:18px}
+.stock-control ul,.stock-control ol {padding-left:25px}
+.stock-control :focus-visible {outline:2px solid #f5f0e7;outline-offset:3px}
+@media(max-width:600px){.stock-control {padding:16px}.stock-control h1 {font-size:30px}.stock-metrics {grid-template-columns:1fr 1fr}.stock-metrics strong {font-size:24px}.stock-numbers {grid-template-columns:1fr}.stock-control header {flex-direction:column}}

@@ -3470,5 +3470,14 @@
         "label": "Linear"
       }
     ]
+  },
+  {
+    "id": "brand.adminBackground",
+    "page": "brand",
+    "section": "Backend",
+    "label": "Tools landing background",
+    "kind": "text",
+    "control": "color",
+    "default": "#1A1E3A"
   }
 ]

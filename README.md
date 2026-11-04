@@ -18,7 +18,7 @@ Public pages: `/`, `/events`, `/om-os`, `/galleri`, `/spil-hos-os`, `/kunst`, `/
 
 ## Editor
 
-Open `/admin`. Each public page has its own editing tab. All migrated text, photographs, concert details/posters and gallery photos are registered in `lib/content-fields.json`. Page composition is in `lib/venue-pages.json` and `app/[slug]/page.tsx`. Adding/removing programme or gallery items currently requires updating those records; existing items are editable.
+Open `/admin` for the tools landing page, then choose **Editor** (`/admin/editor`). Each public page has its own editing tab. All migrated text, photographs, concert details/posters and gallery photos are registered in `lib/content-fields.json`. Page composition is in `lib/venue-pages.json` and `app/[slug]/page.tsx`. Adding/removing programme or gallery items currently requires updating those records; existing items are editable.
 
 The existing editor intentionally has no login, matching the supplied project. Its backend enforces same-origin writes, revision conflicts, validated document fields and private media uploads. Configure deployment access to match your intended editor audience.
 
@@ -81,3 +81,8 @@ Release 1.7.0 adds a short branded page curtain (300ms cover / 400ms reveal), im
 ## Social Content Studio
 
 Release 1.8.0 adds **Admin → Content Studio · Social posts** at `/admin/social-generator`: reusable uploaded/saved templates, background and artwork layers, custom fonts, replaceable photos, automatic text fitting, draggable/numeric placement and full-resolution PNG download. Templates can be shared through the existing database or transferred as self-contained JSON files. See [the studio guide](docs/release-1.8.0.md) for limits, persistence and verification.
+
+
+## Backend tools and stock control
+
+Release 1.9.0 makes `/admin` the tools hub, moves the website editor to `/admin/editor`, and adds `/admin/stock` alongside the SoMe Generator. The hub uses the public top navigation and a background editable under Brand colors → Backend. Stock Control includes product/recipe settings, weekly counts and movements, till quantities, cost-weighted waste/loss dashboards, period locking, audit revisions and exports. See [the release guide](docs/release-1.9.0.md) and [detailed inventory research](docs/stock-control-research.md).
