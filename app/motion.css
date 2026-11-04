@@ -9,13 +9,16 @@
   --reveal-distance: 36px;
 }
 
+:is(.site-menu, .backend-home) {
+  background: var(--green);
+  color: var(--amber);
+  padding: max(120px, calc(env(safe-area-inset-top, 0px) + 100px)) var(--gutter) max(30px, env(safe-area-inset-bottom, 0px));
+}
+
 .site-menu {
   position: fixed;
   z-index: 80;
   inset: 0;
-  background: var(--green);
-  color: var(--amber);
-  padding: max(120px, calc(env(safe-area-inset-top, 0px) + 100px)) var(--gutter) max(30px, env(safe-area-inset-bottom, 0px));
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -31,13 +34,13 @@
   transform: translate3d(0, 0, 0);
 }
 
-.site-menu nav {
+.site-menu nav, .backend-tools {
   display: grid;
   max-width: 1400px;
   margin: auto;
 }
 
-.site-menu nav > a {
+.site-menu nav > a, .backend-tools > a {
   display: block;
   font: clamp(42px, 7vw, 98px)/1.08 var(--display);
   padding: 27px 0;
@@ -104,7 +107,7 @@ html.reveal-enabled [data-reveal]:focus-within {
 }
 
 @media (max-width: 600px) {
-  .site-menu nav > a {
+  .site-menu nav > a, .backend-tools > a {
     font-size: clamp(38px, 10.5vw, 60px);
     padding: 24px 0;
   }
@@ -206,16 +209,16 @@ html.reveal-enabled .line-heading.reveal-visible:not(.reveal-settled) .heading-l
 }
 
 @media (max-width:379px) {
-  .site-menu nav > a {
+  .site-menu nav > a, .backend-tools > a {
     font-size: 38px;
   }
 }
 
 @media (orientation:landscape) and (max-height:500px) {
-  .site-menu {
+  :is(.site-menu, .backend-home) {
     padding-top: max(84px,calc(env(safe-area-inset-top,0px) + 70px));
   }
-  .site-menu nav > a {
+  .site-menu nav > a, .backend-tools > a {
     font-size: 40px;
     padding: 14px 0;
   }
