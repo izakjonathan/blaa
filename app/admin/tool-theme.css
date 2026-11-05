@@ -2,17 +2,18 @@
    Scoped to tools only; the public site, landing page and preview content keep their palette. */
 .admin-workspace {min-height:100svh}
 .admin-workspace[data-tool=true] {
- --tool-bg:#000000;--tool-content:#000000;--tool-ink:#ffffff;--tool-card:#191919;
- --tool-rule:#191919;--tool-strong:#808080;--tool-muted:#808080;
- background:var(--tool-bg);color:var(--tool-ink);color-scheme:dark;
+ --tool-bg:var(--backend-bg);--tool-content:var(--backend-bg);--tool-ink:var(--brand-gold);
+ --tool-card:color-mix(in srgb,var(--tool-ink) 7%,var(--tool-bg));
+ --tool-rule:color-mix(in srgb,var(--tool-ink) 20%,var(--tool-bg));--tool-strong:color-mix(in srgb,var(--tool-ink) 60%,var(--tool-bg));--tool-muted:color-mix(in srgb,var(--tool-ink) 65%,var(--tool-bg));
+ background:var(--tool-bg);color:var(--tool-ink);color-scheme:normal;
  font:400 15px/1.22 var(--sans);letter-spacing:-.01em;
 }
-.admin-tool-header {display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:430px;margin:auto;padding:18px 16px 0;background:#000;color:#fff}
+.admin-tool-header {display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:430px;margin:auto;padding:18px 16px 0;background:var(--backend-bg);color:var(--brand-gold)}
 .admin-tool-header .brand-logo {display:block;color:inherit;text-decoration:none}
-.admin-venue-name {font:560 11px/1.12 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#808080}
-.admin-tool-header .admin-home-button {min-height:44px;padding:12px 16px;border-radius:22px;border:1px solid #191919;background:#191919;color:#fff;font:620 15px/1.08 var(--sans);letter-spacing:-.015em}
-.admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) {min-height:100svh;max-width:430px;margin:auto;padding:18px 16px calc(env(safe-area-inset-bottom) + 220px);min-width:0;background:var(--tool-bg);color:var(--tool-ink);font:400 15px/1.22 var(--sans);letter-spacing:-.01em}
-.admin-workspace[data-tool=true] :is(.editor-header,.stock-control>header,.social-studio>header) {display:block;padding:16px;margin:0 0 20px;border:1px solid var(--tool-rule);border-radius:28px;background:var(--tool-content);text-align:left}
+.admin-venue-name {font:560 11px/1.12 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--brand-gold) 65%,var(--backend-bg))}
+.admin-tool-header .admin-home-button {min-height:44px;padding:12px 16px;border-radius:22px;border:1px solid color-mix(in srgb,var(--brand-gold) 20%,var(--backend-bg));background:transparent;color:var(--brand-gold);font:620 15px/1.08 var(--sans);letter-spacing:-.015em}
+.admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) {min-height:100svh;max-width:430px;margin:auto;padding:18px 16px calc(env(safe-area-inset-bottom) + 110px);min-width:0;background:var(--tool-bg);color:var(--tool-ink);font:400 15px/1.22 var(--sans);letter-spacing:-.01em}
+.admin-workspace[data-tool=true] :is(.editor-header,.stock-control>header,.social-studio>header) {display:block;padding:0;margin:0 0 24px;border:0;border-radius:0;background:transparent;text-align:left}
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) h1 {font:640 40px/.94 var(--display);letter-spacing:-.07em;margin:0;color:var(--tool-ink);text-transform:none;text-align:left;overflow-wrap:anywhere;font-synthesis:none}
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) h2 {font-size:29px;font-weight:620;line-height:1;letter-spacing:-.055em;margin:20px 0 14px;color:var(--tool-ink);text-transform:none}
 .admin-workspace[data-tool=true] :is(.content-editor,.social-studio) h2 {font-family:var(--display);font-synthesis:none}
@@ -46,10 +47,10 @@
 .admin-workspace[data-tool=true] :is(.editor-body,.stock-settings) {max-width:none;padding:0;margin:0}
 .admin-workspace[data-tool=true] .editor-controls {padding:0;margin:0 0 20px;border:0}
 .admin-workspace[data-tool=true] .editor-state {max-width:none;text-align:left;padding:0}
-.admin-workspace[data-tool=true] .editor-section {padding:6px;margin:0 0 20px;border:1px solid var(--tool-rule);border-radius:30px}
-.admin-workspace[data-tool=true] .content-editor .editor-section-title {border:0;margin:0;padding:14px 16px;font-size:29px;line-height:1}
-.admin-workspace[data-tool=true] .editor-fields {padding:0 12px 12px;gap:16px}
-.admin-workspace[data-tool=true] .editor-fields>.editor-card {margin:0;border-radius:24px}
+.admin-workspace[data-tool=true] .editor-section {padding:0;margin:0 0 24px;border:0;border-radius:0}
+.admin-workspace[data-tool=true] .content-editor .editor-section-title {border:0;margin:0;padding:0 0 16px;font-size:29px;line-height:1}
+.admin-workspace[data-tool=true] .editor-fields {padding:0;gap:16px}
+.admin-workspace[data-tool=true] .editor-fields>.editor-card {margin:0;padding:16px 0;border:0;border-top:1px solid var(--tool-rule);border-radius:0;background:transparent}
 .admin-workspace[data-tool=true] :is(.editor-setup,.editor-motion-intro,.editor-splash-sample,.editor-artwork-samples) {padding:16px;margin:0 0 20px;border:1px solid var(--tool-rule);border-radius:28px;background:var(--tool-content)}
 .admin-workspace[data-tool=true] :is(.editor-dialog,.editor-preview) {background:var(--tool-bg);color:var(--tool-ink);border:1px solid var(--tool-rule);border-radius:28px}
 .admin-workspace[data-tool=true] :is(.editor-dialog,.editor-preview)::backdrop {background:rgba(0,0,0,.72)}
@@ -71,21 +72,13 @@
 .admin-workspace[data-tool=true] .stock-get-started {max-width:none}
 .admin-workspace[data-tool=true] .stock-get-started ol {gap:14px;margin:16px 0}
 .admin-workspace[data-tool=true] .social-workspace {display:flex;flex-direction:column;gap:20px;max-width:none;margin:0}
-.admin-workspace[data-tool=true] .social-preview {position:static;order:0;padding:16px;border:1px solid var(--tool-rule);border-radius:28px;background:var(--tool-content)}
+.admin-workspace[data-tool=true] .social-preview {position:static;order:0;padding:0;border:0;border-radius:0;background:transparent}
 .admin-workspace[data-tool=true] .social-preview h2 {margin:0 0 16px;text-align:left}
 .admin-workspace[data-tool=true] .social-preview canvas {border:1px solid var(--tool-rule);border-radius:24px;width:min(100%,calc(55svh * var(--social-ratio)));max-width:600px}
-.admin-workspace[data-tool=true] :is(.stock-save,.editor-actions) {position:fixed;inset:auto auto calc(env(safe-area-inset-bottom) + 76px) 50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:398px;z-index:70;display:flex;align-items:center;gap:8px;margin:0;padding:8px;border:1px solid var(--tool-rule);border-radius:24px;background:var(--tool-bg);box-shadow:none}
+.admin-workspace[data-tool=true] :is(.stock-save,.editor-actions) {position:fixed;inset:auto auto calc(env(safe-area-inset-bottom) + 2px) 50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:398px;z-index:70;display:flex;align-items:center;gap:8px;margin:0;padding:8px;border:1px solid var(--tool-rule);border-radius:24px;background:var(--tool-bg);box-shadow:none}
 .admin-workspace[data-tool=true] .stock-save>span {flex:1;min-width:0;letter-spacing:0;text-transform:none}
 .admin-workspace[data-tool=true] .editor-actions .editor-button {flex:1;min-width:0;max-width:none;padding:12px 8px}
 .admin-workspace[data-tool=true] :is(.editor-actions.editor-keyboard,.stock-control[data-keyboard=true] .stock-save) {display:none}
-.admin-workspace[data-tool=true]:has(.editor-keyboard,[data-keyboard=true]) .admin-dock {display:none}
-.admin-dock {position:fixed;bottom:calc(env(safe-area-inset-bottom) + 2px);left:50%;transform:translateX(-50%);z-index:80;width:calc(100% - 32px);max-width:398px;padding:4px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;border:1px solid #191919;border-radius:24px;background:#000;color:#fff}
-.admin-dock>a {display:grid;justify-items:center;gap:2px;padding:4px 6px;border-radius:18px;color:#808080;opacity:.68;text-align:center;text-decoration:none;font:560 10px/1.1 var(--sans);letter-spacing:-.01em}
-.admin-dock>a[aria-current=page] {background:#191919;color:#fff;opacity:1}
-.admin-dock-icon {display:grid;place-items:center;width:20px;height:20px;border:1px solid #191919;border-radius:999px;background:#191919;padding:4px}
-.admin-dock>a[aria-current=page] .admin-dock-icon {border-color:#808080}
-.admin-dock-icon svg {display:block;width:100%;height:100%}
-.admin-dock>a:focus-visible {outline:1px solid #808080;outline-offset:1px}
 @media(min-width:900px){
  .admin-tool-header {max-width:1180px;padding-inline:24px}
  .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) {max-width:1180px;padding-inline:24px}
@@ -95,5 +88,12 @@
  .admin-workspace[data-tool=true] .stock-metrics {grid-template-columns:repeat(3,minmax(0,1fr))}
  .admin-workspace[data-tool=true] .stock-settings>section {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
  .admin-workspace[data-tool=true] .stock-settings>section>:not(.stock-product-row) {grid-column:1/-1}
- .admin-workspace[data-tool=true] :is(.stock-save,.editor-actions),.admin-dock {max-width:760px}
+ .admin-workspace[data-tool=true] :is(.stock-save,.editor-actions) {max-width:760px}
 }
+
+/* Content sections use spacing and separators instead of nested outer cards. */
+.admin-workspace[data-tool=true] :is(.social-controls>section,.stock-count-start,.stock-activity-form,.stock-get-started,.stock-live-stock,.editor-motion-intro,.editor-artwork-samples) {padding:0;margin-bottom:24px;border:0;border-radius:0;background:transparent}
+.admin-workspace[data-tool=true] .social-controls>section+section {padding-top:20px;border-top:1px solid var(--tool-rule)}
+
+
+

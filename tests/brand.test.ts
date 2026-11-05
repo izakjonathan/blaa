@@ -17,3 +17,10 @@ test('palette settings reject CSS injection and invalid colors; rendering falls 
     assert.equal(brandColors(document).green,'#1A1E3A');
   }
 });
+
+test('backend palette uses editable colours and safely falls back for invalid backgrounds',()=>{
+ const document=validateDocument({text:{'brand.adminBackground':'#eeeecc','brand.gold':'#223344'},images:{}});
+ assert.match(brandStyle(document),/--backend-bg:#eeeecc;/);
+ assert.match(brandStyle(document),/--brand-gold:#223344;/);
+ assert.match(brandStyle({text:{'brand.adminBackground':'red;}'},images:{}}),/--backend-bg:#1A1E3A;/);
+});

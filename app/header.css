@@ -83,7 +83,7 @@ html.menu-navigating {
  min-height:100px;padding:20px max(var(--gutter),env(safe-area-inset-right)) 20px max(var(--gutter),env(safe-area-inset-left));
  background:var(--backend-bg);border-bottom:1px solid var(--rule);color:var(--brand-gold);
 }
-.floating-header[data-admin-home=true] {background:var(--green);border-bottom:0}
+.floating-header[data-admin-home=true] {background:var(--backend-bg);border-bottom:0}
 .floating-header[data-admin=true]> * {position:static;pointer-events:auto}
 .admin-home-button {display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 22px;border:1px solid var(--rule);border-radius:999px;color:inherit;text-decoration:none;font:15px/1.3 var(--sans)}
 .admin-home-button:is(:hover,:focus-visible) {background:color-mix(in srgb,var(--brand-gold) 10%,transparent)}

@@ -8,7 +8,6 @@ import PageMotion from "./PageMotion";
 import RouteCurtain from "./RouteCurtain";
 import EditorialPhotos from "./EditorialPhotos";
 import MenuLabel from "./MenuLabel";
-import AdminDock from "./admin/AdminDock";
 import PhotoParallax from "./PhotoParallax";
 import { useHeaderTone } from "./useHeaderTone";
 import { useFooterEntrance } from "./useFooterEntrance";
@@ -211,5 +210,5 @@ function MarketingShell({ children }: {
 
 export default function SiteShell({children}:{children:ReactNode}) {
  const pathname=usePathname();
- return <MarketingShell>{pathname.startsWith("/admin")?<div className="admin-workspace" data-tool={pathname!=='/admin'||undefined}>{children}{pathname!=='/admin'&&<AdminDock pathname={pathname}/>}</div>:children}</MarketingShell>;
+ return <MarketingShell>{pathname.startsWith("/admin")?<div className="admin-workspace" data-tool={pathname!=='/admin'||undefined}>{children}</div>:children}</MarketingShell>;
 }

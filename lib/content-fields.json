@@ -527,7 +527,7 @@
     "id": "brand.gold",
     "page": "brand",
     "section": "Brand palette",
-    "label": "Copper · accent",
+    "label": "Content / accent (website and backend)",
     "kind": "text",
     "control": "color",
     "default": "#DB8C59"
@@ -3475,7 +3475,7 @@
     "id": "brand.adminBackground",
     "page": "brand",
     "section": "Backend",
-    "label": "Tools landing background",
+    "label": "Backend background (landing and tools)",
     "kind": "text",
     "control": "color",
     "default": "#1A1E3A"

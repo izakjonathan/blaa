@@ -110,3 +110,5 @@ Release 1.14.0 adds optional paired PLUs/prices, dated deliveries and till quant
 ## EventOS admin design
 
 Release 1.15.0 applies the uploaded EventOS night-theme design system to all admin tools while retaining the existing font families and current landing layout. The landing header has no Back button. See [release notes](docs/release-1.15.0.md) for scope and verification.
+
+Release 1.15.1 restores brand-controlled backend colours, removes the bottom dock and simplifies outer card borders. See [release notes](docs/release-1.15.1.md).
