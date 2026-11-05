@@ -106,3 +106,7 @@ Release 1.13.0 refines Stock Control with a single layout stylesheet, denser for
 ## Audit-to-audit stock workflow
 
 Release 1.14.0 adds optional paired PLUs/prices, dated deliveries and till quantities, baseline/continuing counts, expected stock and COGS, and durable internal reorder emails. Read the [workflow and activation guide](docs/release-1.14.0.md) before use; POS connection and admin authentication are not included, and sending is off by default.
+
+## EventOS admin design
+
+Release 1.15.0 applies the uploaded EventOS night-theme design system to all admin tools while retaining the existing font families and current landing layout. The landing header has no Back button. See [release notes](docs/release-1.15.0.md) for scope and verification.

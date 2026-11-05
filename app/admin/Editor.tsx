@@ -93,7 +93,7 @@ export default function Editor(){
  };
  useEffect(()=>{window.document.documentElement.dataset.adminUnsaved=String(dirty);return()=>{delete window.document.documentElement.dataset.adminUnsaved;};},[dirty]);
  return <main id="main" className="content-editor">
-  <header className="editor-header"><h1>Editor</h1></header>
+  <header className="editor-header"><p className="admin-page-caption">Website content</p><h1>Editor</h1></header>
   <div className="editor-body">
    {!ready&&!loading&&<aside className="editor-setup"><strong>Storage setup needed</strong><p>Connect Neon Postgres and a private Blob store to the Blågårds Apotek project in Vercel, then redeploy. You can explore fields and preview changes now; saving and new uploads become available after setup.</p><button onClick={()=>void load()} className="editor-button">Check connection</button></aside>}
    {ready&&!mediaReady&&<aside className="editor-setup"><strong>Image uploads need a Blob store</strong><p>Text editing and the existing image library are available. Connect a private Vercel Blob store to upload new photos.</p></aside>}
