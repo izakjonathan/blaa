@@ -13,8 +13,8 @@
 .stock-control a {color:inherit}
 .stock-control button {display:inline-flex;align-items:center;justify-content:center;min-height:44px;gap:6px;padding:8px 14px;margin:0;border:1px solid var(--tool-rule);border-radius:999px;background:transparent;color:var(--tool-ink);font:14px/1.25 var(--sans);text-align:center;cursor:pointer;max-width:100%;touch-action:manipulation}
 .stock-control button:disabled {opacity:.4;cursor:default}
-.stock-control :is(.stock-primary,button[aria-current=page]) {background:var(--tool-ink);border-color:var(--tool-ink);color:var(--tool-bg)}
-.stock-control>nav {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0 0 16px;max-width:640px}
+.stock-control :is(.stock-primary,button[aria-current=page],button[aria-pressed=true]) {background:var(--tool-ink);border-color:var(--tool-ink);color:var(--tool-bg)}
+.stock-control>nav {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:0 0 16px;max-width:640px}
 .stock-control>nav>button {padding:8px 5px;font-size:13px;white-space:nowrap}
 .stock-control label {display:grid;gap:5px;font:12px/1.4 var(--sans);margin:8px 0;min-width:0;max-width:100%}
 .stock-control label:has(>input[type=checkbox]) {display:flex;align-items:flex-start;gap:8px;font-size:13px}
@@ -97,4 +97,8 @@
  .floating-header[data-admin=true][data-admin-stock=true] {min-height:68px}
  .floating-header[data-admin=true][data-admin-stock=true] .brand-logo {width:96px}
 }
-@media(max-width:350px){.stock-product-fields,.stock-numbers,.stock-date-time {grid-template-columns:1fr}.stock-control>nav>button {font-size:12px}}
+@media(max-width:350px){.stock-product-fields,.stock-numbers,.stock-date-time {grid-template-columns:1fr}.stock-control>nav>button {font-size:12px;padding-inline:2px}}
+
+.stock-new-plu {padding-top:12px;margin-top:12px;border-top:1px solid var(--tool-rule)}
+.stock-count-start,.stock-activity-form {padding:14px;margin:12px 0;border:1px solid var(--tool-rule);border-radius:12px;background:var(--tool-card)}
+.stock-control input:read-only {opacity:.75}

@@ -102,3 +102,7 @@ Release 1.12.0 puts till-item setup inside product cards, uses ml/grams for serv
 ## Compact stock workspace
 
 Release 1.13.0 refines Stock Control with a single layout stylesheet, denser forms and cards, one-row tabs/save actions and keyboard-aware mobile controls. See [release notes](docs/release-1.13.0.md).
+
+## Audit-to-audit stock workflow
+
+Release 1.14.0 adds optional paired PLUs/prices, dated deliveries and till quantities, baseline/continuing counts, expected stock and COGS, and durable internal reorder emails. Read the [workflow and activation guide](docs/release-1.14.0.md) before use; POS connection and admin authentication are not included, and sending is off by default.

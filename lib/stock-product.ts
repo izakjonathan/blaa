@@ -8,7 +8,7 @@ export const purchaseSizes = [
  {id:'keg20',label:'20 L keg',unit:'L',pack:20},
  {id:'keg30',label:'30 L keg',unit:'L',pack:30},
 ] as const;
-export function newProduct(id:string):Product{return {id,name:'',sku:'',category:'',supplier:'',unit:'each',pack:1,packCost:0,par:0,threshold:5,active:true};}
+export function newProduct(id:string):Product{return {id,name:'',sku:'',category:'',supplier:'',unit:'each',pack:1,packCost:0,par:7,threshold:5,active:true};}
 export function purchaseSize(p:Product){return purchaseSizes.find(size=>size.unit===p.unit&&size.pack===p.pack);}
 export function packDescription(p:Product){return purchaseSize(p)?.label??`${p.pack} ${p.unit==='each'?'items':p.unit} per pack`;}
 /** UI amounts are purchase packs; stock storage and reports remain in base units. */
