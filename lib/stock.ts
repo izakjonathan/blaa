@@ -1,4 +1,4 @@
-export type Product={id:string;name:string;sku:string;category:string;supplier:string;unit:'L'|'each'|'kg';pack:number;packCost:number;par:number;threshold:number;active:boolean};
+export type Product={id:string;name:string;sku:string;category:string;supplier:string;unit:'L'|'each'|'kg';pack:number;packCost:number;par:number;threshold:number;active:boolean;lowIdeal?:number;highIdeal?:number};
 export type Sale={id:string;name:string;sku:string;unitPrice?:number;ingredients:{productId:string;quantity:number}[]};
 export type Count={product:Product;opening:number|null;closing:number|null;deliveryPacks:number;deliveryLoose:number;waste:number;comps:number;transfer:number;note:string};
 export type Delivery={id:string;product:Product;at:string;packs:number;cost:number;reference:string};
@@ -13,7 +13,7 @@ const num=(v:unknown,min=0,max=10000000)=>{if(typeof v!=='number'||!Number.isFin
 const bool=(v:unknown)=>{if(typeof v!=='boolean')throw Error('Invalid stock switch.');return v;};
 function list<T>(v:unknown,fn:(value:unknown)=>T,max:number){if(!Array.isArray(v)||v.length>max)throw Error('Invalid stock list.');return v.map(fn);}
 function unique<T extends{id:string}>(rows:T[]){if(new Set(rows.map(r=>r.id)).size!==rows.length)throw Error('Invalid duplicate stock id.');return rows;}
-function product(v:unknown):Product{const p=obj(v),unit=text(p.unit);if(!['L','each','kg'].includes(unit))throw Error('Invalid stock unit.');const name=text(p.name);if(!name.trim())throw Error('Invalid empty product name.');return {id:id(p.id),name,sku:text(p.sku),category:text(p.category),supplier:text(p.supplier),unit:unit as Product['unit'],pack:num(p.pack,.0001),packCost:num(p.packCost),par:num(p.par),threshold:num(p.threshold,0,100),active:bool(p.active)};}
+function product(v:unknown):Product{const p=obj(v),unit=text(p.unit);if(!['L','each','kg'].includes(unit))throw Error('Invalid stock unit.');const name=text(p.name);if(!name.trim())throw Error('Invalid empty product name.');return {id:id(p.id),name,sku:text(p.sku),category:text(p.category),supplier:text(p.supplier),unit:unit as Product['unit'],pack:num(p.pack,.0001),packCost:num(p.packCost),par:num(p.par),threshold:num(p.threshold,0,100),active:bool(p.active),...(p.lowIdeal===undefined?{}:{lowIdeal:num(p.lowIdeal)}),...(p.highIdeal===undefined?{}:{highIdeal:num(p.highIdeal)})};}
 function sale(v:unknown):Sale{const s=obj(v);const ingredients=list(s.ingredients,value=>{const i=obj(value);return {productId:id(i.productId),quantity:num(i.quantity,.000001)};},40);if(!ingredients.length||new Set(ingredients.map(i=>i.productId)).size!==ingredients.length)throw Error('Invalid recipe ingredients.');const name=text(s.name);if(!name.trim())throw Error('Invalid empty till item name.');return {id:id(s.id),name,sku:text(s.sku),ingredients,...(s.unitPrice===undefined?{}:{unitPrice:num(s.unitPrice)})};}
 export function validateStock(value:unknown):Stock{
  if(JSON.stringify(value).length>2900000)throw Error('Invalid stock document: document exceeds 2.9 MB; contact the maintainer to archive historical records.');
@@ -68,4 +68,9 @@ export function checkStockChange(previous:Stock,next:Stock,reason:string){
  const cutoff=[...previous.weeks].filter(w=>w.status==='closed').sort((a,b)=>b.end.localeCompare(a.end))[0]?.end;
  for(const key of ['deliveries','salesEntries'] as const){for(const old of previous[key]??[]){const nextEntry=next[key]?.find(e=>e.id===old.id);if(cutoff&&old.at<cutoff&&(!nextEntry||JSON.stringify(nextEntry)!==JSON.stringify(old)))throw Error('Invalid change: activity before a finalized count is immutable.');}for(const entry of next[key]??[])if(!previous[key]?.some(e=>e.id===entry.id)&&cutoff&&entry.at<cutoff)throw Error('Invalid activity: date is before the latest finalized count.');}
  for(const old of previous.weeks){const changed=next.weeks.find(w=>w.id===old.id);if(!changed)throw Error('Invalid removal: periods must remain in history.');if(old.status==='closed'&&JSON.stringify(old)!==JSON.stringify(changed)){if(changed.status==='draft'&&previous.weeks.some(w=>w.id!==old.id&&w.status==='closed'&&w.start>=old.end))throw Error('Invalid change: reopen the latest finalized count first.');if(changed.status!=='draft'||!reason.trim())throw Error('Invalid change: reopen a closed period with a reason first.');const copy={...changed,status:'closed'};if(JSON.stringify(copy)!==JSON.stringify(old))throw Error('Invalid change: reopen before editing period data.');}}
+}
+
+/** Order targets and counted quantities are both expressed in purchase packs. */
+export function orderPacksForLowIdeal(lowIdeal: number, counted: number) {
+ return Math.max(0, Math.ceil(Number((lowIdeal - counted).toFixed(9))));
 }

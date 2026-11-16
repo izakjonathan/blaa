@@ -102,3 +102,22 @@
 .stock-new-plu {padding-top:12px;margin-top:12px;border-top:1px solid var(--tool-rule)}
 .stock-count-start,.stock-activity-form {padding:14px;margin:12px 0;border:1px solid var(--tool-rule);border-radius:12px;background:var(--tool-card)}
 .stock-control input:read-only {opacity:.75}
+
+.stock-order-count-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 164px);
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--tool-rule);
+}
+.stock-order-count-row:last-child {border-bottom: 0}
+.stock-control .stock-order-count-row label {display: grid; gap: 4px; margin: 0; overflow-wrap: anywhere}
+.stock-control .stock-order-count-row label strong {color: var(--tool-ink); font-size: 14px; text-transform: none}
+.stock-order-count-quantity {display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 4px}
+.admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity button {padding: 0; min-height: 44px}
+.admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity input {padding-inline: 4px; min-height: 44px; text-align: center}
+@media(max-width: 340px) {
+  .stock-order-count-row {grid-template-columns: minmax(0, 1fr)}
+  .stock-order-count-quantity {max-width: 164px}
+}

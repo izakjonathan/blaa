@@ -3,6 +3,7 @@ import {useEffect,useRef,useState} from 'react';
 import {emptyStock,validateStock,newWeek,weekIssues,summary,type Stock,type Product,type Sale,type Week,type Count} from '../../../lib/stock';
 import './stock.css';
 import Products from './Products';
+import OrderCount from './OrderCount';
 import {useStockKeyboard} from './useStockKeyboard';
 import PeriodTime from './PeriodTime';
 import StockActivity from './StockActivity';
@@ -33,6 +34,7 @@ export default function StockControl(){
  };
  const keyboard=useStockKeyboard();
  const [productDraft,setProductDraft]=useState<Product|null>(null);
+ const [orderCounting,setOrderCounting]=useState(false);
  const unsaved=dirty||productDraft!==null||activityDraft;
  const [start,setStart]=useState(()=>nowDate()+'T04:00'),[end,setEnd]=useState(()=>nextDate(nowDate()));
  const alive=useRef(true),file=useRef<HTMLInputElement>(null);
@@ -82,8 +84,8 @@ export default function StockControl(){
   void read(true,controller.signal);
   return()=>{alive.current=false;controller.abort();};
  },[]);
- useEffect(()=>{const leave=(e:BeforeUnloadEvent)=>{if(unsaved){e.preventDefault();e.returnValue='';}};window.addEventListener('beforeunload',leave);return()=>window.removeEventListener('beforeunload',leave);},[unsaved]);
- useEffect(()=>{document.documentElement.dataset.adminUnsaved=String(unsaved);return()=>{delete document.documentElement.dataset.adminUnsaved;};},[unsaved]);
+ useEffect(()=>{const leave=(e:BeforeUnloadEvent)=>{if(unsaved||orderCounting){e.preventDefault();e.returnValue='';}};window.addEventListener('beforeunload',leave);return()=>window.removeEventListener('beforeunload',leave);},[unsaved,orderCounting]);
+ useEffect(()=>{document.documentElement.dataset.adminUnsaved=String(unsaved||orderCounting);return()=>{delete document.documentElement.dataset.adminUnsaved;};},[unsaved,orderCounting]);
  const update=(next:Stock)=>{setStock(next);setDirty(true);};
  const editWeek=(patch:Partial<Week>)=>{if(week?.status==='draft')update({...stock,weeks:stock.weeks.map(w=>w.id===week.id?{...w,...patch}:w)});};
  const editRow=(id:string,patch:Partial<Count>)=>{if(week)editWeek({rows:week.rows.map(r=>r.product.id===id?{...r,...patch}:r)});};
@@ -126,12 +128,14 @@ export default function StockControl(){
   </form>
  </main>;
  return <main id="main" className="stock-control" data-keyboard={keyboard||undefined}><header><div><p className="admin-page-caption">Inventory</p><h1>Stock Control</h1></div></header>
-  <nav aria-label="Stock tools">{[['dashboard','Overview'],['input','Counts'],['activity','Activity'],['settings','Products'],['history','History']].map(([key,label])=><button key={key} aria-current={tab===key?'page':undefined} onClick={()=>setTab(key)}>{label}</button>)}</nav>
+  <nav aria-label="Stock tools">{[['dashboard','Overview'],['input','Counts'],['order','Order count'],['activity','Activity'],['settings','Products'],['history','History']].map(([key,label])=><button key={key} aria-current={tab===key?'page':undefined} onClick={()=>setTab(key)}>{label}</button>)}</nav>
   <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read();}}}>Reload</button></div><p role="status">{message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
   <fieldset disabled={busy||!loaded} className="stock-form">
-  {!['settings','activity'].includes(tab)&&stock.weeks.length>0&&<label>Period (Copenhagen time)<select value={week?.id??''} onChange={e=>setPeriod(e.target.value)}><option value="" disabled>No periods yet</option>{[...stock.weeks].sort((a,b)=>b.start.localeCompare(a.start)).map(w=><option key={w.id} value={w.id}>{w.start.replace('T',' ')} → {w.end.replace('T',' ')} · {w.status}</option>)}</select></label>}
+  {!['settings','activity','order'].includes(tab)&&stock.weeks.length>0&&<label>Period (Copenhagen time)<select value={week?.id??''} onChange={e=>setPeriod(e.target.value)}><option value="" disabled>No periods yet</option>{[...stock.weeks].sort((a,b)=>b.start.localeCompare(a.start)).map(w=><option key={w.id} value={w.id}>{w.start.replace('T',' ')} → {w.end.replace('T',' ')} · {w.status}</option>)}</select></label>}
   <div hidden={tab!=='activity'}><StockActivity stock={stock} onChange={update} onDraft={setActivityDraft}/></div>
+  <div hidden={tab!=='order'}><OrderCount products={stock.products} onCounting={setOrderCounting}/></div>
   {tab==='dashboard'&&<>
+   <button disabled={!stock.products.some(product=>product.active)} onClick={()=>setTab('order')}>Start count</button>
    <section className="stock-live-stock"><h2>Estimated stock now</h2><p>Latest finalized count + posted deliveries − posted till consumption. Physical waste and unposted sales are not included.</p>
    <div className="stock-table"><table><thead><tr><th>Product</th><th>Estimated packs</th><th>Ideal packs</th></tr></thead><tbody>{stock.products.filter(p=>p.active).map(p=><tr key={p.id}><th>{p.name}</th><td>{quantity(currentPacks(stock,p.id,stockNow()))}</td><td>{quantity(p.par/p.pack)}</td></tr>)}</tbody></table></div></section>
 
@@ -177,7 +181,7 @@ export default function StockControl(){
    </div>}
    <Products products={stock.products} usedIds={new Set([...stock.weeks.flatMap(w=>w.rows.map(r=>r.product.id)),...(stock.deliveries??[]).map(d=>d.product.id),...(stock.salesEntries??[]).flatMap(e=>e.item.ingredients.map(i=>i.productId))])} draft={productDraft} setDraft={setProductDraft} onAdd={(product,sale)=>{update({...stock,products:[product,...stock.products],sales:sale?[...stock.sales,sale]:stock.sales});setMessage('Product added. Use Save to keep it on all devices.');}} onChange={editProduct} sales={stock.sales} onAddSale={sale=>update({...stock,sales:[...stock.sales,sale]})} onChangeSale={editSale} onRemoveSale={id=>update({...stock,sales:stock.sales.filter(s=>s.id!==id)})}/>
   </section>}
-  {week&&<details><summary>Order suggestions · {orderSuggestions(week).length} products</summary><p>Whole packs to reach ideal stock. This is a recommendation, not an order sent to suppliers.</p><ul>{orderSuggestions(week).map(r=><li key={r.id}>{r.supplier} · {r.name}: {r.order} packs (counted {quantity(r.counted)} / ideal {quantity(r.ideal)})</li>)}</ul></details>}
+  {week&&tab!=='order'&&<details><summary>Order suggestions · {orderSuggestions(week).length} products</summary><p>Whole packs to reach ideal stock. This is a recommendation, not an order sent to suppliers.</p><ul>{orderSuggestions(week).map(r=><li key={r.id}>{r.supplier} · {r.name}: {r.order} packs (counted {quantity(r.counted)} / ideal {quantity(r.ideal)})</li>)}</ul></details>}
   {tab==='history'&&<>
    <details><summary>Order email</summary><p>{mail.configured?'Email sending is configured. Finalized counts queue an internal purchase recommendation.':'Email is not configured. Counts and order suggestions still work.'}</p><button disabled={busy||!mail.configured} onClick={async()=>{setBusy(true);try{const data=await api({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'retry-email'})});setMail(data.mail);}catch(error){setMessage((error as Error).message);}finally{setBusy(false);}}}>Check / retry queued emails</button><ul>{mail.jobs.map(job=><li key={job.id}>{job.id} · {job.status}{job.error?' · '+job.error:''}</li>)}</ul></details>
 <h2>History & backups</h2><p>Review earlier saves or download a backup. Imports stay local until you save.</p><div className="stock-product-actions"><button onClick={exportJSON}>Download backup</button><button onClick={()=>file.current?.click()}>Import backup</button></div><input ref={file} type="file" accept=".json" hidden onChange={async e=>{const selected=e.target.files?.[0];e.target.value='';if(!selected)return;try{if(selected.size>2900000)throw Error('Choose a backup below 2.9 MB.');const imported=JSON.parse(await selected.text());if(imported.version!==1)throw Error('Invalid backup version.');const next=validateStock(imported.document);if(confirm('Replace local edits with this backup for review? Nothing is saved until you press Save.')){update(next);setPeriod('');}}catch(error){setMessage((error as Error).message);}}}/><ul className="stock-audit">{audit.map(item=><li key={item.revision}><strong>Revision {item.revision}</strong> · {new Date(item.saved_at).toLocaleString('da-DK')} · {item.reason} <button onClick={async()=>{try{const data=await api(undefined,'/api/editor/stock?version='+item.revision);if(!data.record)throw Error('Revision not found.');download(new Blob([JSON.stringify({version:1,revision:data.record.revision,document:data.record.document},null,2)],{type:'application/json'}),'stock-revision-'+item.revision+'.json');}catch(error){setMessage((error as Error).message);}}}>Download revision</button></li>)}</ul></>}

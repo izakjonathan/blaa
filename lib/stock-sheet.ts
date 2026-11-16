@@ -13,6 +13,12 @@ export function mergeSheetProducts(stock: Stock, rows: unknown[][]) {
     }
   }
 
+  for (const field of ['low ideal', 'high ideal']) {
+    if (headers.filter(header => header === field).length > 1) {
+      throw Error(`Invalid Stock Control sheet: duplicate "${field}" column.`);
+    }
+  }
+
   const products = [...stock.products];
   const seen = new Set<string>();
   let added = 0;
@@ -54,12 +60,26 @@ export function mergeSheetProducts(stock: Stock, rows: unknown[][]) {
 
     const activeText = normalize(cell('active'));
     if (activeText && activeText !== 'true' && activeText !== 'false') fail('Active must be TRUE or FALSE.');
+    const ideal = (column: string, saved: number | undefined) => {
+      if (!headers.includes(column)) return saved;
+      const value = cell(column);
+      if (!value) return undefined;
+      const amount = Number(value.replace(',', '.'));
+      if (!Number.isFinite(amount) || amount < 0 || amount > 10000000) {
+        fail(`${column} must be a number from 0 to 10,000,000 packs.`);
+      }
+      return amount;
+    };
+    const lowIdeal = ideal('low ideal', previous?.lowIdeal);
+    const highIdeal = ideal('high ideal', previous?.highIdeal);
     const product: Product = {
       id, name, supplier, category, sku: sku || previous?.sku || '', unit, pack,
       packCost: previous?.packCost ?? 0,
       par: previous ? (pack === previous.pack ? previous.par : previous.par / previous.pack * pack) : 7 * pack,
       threshold: previous?.threshold ?? 5,
       active: activeText ? activeText === 'true' : previous?.active ?? true,
+      lowIdeal,
+      highIdeal,
     };
     if (!previous) {
       products.push(product);

@@ -125,3 +125,10 @@ Open **Stock Control** and enter its access key. The website syncs automatically
 The sync reads **Sheet1** and updates the catalog using **Name**, **Supplier**, **Type**, **Unit**, and **Pack**. Unit accepts `L`, `kg`, or `each`. Blank Unit and Pack use existing values or default to one item per pack for new products. Set explicit units before starting a count or adding till recipes for volume-based items.
 
 Add an optional **SKU** column with unique, stable values and sync it before renaming or reclassifying products. Without SKU, the importer matches on name, supplier, and type. An optional **Active** column set to `FALSE` archives a product. Removing a sheet row leaves the product in Stock Control. Pulling updates the catalog and keeps counts, activity and till recipes in the app. Unit changes can be blocked once counts, deliveries or till records use the product.
+
+
+### Supplier order counts
+
+Add **Low ideal** and **High ideal** columns to **Sheet1**. Enter targets in purchase packs, such as `4` for four kegs. Both columns sync. Only **Low ideal** is used for the supplier order list. A blank target marks the product as missing a target, while `0` is a valid target.
+
+In **Stock Control → Order count**, select one or more suppliers and start counting. Enter quantities in packs, including explicit zeroes and partial packs. The order list rounds each shortfall up to the next whole purchase pack. Products without a low ideal are listed separately. This count is an ordering worksheet for the current session. Use **Counts** for saved inventory periods.
