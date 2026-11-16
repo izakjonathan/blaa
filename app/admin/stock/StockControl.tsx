@@ -14,20 +14,30 @@ const money=(n:number)=>new Intl.NumberFormat('da-DK',{style:'currency',currency
 const quantity=(n:number|null)=>n===null?'—':new Intl.NumberFormat('da-DK',{maximumFractionDigits:3}).format(n);
 const percent=(n:number|null)=>n===null?'—':quantity(n)+'%';
 function download(value:Blob,name:string){const url=URL.createObjectURL(value),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);}
-async function api(options?:RequestInit,url='/api/editor/stock'){const response=await fetch(url,{...options,cache:'no-store'});const data=await response.json();if(!response.ok)throw Error(data.error||'Could not complete the stock request.');return data;}
 const nowDate=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Copenhagen',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const nextDate=(value:string)=>{const date=new Date(value.slice(0,10)+'T12:00:00Z');date.setUTCDate(date.getUTCDate()+7);return date.toISOString().slice(0,10)+'T04:00';};
 export default function StockControl(){
  const [stock,setStock]=useState<Stock>(emptyStock),[revision,setRevision]=useState(0),[ready,setReady]=useState(false),[loaded,setLoaded]=useState(false),[busy,setBusy]=useState(false),[dirty,setDirty]=useState(false),[message,setMessage]=useState('');
  const [tab,setTab]=useState('dashboard'),[period,setPeriod]=useState(''),[search,setSearch]=useState(''),[category,setCategory]=useState(''),[audit,setAudit]=useState<Audit[]>([]),[reason,setReason]=useState('');
  const [activityDraft,setActivityDraft]=useState(false),[countAt,setCountAt]=useState(stockNow),[mail,setMail]=useState<{configured:boolean;jobs:{id:string;status:string;error:string}[]}>({configured:false,jobs:[]});
+ const [locked,setLocked]=useState(false),[sheetEnabled,setSheetEnabled]=useState(false);
+ const accessKey=useRef('');
+ const api=async(options?:RequestInit,url='/api/editor/stock')=>{
+  const headers=new Headers(options?.headers);
+  if(accessKey.current)headers.set('Authorization','Bearer '+accessKey.current);
+  const response=await fetch(url,{...options,headers,cache:'no-store'});
+  const data=await response.json();
+  if(response.status===401){accessKey.current='';setLocked(true);}
+  if(!response.ok)throw Error(data.error||'Could not complete the stock request.');
+  return data;
+ };
  const keyboard=useStockKeyboard();
  const [productDraft,setProductDraft]=useState<Product|null>(null);
  const unsaved=dirty||productDraft!==null||activityDraft;
  const [start,setStart]=useState(()=>nowDate()+'T04:00'),[end,setEnd]=useState(()=>nextDate(nowDate()));
  const alive=useRef(true),file=useRef<HTMLInputElement>(null);
  const week=stock.weeks.find(w=>w.id===period)??stock.weeks.at(-1),report=week?summary(week):null;
- const read=async()=>{setBusy(true);try{const data=await api();if(!alive.current)return;setStock(validateStock(data.document));setRevision(data.revision);setReady(data.ready);setAudit(data.audit);setMail(data.mail??{configured:false,jobs:[]});setDirty(false);setLoaded(true);setMessage(data.ready?'':'Connect the existing Neon database to enable shared saves.');}catch(error){setMessage(error instanceof Error?error.message:'Could not load stock data.');}finally{if(alive.current)setBusy(false);}};
+ const read=async()=>{setBusy(true);try{const data=await api();if(!alive.current)return;setStock(validateStock(data.document));setRevision(data.revision);setReady(data.ready);setLocked(false);setSheetEnabled(data.sheetEnabled===true);setAudit(data.audit);setMail(data.mail??{configured:false,jobs:[]});setDirty(false);setLoaded(true);setMessage(data.ready?'':'Connect the existing Neon database to enable shared saves.');}catch(error){setMessage(error instanceof Error?error.message:'Could not load stock data.');}finally{if(alive.current)setBusy(false);}};
  useEffect(()=>{alive.current=true;void read();return()=>{alive.current=false;};},[]);
  useEffect(()=>{const leave=(e:BeforeUnloadEvent)=>{if(unsaved){e.preventDefault();e.returnValue='';}};window.addEventListener('beforeunload',leave);return()=>window.removeEventListener('beforeunload',leave);},[unsaved]);
  useEffect(()=>{document.documentElement.dataset.adminUnsaved=String(unsaved);return()=>{delete document.documentElement.dataset.adminUnsaved;};},[unsaved]);
@@ -43,10 +53,43 @@ export default function StockControl(){
   const invalidTill=next.sales.find(s=>tillProblem(s));if(invalidTill){setMessage((invalidTill.name||'Till item')+': '+tillProblem(invalidTill));return;}
   setBusy(true);setMessage('');try{const document=validateStock(next);const data=await api({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({document,revision,reason:note||'Saved draft/settings'})});if(!alive.current)return;setStock(document);setRevision(data.revision);setDirty(false);if(data.mail)setMail(data.mail);setReason('');setMessage('Saved on the server.');setAudit(old=>[{revision:data.revision,reason:note||'Saved draft/settings',saved_at:new Date().toISOString()},...old].slice(0,30));}catch(error){setMessage(error instanceof Error?error.message:'Save failed.');}finally{if(alive.current)setBusy(false);}
  };
+ const syncSheet=async()=>{
+  if(unsaved||busy||!sheetEnabled)return;
+  setBusy(true);
+  setMessage('');
+  try{
+   const result=await api({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'sync-sheet',revision})});
+   if(!alive.current)return;
+   setStock(validateStock(result.document));
+   setRevision(result.revision);
+   if(result.added||result.updated){
+    setAudit(previous=>[{revision:result.revision,reason:'Synced products from Google Sheets',saved_at:new Date().toISOString()},...previous].slice(0,30));
+   }
+   setMessage(`Google Sheets sync complete. ${result.added} added, ${result.updated} updated.`);
+  }catch(error){
+   setMessage(error instanceof Error?error.message:'Google Sheets sync failed.');
+  }finally{
+   if(alive.current)setBusy(false);
+  }
+ };
  const numeric=(label:string,value:number|null,change:(n:number|null)=>void,min=0,nullable=false,readOnly=false)=><label>{label}<input type="number" inputMode="decimal" step="any" readOnly={readOnly} min={min} value={value??''} placeholder={nullable?'Not counted':''} onChange={e=>{const text=e.target.value;if(nullable&&text===''){change(null);return;}const n=Number(text);if(Number.isFinite(n))change(n);}}/></label>;
  const exportJSON=()=>download(new Blob([JSON.stringify({version:1,revision,document:stock},null,2)],{type:'application/json'}),'blaa-stock-backup.json');
  const exportReport=()=>{if(!week||!report)return;const csv=[['Product','Base unit','Opening','Delivered','Transfer','Closing','Actual usage','Till usage','Recorded waste','Complimentary','Unexplained variance','Estimated loss %','Loss cost DKK'],...report.rows.map(r=>[r.row.product.name,r.row.product.unit,r.row.opening,r.delivered,r.row.transfer,r.row.closing,r.actual,r.theoretical,r.row.waste,r.row.comps,r.variance,r.percent,r.loss===null?null:r.loss*r.cost])].map(row=>row.map(value=>'"'+(typeof value==='string'&&/^[=+@-]/.test(value)?"'"+value:String(value??'')).replaceAll('"','""')+'"').join(',')).join('\r\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'stock-'+week.start.slice(0,10)+'.csv');};
  const visible=report?.rows.filter(r=>(!category||r.row.product.category===category)&&(r.row.product.name+' '+r.row.product.sku).toLowerCase().includes(search.toLowerCase()))??[];
+ if(locked)return <main id="main" className="stock-control">
+  <header><h1>Stock Control</h1></header>
+  <form onSubmit={event=>{
+   event.preventDefault();
+   const input=event.currentTarget.elements.namedItem('stock-access-key') as HTMLInputElement;
+   accessKey.current=input.value;
+   input.value='';
+   void read();
+  }}>
+   <label>Stock Control access key<input name="stock-access-key" type="password" required autoComplete="current-password"/></label>
+   <button disabled={busy}>Unlock Stock Control</button>
+   <p role="status">{message}</p>
+  </form>
+ </main>;
  return <main id="main" className="stock-control" data-keyboard={keyboard||undefined}><header><div><p className="admin-page-caption">Inventory</p><h1>Stock Control</h1></div></header>
   <nav aria-label="Stock tools">{[['dashboard','Overview'],['input','Counts'],['activity','Activity'],['settings','Products'],['history','History']].map(([key,label])=><button key={key} aria-current={tab===key?'page':undefined} onClick={()=>setTab(key)}>{label}</button>)}</nav>
   <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read();}}}>Reload</button></div><p role="status">{busy?'':message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
@@ -93,6 +136,10 @@ export default function StockControl(){
    </>}
   </>}
   {tab==='settings'&&<section className="stock-settings">
+   {sheetEnabled&&<div className="stock-product-actions">
+    <button disabled={unsaved||busy||!ready} onClick={()=>void syncSheet()}>Sync from Google Sheets</button>
+    {unsaved&&<p>Save or discard local edits before syncing.</p>}
+   </div>}
    <Products products={stock.products} usedIds={new Set([...stock.weeks.flatMap(w=>w.rows.map(r=>r.product.id)),...(stock.deliveries??[]).map(d=>d.product.id),...(stock.salesEntries??[]).flatMap(e=>e.item.ingredients.map(i=>i.productId))])} draft={productDraft} setDraft={setProductDraft} onAdd={(product,sale)=>{update({...stock,products:[product,...stock.products],sales:sale?[...stock.sales,sale]:stock.sales});setMessage('Product added. Use Save to keep it on all devices.');}} onChange={editProduct} sales={stock.sales} onAddSale={sale=>update({...stock,sales:[...stock.sales,sale]})} onChangeSale={editSale} onRemoveSale={id=>update({...stock,sales:stock.sales.filter(s=>s.id!==id)})}/>
   </section>}
   {week&&<details><summary>Order suggestions · {orderSuggestions(week).length} products</summary><p>Whole packs to reach ideal stock. This is a recommendation, not an order sent to suppliers.</p><ul>{orderSuggestions(week).map(r=><li key={r.id}>{r.supplier} · {r.name}: {r.order} packs (counted {quantity(r.counted)} / ideal {quantity(r.ideal)})</li>)}</ul></details>}

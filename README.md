@@ -112,3 +112,11 @@ Release 1.14.0 adds optional paired PLUs/prices, dated deliveries and till quant
 Release 1.15.0 applies the uploaded EventOS night-theme design system to all admin tools while retaining the existing font families and current landing layout. The landing header has no Back button. See [release notes](docs/release-1.15.0.md) for scope and verification.
 
 Release 1.15.1 restores brand-controlled backend colours, removes the bottom dock and simplifies outer card borders. See [release notes](docs/release-1.15.1.md).
+
+## Stock Control Google Sheet
+
+Enable the Google Sheets API in Google Cloud and create a service account. Share the private **Stock Control** spreadsheet with that account as **Viewer**. Set `STOCK_SHEET_ID` to the ID from the spreadsheet URL, `STOCK_SHEET_SERVICE_ACCOUNT_JSON` to the service account key JSON, and `STOCK_ACCESS_KEY` to a random key of at least 32 characters in the server environment. Keep these keys out of Git and client environment variables.
+
+Open **Stock Control → Products**, unlock using the access key, and select **Sync from Google Sheets** after saving or discarding any local changes. The sync reads **Sheet1** and updates the catalog using **Name**, **Supplier**, **Type**, **Unit**, and **Pack**. Unit accepts `L`, `kg`, or `each`. Blank Unit and Pack use existing values or default to one item per pack for new products. Set explicit units before starting a count or adding till recipes for volume-based items.
+
+Add an optional **SKU** column with unique, stable values and sync it before renaming or reclassifying products. Without SKU, the importer matches on name, supplier, and type. An optional **Active** column set to `FALSE` archives a product. Removing a sheet row leaves the product in Stock Control. Pulling updates the catalog and keeps counts, activity and till recipes in the app. Unit changes can be blocked once counts, deliveries or till records use the product.
