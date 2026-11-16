@@ -115,8 +115,13 @@ Release 1.15.1 restores brand-controlled backend colours, removes the bottom doc
 
 ## Stock Control Google Sheet
 
-Enable the Google Sheets API in Google Cloud and create a service account. Share the private **Stock Control** spreadsheet with that account as **Viewer**. Set `STOCK_SHEET_ID` to the ID from the spreadsheet URL, `STOCK_SHEET_SERVICE_ACCOUNT_JSON` to the service account key JSON, and `STOCK_ACCESS_KEY` to a random key of at least 32 characters in the server environment. Keep these keys out of Git and client environment variables.
+1. Open the private **Stock Control** sheet on desktop and select **Extensions → Apps Script**. Add the code from [stock-control.gs](scripts/stock-control.gs).
+2. In Apps Script **Project Settings → Script properties**, add `STOCK_SHEET_ID` (the ID in the spreadsheet URL) and `STOCK_SHEET_SCRIPT_KEY` (a random secret of at least 32 characters).
+3. Select **Deploy → New deployment → Web app**. Set **Execute as** to yourself and **Who has access** to **Anyone**. Authorize the script and copy its `/exec` URL. The sheet stays private and the script only returns rows after it verifies the sync secret.
+4. In Vercel set `STOCK_SHEET_SCRIPT_URL` to the deployment URL, `STOCK_SHEET_SCRIPT_KEY` to the same script secret, and `STOCK_ACCESS_KEY` to a separate random key of at least 32 characters. Keep both secrets out of Git and client environment variables. Deploy the branch with these variables.
 
-Open **Stock Control → Products**, unlock using the access key, and select **Sync from Google Sheets** after saving or discarding any local changes. The sync reads **Sheet1** and updates the catalog using **Name**, **Supplier**, **Type**, **Unit**, and **Pack**. Unit accepts `L`, `kg`, or `each`. Blank Unit and Pack use existing values or default to one item per pack for new products. Set explicit units before starting a count or adding till recipes for volume-based items.
+Open **Stock Control** and enter its access key. The website syncs automatically as it opens. If the script is unavailable, the saved products remain available and **Products → Sync from Google Sheets** can retry.
+
+The sync reads **Sheet1** and updates the catalog using **Name**, **Supplier**, **Type**, **Unit**, and **Pack**. Unit accepts `L`, `kg`, or `each`. Blank Unit and Pack use existing values or default to one item per pack for new products. Set explicit units before starting a count or adding till recipes for volume-based items.
 
 Add an optional **SKU** column with unique, stable values and sync it before renaming or reclassifying products. Without SKU, the importer matches on name, supplier, and type. An optional **Active** column set to `FALSE` archives a product. Removing a sheet row leaves the product in Stock Control. Pulling updates the catalog and keeps counts, activity and till recipes in the app. Unit changes can be blocked once counts, deliveries or till records use the product.

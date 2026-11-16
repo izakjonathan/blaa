@@ -1,4 +1,4 @@
-import {createHash, sign, timingSafeEqual} from 'node:crypto';
+import {createHash, timingSafeEqual} from 'node:crypto';
 import {validateStock, type Product, type Stock} from './stock.ts';
 
 const normalize = (value: string) => value.trim().normalize('NFC').toLowerCase();
@@ -73,11 +73,8 @@ export function mergeSheetProducts(stock: Stock, rows: unknown[][]) {
   return {document: validateStock({...stock, products}), added, updated};
 }
 
-const scope = 'https://www.googleapis.com/auth/spreadsheets.readonly';
-const tokenUrl = 'https://oauth2.googleapis.com/token';
-
 export function stockSheetEnabled() {
-  return Boolean(process.env.STOCK_SHEET_ID || process.env.STOCK_SHEET_SERVICE_ACCOUNT_JSON);
+  return Boolean(process.env.STOCK_SHEET_SCRIPT_URL || process.env.STOCK_SHEET_SCRIPT_KEY);
 }
 
 export function stockAccessAllowed(request: Request) {
@@ -90,36 +87,39 @@ export function stockAccessAllowed(request: Request) {
 }
 
 export async function readStockSheet(): Promise<unknown[][]> {
-  const id = process.env.STOCK_SHEET_ID;
-  const credentials = process.env.STOCK_SHEET_SERVICE_ACCOUNT_JSON;
-  if (!id || !/^[\w-]+$/.test(id) || !credentials) throw Error('Connect the private Google Sheet in the deployment settings.');
-  let account: {client_email?: string; private_key?: string};
-  try { account = JSON.parse(credentials); } catch { throw Error('Invalid Google service account configuration.'); }
-  if (!account?.client_email || !account.private_key) throw Error('Invalid Google service account configuration.');
+  const url = process.env.STOCK_SHEET_SCRIPT_URL;
+  const key = process.env.STOCK_SHEET_SCRIPT_KEY;
+  if (!url || !/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(url) || !key || key.length < 32) {
+    throw Error('Connect the Stock Control Apps Script using its deployment URL and sync key.');
+  }
 
-  const now = Math.floor(Date.now() / 1000);
-  const encode = (value: object) => Buffer.from(JSON.stringify(value)).toString('base64url');
-  const claims = encode({iss: account.client_email, scope, aud: tokenUrl, iat: now, exp: now + 300});
-  const unsigned = encode({alg: 'RS256', typ: 'JWT'}) + '.' + claims;
-  const assertion = unsigned + '.' + sign('RSA-SHA256', Buffer.from(unsigned), account.private_key).toString('base64url');
-  const token = await fetch(tokenUrl, {
-    method: 'POST',
-    body: new URLSearchParams({grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion}),
-    cache: 'no-store',
-    signal: AbortSignal.timeout(8000),
-  });
-  if (!token.ok) throw Error('Connect a valid Google Sheets service account in the deployment settings.');
-  const {access_token} = await token.json();
-  if (typeof access_token !== 'string') throw Error('Invalid Google Sheets token response.');
+  const signal = AbortSignal.timeout(12000);
+  try {
+    let response = await fetch(url, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({key}),
+      cache: 'no-store',
+      redirect: 'manual',
+      signal,
+    });
 
-  const range = encodeURIComponent("'Sheet1'!A1:Z");
-  const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${id}/values/${range}?valueRenderOption=UNFORMATTED_VALUE`, {
-    headers: {Authorization: 'Bearer ' + access_token},
-    cache: 'no-store',
-    signal: AbortSignal.timeout(12000),
-  });
-  if (!response.ok) throw Error('Connect the Sheet1 tab by enabling the Google Sheets API and sharing the sheet with the service account as Viewer.');
-  const {values} = await response.json();
-  if (!Array.isArray(values) || !values.every(Array.isArray)) throw Error('Invalid Google Sheet response.');
-  return values;
+    // ContentService serves the response from a one-time Google URL.
+    // Follow it with a GET so the sync key stays on the original request.
+    if (response.status === 302 || response.status === 303) {
+      const location = response.headers.get('location');
+      if (!location || new URL(location).origin !== 'https://script.googleusercontent.com') {
+        throw Error('Unexpected Apps Script redirect.');
+      }
+      response = await fetch(location, {cache: 'no-store', redirect: 'error', signal});
+    }
+    if (!response.ok) throw Error('Apps Script request failed.');
+    const {rows} = await response.json();
+    if (!Array.isArray(rows) || rows.length > 1001 || !rows.every(row => Array.isArray(row) && row.length <= 26)) {
+      throw Error('Unexpected Apps Script response.');
+    }
+    return rows;
+  } catch {
+    throw Error('Connect to the Apps Script deployment. Check its access settings, sync key and Sheet1 tab.');
+  }
 }

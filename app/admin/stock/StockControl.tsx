@@ -37,8 +37,51 @@ export default function StockControl(){
  const [start,setStart]=useState(()=>nowDate()+'T04:00'),[end,setEnd]=useState(()=>nextDate(nowDate()));
  const alive=useRef(true),file=useRef<HTMLInputElement>(null);
  const week=stock.weeks.find(w=>w.id===period)??stock.weeks.at(-1),report=week?summary(week):null;
- const read=async()=>{setBusy(true);try{const data=await api();if(!alive.current)return;setStock(validateStock(data.document));setRevision(data.revision);setReady(data.ready);setLocked(false);setSheetEnabled(data.sheetEnabled===true);setAudit(data.audit);setMail(data.mail??{configured:false,jobs:[]});setDirty(false);setLoaded(true);setMessage(data.ready?'':'Connect the existing Neon database to enable shared saves.');}catch(error){setMessage(error instanceof Error?error.message:'Could not load stock data.');}finally{if(alive.current)setBusy(false);}};
- useEffect(()=>{alive.current=true;void read();return()=>{alive.current=false;};},[]);
+ const refreshProducts=async(currentRevision:number,signal?:AbortSignal)=>{
+  setMessage('Syncing products from Google Sheets…');
+  const result=await api({
+   method:'POST',headers:{'Content-Type':'application/json'},signal,
+   body:JSON.stringify({action:'sync-sheet',revision:currentRevision}),
+  });
+  if(!alive.current||signal?.aborted)return;
+  setStock(validateStock(result.document));
+  setRevision(result.revision);
+  if(result.added||result.updated){
+   setAudit(previous=>[{revision:result.revision,reason:'Synced products from Google Sheets',saved_at:new Date().toISOString()},...previous].slice(0,30));
+   setMessage(`Google Sheets sync complete. ${result.added} added, ${result.updated} updated.`);
+  }else setMessage('Products are up to date.');
+ };
+ const read=async(syncOnOpen=false,signal?:AbortSignal)=>{
+  setBusy(true);
+  try{
+   const data=await api({signal});
+   if(!alive.current||signal?.aborted)return;
+   setStock(validateStock(data.document));
+   setRevision(data.revision);
+   setReady(data.ready);
+   setLocked(false);
+   setSheetEnabled(data.sheetEnabled===true);
+   setAudit(data.audit);
+   setMail(data.mail??{configured:false,jobs:[]});
+   setDirty(false);
+   setLoaded(true);
+   setMessage(data.ready?'':'Connect the existing Neon database to enable shared saves.');
+   if(syncOnOpen&&data.ready&&data.sheetEnabled){
+    try{await refreshProducts(data.revision,signal);}
+    catch(error){
+     if(alive.current&&!signal?.aborted)setMessage(`Showing saved products. ${(error as Error).message}`);
+    }
+   }
+  }catch(error){
+   if(alive.current&&!signal?.aborted)setMessage(error instanceof Error?error.message:'Could not load stock data.');
+  }finally{if(alive.current&&!signal?.aborted)setBusy(false);}
+ };
+ useEffect(()=>{
+  const controller=new AbortController();
+  alive.current=true;
+  void read(true,controller.signal);
+  return()=>{alive.current=false;controller.abort();};
+ },[]);
  useEffect(()=>{const leave=(e:BeforeUnloadEvent)=>{if(unsaved){e.preventDefault();e.returnValue='';}};window.addEventListener('beforeunload',leave);return()=>window.removeEventListener('beforeunload',leave);},[unsaved]);
  useEffect(()=>{document.documentElement.dataset.adminUnsaved=String(unsaved);return()=>{delete document.documentElement.dataset.adminUnsaved;};},[unsaved]);
  const update=(next:Stock)=>{setStock(next);setDirty(true);};
@@ -56,16 +99,8 @@ export default function StockControl(){
  const syncSheet=async()=>{
   if(unsaved||busy||!sheetEnabled)return;
   setBusy(true);
-  setMessage('');
   try{
-   const result=await api({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'sync-sheet',revision})});
-   if(!alive.current)return;
-   setStock(validateStock(result.document));
-   setRevision(result.revision);
-   if(result.added||result.updated){
-    setAudit(previous=>[{revision:result.revision,reason:'Synced products from Google Sheets',saved_at:new Date().toISOString()},...previous].slice(0,30));
-   }
-   setMessage(`Google Sheets sync complete. ${result.added} added, ${result.updated} updated.`);
+   await refreshProducts(revision);
   }catch(error){
    setMessage(error instanceof Error?error.message:'Google Sheets sync failed.');
   }finally{
@@ -83,7 +118,7 @@ export default function StockControl(){
    const input=event.currentTarget.elements.namedItem('stock-access-key') as HTMLInputElement;
    accessKey.current=input.value;
    input.value='';
-   void read();
+   void read(true);
   }}>
    <label>Stock Control access key<input name="stock-access-key" type="password" required autoComplete="current-password"/></label>
    <button disabled={busy}>Unlock Stock Control</button>
@@ -92,7 +127,7 @@ export default function StockControl(){
  </main>;
  return <main id="main" className="stock-control" data-keyboard={keyboard||undefined}><header><div><p className="admin-page-caption">Inventory</p><h1>Stock Control</h1></div></header>
   <nav aria-label="Stock tools">{[['dashboard','Overview'],['input','Counts'],['activity','Activity'],['settings','Products'],['history','History']].map(([key,label])=><button key={key} aria-current={tab===key?'page':undefined} onClick={()=>setTab(key)}>{label}</button>)}</nav>
-  <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read();}}}>Reload</button></div><p role="status">{busy?'':message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
+  <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read();}}}>Reload</button></div><p role="status">{message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
   <fieldset disabled={busy||!loaded} className="stock-form">
   {!['settings','activity'].includes(tab)&&stock.weeks.length>0&&<label>Period (Copenhagen time)<select value={week?.id??''} onChange={e=>setPeriod(e.target.value)}><option value="" disabled>No periods yet</option>{[...stock.weeks].sort((a,b)=>b.start.localeCompare(a.start)).map(w=><option key={w.id} value={w.id}>{w.start.replace('T',' ')} → {w.end.replace('T',' ')} · {w.status}</option>)}</select></label>}
   <div hidden={tab!=='activity'}><StockActivity stock={stock} onChange={update} onDraft={setActivityDraft}/></div>
