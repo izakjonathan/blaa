@@ -66,7 +66,7 @@ export default function OrderCount({products, onCounting}: Props) {
     return <section>
       <h2>Count stock</h2>
       <p>{entered} of {snapshot.length} products counted. Enter quantities in packs. Enter 0 for products with no stock.</p>
-      {countGroups.map(supplier => <fieldset key={supplier}>
+      {countGroups.map(supplier => <fieldset key={supplier} className="stock-count-group">
         <legend>{supplierName(supplier)}</legend>
         {snapshot.filter(product => product.supplier === supplier).map(product => {
           const value = counts[product.id] ?? '';
