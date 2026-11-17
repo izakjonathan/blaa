@@ -18,9 +18,15 @@ test('palette settings reject CSS injection and invalid colors; rendering falls 
   }
 });
 
-test('backend palette uses editable colours and safely falls back for invalid backgrounds',()=>{
- const document=validateDocument({text:{'brand.adminBackground':'#eeeecc','brand.gold':'#223344'},images:{}});
- assert.match(brandStyle(document),/--backend-bg:#eeeecc;/);
- assert.match(brandStyle(document),/--brand-gold:#223344;/);
- assert.match(brandStyle({text:{'brand.adminBackground':'red;}'},images:{}}),/--backend-bg:#1A1E3A;/);
+test('admin colours are independent of the public palette and preserve the existing background field', () => {
+  const document = validateDocument({
+    text: {'brand.adminBackground':'#eeeecc','brand.adminText':'#112233','brand.gold':'#223344'},
+    images: {},
+  });
+  assert.match(brandStyle(document), /--backend-bg:#eeeecc;--backend-ink:#112233;/);
+  assert.match(brandStyle(document), /--brand-gold:#223344;/);
+  assert.match(brandStyle({text:{'brand.gold':'#ffffff'},images:{}}), /--backend-ink:#DB8C59;/);
+  assert.throws(() => validateDocument({text:{'brand.adminText':'red;}'},images:{}}));
+  assert.match(brandStyle({text:{'brand.adminBackground':'red;}','brand.adminText':'red;}'},images:{}}),
+    /--backend-bg:#1A1E3A;--backend-ink:#DB8C59;/);
 });

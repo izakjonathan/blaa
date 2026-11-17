@@ -1,17 +1,18 @@
 /* EventOS reference: app/globals.css and components/ui/AppShell.tsx.
-   Scoped to tools only; the public site, landing page and preview content keep their palette. */
+   Admin chrome uses its own palette; artwork and content previews retain their chosen colours. */
+body:has(.admin-workspace) {background:var(--backend-bg)}
 .admin-workspace {min-height:100svh}
 .admin-workspace[data-tool=true] {
- --tool-bg:var(--backend-bg);--tool-content:var(--backend-bg);--tool-ink:var(--brand-gold);
+ --tool-bg:var(--backend-bg);--tool-content:var(--backend-bg);--tool-ink:var(--backend-ink);
  --tool-card:color-mix(in srgb,var(--tool-ink) 7%,var(--tool-bg));
  --tool-rule:color-mix(in srgb,var(--tool-ink) 20%,var(--tool-bg));--tool-strong:color-mix(in srgb,var(--tool-ink) 60%,var(--tool-bg));--tool-muted:color-mix(in srgb,var(--tool-ink) 65%,var(--tool-bg));
  background:var(--tool-bg);color:var(--tool-ink);color-scheme:normal;
  font:400 15px/1.22 var(--sans);letter-spacing:-.01em;
 }
-.admin-tool-header {display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:430px;margin:auto;padding:18px 16px 0;background:var(--backend-bg);color:var(--brand-gold)}
+.admin-tool-header {display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:430px;margin:auto;padding:18px 16px 0;background:var(--backend-bg);color:var(--backend-ink)}
 .admin-tool-header .brand-logo {display:block;color:inherit;text-decoration:none}
-.admin-venue-name {font:560 11px/1.12 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--brand-gold) 65%,var(--backend-bg))}
-.admin-tool-header .admin-home-button {min-height:44px;padding:12px 16px;border-radius:22px;border:1px solid color-mix(in srgb,var(--brand-gold) 20%,var(--backend-bg));background:transparent;color:var(--brand-gold);font:620 15px/1.08 var(--sans);letter-spacing:-.015em}
+.admin-venue-name {font:560 11px/1.12 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:color-mix(in srgb,var(--backend-ink) 65%,var(--backend-bg))}
+.admin-tool-header .admin-home-button {min-height:44px;padding:12px 16px;border-radius:22px;border:1px solid color-mix(in srgb,var(--backend-ink) 20%,var(--backend-bg));background:transparent;color:var(--backend-ink);font:620 15px/1.08 var(--sans);letter-spacing:-.015em}
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) {min-height:100svh;max-width:430px;margin:auto;padding:18px 16px calc(env(safe-area-inset-bottom) + 110px);min-width:0;background:var(--tool-bg);color:var(--tool-ink);font:400 15px/1.22 var(--sans);letter-spacing:-.01em}
 .admin-workspace[data-tool=true] :is(.editor-header,.stock-control>header,.social-studio>header) {display:block;padding:0;margin:0 0 24px;border:0;border-radius:0;background:transparent;text-align:left}
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) h1 {font:640 40px/.94 var(--display);letter-spacing:-.07em;margin:0;color:var(--tool-ink);text-transform:none;text-align:left;overflow-wrap:anywhere;font-synthesis:none}

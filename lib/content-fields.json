@@ -527,7 +527,7 @@
     "id": "brand.gold",
     "page": "brand",
     "section": "Brand palette",
-    "label": "Content / accent (website and backend)",
+    "label": "Website text / accent",
     "kind": "text",
     "control": "color",
     "default": "#DB8C59"
@@ -3474,10 +3474,19 @@
   {
     "id": "brand.adminBackground",
     "page": "brand",
-    "section": "Backend",
-    "label": "Backend background (landing and tools)",
+    "section": "Admin palette",
+    "label": "Admin background",
     "kind": "text",
     "control": "color",
     "default": "#1A1E3A"
+  },
+  {
+    "id": "brand.adminText",
+    "page": "brand",
+    "section": "Admin palette",
+    "label": "Admin text / accent",
+    "kind": "text",
+    "control": "color",
+    "default": "#DB8C59"
   }
 ]

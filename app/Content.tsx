@@ -28,7 +28,7 @@ export function ContentProvider({ value, children }: { value: ContentDocument; c
   return <Context.Provider value={draft ?? value}><style data-brand-palette>{brandStyle(draft ?? value)+animationStyle(draft ?? value)}</style>{children}</Context.Provider>;
 }
 export function useContent() { return useContext(Context); }
-export function BrandArtwork({src = venueLogo, alt, className = '', style, width = 1300, height = 768, tone = 'gold'}: {src?:string;alt:string;className?:string;style?:CSSProperties;width?:number;height?:number;tone?:'green'|'gold'}) {
+export function BrandArtwork({src = venueLogo, alt, className = '', style, width = 1300, height = 768, tone = 'gold'}: {src?:string;alt:string;className?:string;style?:CSSProperties;width?:number;height?:number;tone?:'green'|'gold'|'admin'}) {
  const document = useContent();
  return <span className={`brand-artwork ${className}`} role={alt ? 'img' : undefined} aria-label={alt || undefined} aria-hidden={!alt} style={{...style, aspectRatio:`${width} / ${height}`, ...artworkStyle(document, src, tone)}}/>;
 }

@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { useRouter } from 'next/navigation';
 import { uploadPresigned } from '@vercel/blob/client';
 import { emptyDocument, fields, imageValue, textValue, validateDocument, type ContentDocument, type ContentImageValue, type Field } from '../../lib/content-schema';
 import BrandSplash from '../BrandSplash';
@@ -41,6 +42,7 @@ async function preparePhoto(file:File):Promise<File> {
   finally{URL.revokeObjectURL(url);}
 }
 export default function Editor(){
+ const router=useRouter();
  const [document,setDocument]=useState<ContentDocument>(emptyDocument),[saved,setSaved]=useState<ContentDocument>(emptyDocument);
  const [revision,setRevision]=useState(0),[ready,setReady]=useState(false),[mediaReady,setMediaReady]=useState(false),[loading,setLoading]=useState(true),[busy,setBusy]=useState(''),[status,setStatus]=useState(''),[error,setError]=useState(''),[hasPrevious,setHasPrevious]=useState(false);
  const [motionPreviewRoute,setMotionPreviewRoute]=useState('/'),[previewRun,setPreviewRun]=useState(0);
@@ -74,7 +76,7 @@ export default function Editor(){
   if(action==='restore'&&!window.confirm('Restore the previous published version? Your current draft will be replaced.'))return;
   const submitted=document;
   setBusy(action);setError('');setStatus('');
-  try{const data=await jsonRequest('/api/editor/content',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,revision,document:validateDocument(submitted)})});applyState(data.state,submitted);const newerEdits=JSON.stringify(latestDraft.current)!==JSON.stringify(document);setStatus((action==='publish'?'Published. Your changes are live.':action==='restore'?'Previous version restored and published.':'Draft saved. The live website has not changed.')+(newerEdits?' Newer edits remain unsaved.':''));}
+  try{const data=await jsonRequest('/api/editor/content',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action,revision,document:validateDocument(submitted)})});applyState(data.state,submitted);if(action!=='save')router.refresh();const newerEdits=JSON.stringify(latestDraft.current)!==JSON.stringify(document);setStatus((action==='publish'?'Published. Your changes are live.':action==='restore'?'Previous version restored and published.':'Draft saved. The live website has not changed.')+(newerEdits?' Newer edits remain unsaved.':''));}
   catch(error){setError(error instanceof Error?error.message:'Could not save.');}
   finally{setBusy('');}
  };
@@ -100,7 +102,7 @@ export default function Editor(){
    <nav className="editor-tabs" aria-label="Pages">{pages.map(item=><button key={item.id} aria-pressed={page===item.id} onClick={()=>{setPage(item.id);}}>{item.label}</button>)}</nav>
    <div className="editor-controls"><span className="editor-state">{loading?'Loading…':dirty?'Unsaved changes':ready?'Draft up to date':'Exploring original content'}</span></div>
    {page==='splash'&&<><p className="editor-caption">Shown once per tab session. Preview lets you see it again while editing. Brand colors follow your palette settings.</p><ContentProvider value={document}><BrandSplash preview/></ContentProvider></>}
-   {page==='brand'&&<p className="editor-caption">These two colors apply across every page, including logos, illustrations and photo overlays. Gallery and exhibition photographs use the same gradient as the other page photographs; concert posters stay clear. Uniform mode applies the shared colour and opacity to every photo, including photos previously switched off. Select individual overrides to use per-photo settings. Concert posters and brand artwork stay clear. Preview your draft, then publish to update the live site.</p>}
+   {page==='brand'&&<p className="editor-caption">Use Brand palette for the public site and Admin palette for the Tools overview and all admin tools. Gallery and exhibition photographs use the same gradient as the other page photographs; concert posters stay clear. Uniform mode applies the shared colour and opacity to every photo, including photos previously switched off. Select individual overrides to use per-photo settings. Concert posters and brand artwork stay clear. Preview your draft, then publish to update the live site.</p>}
    {page==='brand'&&<ContentProvider value={document}><section className="editor-artwork-samples" aria-label="Live logo and illustration colours">{(['gold','green'] as const).map(tone=><div key={tone} className="editor-artwork-sample" style={{backgroundColor:brandColors(document)[tone==='gold'?'green':'gold']}}><BrandArtwork alt="Blågårds Apotek" tone={tone}/><BrandArtwork src="/kroteket/6c6d53aa-guitar.png" alt="Musik" width={512} height={512} tone={tone}/><BrandArtwork src="/kroteket/5a192dae-painting.png" alt="Kunst" width={512} height={512} tone={tone}/></div>)}</section></ContentProvider>}
    {page==='animations'&&<div className="editor-motion-intro"><p>Control animation timing, easing and movement. Device Reduce Motion is always respected. Video colour/saturation and splash hold time keep their existing controls. Open Preview and scroll to test heading letters, expanding photo frames, photo zoom and parallax. Open the menu to test its letter roll and drawn dividers. Follow an internal page link to test the page curtain. Menu navigation uses the existing menu as its cover. Use Replay preview to restart arrivals. Photo travel is the total movement in pixels; higher values crop the images more.</p><label>Preview page<select aria-label="Preview page" value={motionPreviewRoute} onChange={event=>setMotionPreviewRoute(event.target.value)}><option value="splash">Splash screen</option>{pages.filter(item=>!['animations','brand','splash','shared'].includes(item.id)).map(item=><option key={item.id} value={item.route}>{item.label}</option>)}</select></label><button className="editor-button" onClick={()=>setDocument(old=>({ ...old,text:Object.fromEntries(Object.entries(old.text).filter(([key])=>!key.startsWith('motion.')))}))}>Reset all animation settings</button></div>}
    {sections.map(current=><section key={`${page}-${current}`} className="editor-section" aria-label={sectionNames[current]||current} aria-busy={loading}><h3 className="editor-section-title">{sectionNames[current]||current}</h3><div className="editor-fields">
