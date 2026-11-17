@@ -8,7 +8,7 @@ import StockProductDetails from './StockProductDetails';
 import {useStockKeyboard} from './useStockKeyboard';
 import PeriodTime from './PeriodTime';
 import StockActivity from './StockActivity';
-import {newCount,applyActivity,productPerformance,countFinancials,expectedPacks,currentPacks,orderSuggestions,stockNow} from '../../../lib/stock-cycle';
+import {newCount,applyActivity,productPerformance,countFinancials,expectedPacks,orderSuggestions,stockNow} from '../../../lib/stock-cycle';
 import {tillProblem} from '../../../lib/stock-till';
 import {productProblems,unitsToPacks,packsToUnits,productPackDetails} from '../../../lib/stock-product';
 type Audit={revision:number;reason:string;saved_at:string};
@@ -137,11 +137,11 @@ export default function StockControl(){
   <div hidden={tab!=='order'}><OrderCount products={stock.products} onCounting={setOrderCounting}/></div>
   {tab==='dashboard'&&<>
    <button disabled={!stock.products.some(product=>product.active)} onClick={()=>setTab('order')}>Start count</button>
-   <section className="stock-live-stock"><h2>Estimated stock now</h2><p>Latest finalized count + posted deliveries − posted till consumption. Physical waste and unposted sales are not included.</p>
+   <section className="stock-live-stock"><h2>Stock overview</h2>
    <ul className="stock-overview-products">
     {stock.products.filter(product=>product.active).map(product=><li key={product.id}>
      <strong className="stock-item-name">{product.name}</strong>
-     <StockProductDetails product={product} estimatedPacks={currentPacks(stock,product.id,stockNow())}/>
+     <StockProductDetails product={product}/>
     </li>)}
    </ul></section>
 
