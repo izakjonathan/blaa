@@ -4,6 +4,7 @@ import {emptyStock,validateStock,newWeek,weekIssues,summary,type Stock,type Prod
 import './stock.css';
 import Products from './Products';
 import OrderCount from './OrderCount';
+import StockProductDetails from './StockProductDetails';
 import {useStockKeyboard} from './useStockKeyboard';
 import PeriodTime from './PeriodTime';
 import StockActivity from './StockActivity';
@@ -137,7 +138,12 @@ export default function StockControl(){
   {tab==='dashboard'&&<>
    <button disabled={!stock.products.some(product=>product.active)} onClick={()=>setTab('order')}>Start count</button>
    <section className="stock-live-stock"><h2>Estimated stock now</h2><p>Latest finalized count + posted deliveries − posted till consumption. Physical waste and unposted sales are not included.</p>
-   <div className="stock-table"><table><thead><tr><th>Product</th><th>Supplier</th><th>Unit</th><th>Unit size</th><th>Pack qty</th><th>Estimated packs</th><th>Low ideal (packs)</th></tr></thead><tbody>{stock.products.filter(p=>p.active).map(p=><tr key={p.id}><th>{p.name}</th><td>{p.supplier||'—'}</td><td>{p.unitLabel??'—'}</td><td>{p.unitSizeL===undefined?'—':quantity(p.unitSizeL)+' L'}</td><td>{quantity(p.packQty??null)}</td><td>{quantity(currentPacks(stock,p.id,stockNow()))}</td><td>{quantity(p.lowIdeal??null)}</td></tr>)}</tbody></table></div></section>
+   <ul className="stock-overview-products">
+    {stock.products.filter(product=>product.active).map(product=><li key={product.id}>
+     <strong className="stock-item-name">{product.name}</strong>
+     <StockProductDetails product={product} estimatedPacks={currentPacks(stock,product.id,stockNow())}/>
+    </li>)}
+   </ul></section>
 
    {!report?(loaded?<section className="stock-get-started"><h2>Set up your first count</h2><ol><li><strong>Add products</strong><span>Bottles, kegs, cases and other stock you buy.</span></li><li><strong>Connect till items</strong><span>Choose how much stock each sale uses.</span></li><li><strong>Start a weekly count</strong><span>Count stock, add deliveries and enter quantities sold.</span></li></ol><div className="stock-product-actions"><button onClick={()=>setTab('settings')}>Products & till</button><button disabled={!stock.products.length} onClick={()=>setTab('input')}>Start weekly count</button></div></section>:null):<>
     {week!.baseline&&<p>Baseline count: establishes opening stock for the next cycle. No usage or waste percentage is inferred.</p>}

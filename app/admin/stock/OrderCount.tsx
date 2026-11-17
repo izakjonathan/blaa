@@ -3,6 +3,7 @@
 import {useState} from 'react';
 import {orderPacksForLowIdeal, type Product} from '../../../lib/stock';
 import {productPackDetails} from '../../../lib/stock-product';
+import StockProductDetails from './StockProductDetails';
 
 type Props = {
   products: Product[];
@@ -64,7 +65,7 @@ export default function OrderCount({products, onCounting}: Props) {
   if (stage === 'count') {
     return <section>
       <h2>Count stock</h2>
-      <p>{entered} of {snapshot.length} products counted. Enter 0 for products with no stock.</p>
+      <p>{entered} of {snapshot.length} products counted. Enter quantities in packs. Enter 0 for products with no stock.</p>
       {countGroups.map(supplier => <fieldset key={supplier}>
         <legend>{supplierName(supplier)}</legend>
         {snapshot.filter(product => product.supplier === supplier).map(product => {
@@ -75,15 +76,15 @@ export default function OrderCount({products, onCounting}: Props) {
             setValue(String(Number(next.toFixed(9))));
           };
           return <div key={product.id} className="stock-order-count-row">
-            <label htmlFor={'order-count-' + product.id}>
-              <strong>{product.name}</strong>
-              <span>{productPackDetails(product)}</span>
-            </label>
+            <div>
+              <strong className="stock-item-name">{product.name}</strong>
+              <StockProductDetails product={product}/>
+            </div>
             <div className="stock-order-count-quantity">
               <button type="button" aria-label={'Remove one pack of ' + product.name}
                 disabled={value !== '' && Number(value) <= 0} onClick={() => adjust(-1)}>−</button>
               <input id={'order-count-' + product.id} type="number" inputMode="decimal"
-                min={0} max={maxCount} step="any" value={value}
+                aria-label={product.name + ' count in packs'} min={0} max={maxCount} step="any" value={value}
                 onChange={event => setValue(event.target.value)}/>
               <button type="button" aria-label={'Add one pack of ' + product.name}
                 disabled={Number(value) >= maxCount} onClick={() => adjust(1)}>+</button>
