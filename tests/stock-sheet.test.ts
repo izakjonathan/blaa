@@ -49,3 +49,34 @@ test('ideal columns sync in purchase packs and distinguish blank from zero', () 
   assert.equal(blank.document.products[0].lowIdeal, undefined);
   assert.throws(() => mergeSheetProducts(blank.document, [columns, [...row.slice(0, -1), -1]]), /Invalid sheet row 2/);
 });
+
+test('sheet unit descriptions and pack quantities are separate from pack totals and targets', () => {
+  const columns = ['Name', 'Supplier', 'Unit', 'Unit size (l.)', 'Pack qty', 'Low ideal', 'High ideal'];
+  const rows = [columns, ['Pilsner', 'Supplier', 'Bottle', .33, 24, 4, 6]];
+  const {document} = mergeSheetProducts(emptyStock, rows);
+  const [product] = document.products;
+  assert.equal(product.unitLabel, 'Bottle');
+  assert.equal(product.unitSizeL, .33);
+  assert.equal(product.packQty, 24);
+  assert.equal(product.unit, 'L');
+  assert.equal(product.pack, .33 * 24);
+  assert.equal(product.lowIdeal, 4);
+  assert.equal(orderPacksForLowIdeal(product.lowIdeal!, 2.5), 2);
+  assert.equal(mergeSheetProducts(document, rows).updated, 0);
+  assert.throws(() => mergeSheetProducts(emptyStock, [columns, ['Pilsner', 'Supplier', 'Bottle', .33, 1.5]]), /positive whole number/);
+});
+
+test('pack metadata sync retains existing product ID and the base unit of historical counts', () => {
+  const {document} = mergeSheetProducts(emptyStock, [headers, ['Pilsner', 'Supplier', 'Keg']]);
+  document.weeks.push(newWeek(document, '2026-11-02T04:00', '2026-11-09T04:00', 'week-1'));
+  const rows = [
+    ['Name', 'Supplier', 'Unit', 'Unit size (l.)', 'Pack qty'],
+    ['Pilsner', 'Supplier', 'Keg', 25, 1],
+  ];
+  const merged = mergeSheetProducts(document, rows);
+  assert.equal(merged.added, 0);
+  assert.equal(merged.document.products[0].id, document.products[0].id);
+  assert.equal(merged.document.products[0].unit, 'each');
+  assert.equal(merged.document.products[0].unitSizeL, 25);
+  assert.deepEqual(merged.document.weeks, document.weeks);
+});

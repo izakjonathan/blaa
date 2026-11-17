@@ -2,7 +2,7 @@
 
 import {useState} from 'react';
 import {orderPacksForLowIdeal, type Product} from '../../../lib/stock';
-import {packDescription} from '../../../lib/stock-product';
+import {productPackDetails} from '../../../lib/stock-product';
 
 type Props = {
   products: Product[];
@@ -77,7 +77,7 @@ export default function OrderCount({products, onCounting}: Props) {
           return <div key={product.id} className="stock-order-count-row">
             <label htmlFor={'order-count-' + product.id}>
               <strong>{product.name}</strong>
-              <span>{packDescription(product)}</span>
+              <span>{productPackDetails(product)}</span>
             </label>
             <div className="stock-order-count-quantity">
               <button type="button" aria-label={'Remove one pack of ' + product.name}
@@ -117,7 +117,7 @@ export default function OrderCount({products, onCounting}: Props) {
       return <section key={supplier}>
         <h3>{supplierName(supplier)}</h3>
         <ul>{lines.map(({product, counted, ideal, packs}) => <li key={product.id}>
-          <strong>{packs} × {product.name}</strong> · counted {counted}, target {ideal}
+          <strong>{packs} × {product.name}</strong> · counted {counted}, target {ideal}<br/><small>{productPackDetails(product)}</small>
         </li>)}</ul>
       </section>;
     })}

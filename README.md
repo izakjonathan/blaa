@@ -122,7 +122,7 @@ Release 1.15.1 restores brand-controlled backend colours, removes the bottom doc
 
 Open **Stock Control** and enter its access key. The website syncs automatically as it opens. If the script is unavailable, the saved products remain available and **Products → Sync from Google Sheets** can retry.
 
-The sync reads **Sheet1** and updates the catalog using **Name**, **Supplier**, **Type**, **Unit**, and **Pack**. Unit accepts `L`, `kg`, or `each`. Blank Unit and Pack use existing values or default to one item per pack for new products. Set explicit units before starting a count or adding till recipes for volume-based items.
+The sync reads **Name**, **Supplier**, **Unit**, **Unit size (l.)**, and **Pack qty** from **Sheet1**. Enter a unit such as Bottle, Can, or Keg, its volume in litres, and the number of units in one purchase pack. For example, a pack of 24 bottles of 0.33 L totals 7.92 L. Blank sizes or quantities appear as missing and retain the existing conversion where available. For new products, a blank pack quantity uses one unit per pack. Counts use purchase packs, including partial packs. The older Type / Unit / Pack format is also supported.
 
 Add an optional **SKU** column with unique, stable values and sync it before renaming or reclassifying products. Without SKU, the importer matches on name, supplier, and type. An optional **Active** column set to `FALSE` archives a product. Removing a sheet row leaves the product in Stock Control. Pulling updates the catalog and keeps counts, activity and till recipes in the app. Unit changes can be blocked once counts, deliveries or till records use the product.
 

@@ -11,6 +11,10 @@ export const purchaseSizes = [
 export function newProduct(id:string):Product{return {id,name:'',sku:'',category:'',supplier:'',unit:'each',pack:1,packCost:0,par:7,threshold:5,active:true};}
 export function purchaseSize(p:Product){return purchaseSizes.find(size=>size.unit===p.unit&&size.pack===p.pack);}
 export function packDescription(p:Product){return purchaseSize(p)?.label??`${p.pack} ${p.unit==='each'?'items':p.unit} per pack`;}
+export function productPackDetails(product: Product) {
+ const size = product.unitSizeL === undefined ? '—' : `${product.unitSizeL} L`;
+ return `Unit: ${product.unitLabel ?? '—'} · Unit size: ${size} · Pack qty: ${product.packQty ?? '—'}`;
+}
 /** UI amounts are purchase packs; stock storage and reports remain in base units. */
 export function packsToUnits(p:Product,packs:number){return packs*p.pack;}
 export function unitsToPacks(p:Product,units:number){return units/p.pack;}

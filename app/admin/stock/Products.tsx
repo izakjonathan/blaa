@@ -1,7 +1,7 @@
 'use client';
 import {useState} from 'react';
 import type {Product,Sale} from '../../../lib/stock';
-import {newProduct,purchaseSizes,purchaseSize,packDescription,productProblems,packsToUnits,unitsToPacks} from '../../../lib/stock-product';
+import {newProduct,purchaseSizes,purchaseSize,packDescription,productPackDetails,productProblems,packsToUnits,unitsToPacks} from '../../../lib/stock-product';
 
 import TillItems from './TillItems';
 import {servingUnit,storedAmount} from '../../../lib/stock-till';
@@ -43,6 +43,6 @@ export default function Products({products,usedIds,draft,setDraft,onAdd,onChange
   {products.length>0&&<div className="stock-product-search"><label>Find a product<input type="search" placeholder="Search name, category or supplier" value={search} onChange={e=>setSearch(e.target.value)}/></label><label><input type="checkbox" checked={archived} onChange={e=>setArchived(e.target.checked)}/> Show inactive products</label></div>}
   {!products.length&&!draft&&<p>No products yet. Start with one bottle, keg, case or other item you buy.</p>}
   {products.length>0&&!visible.length&&<p>No matching products. Try another search or show inactive products.</p>}
-  {visible.map(p=><details className="stock-product-row" key={p.id} open={expanded===p.id} onToggle={e=>{const open=e.currentTarget.open;setExpanded(previous=>open?p.id:previous===p.id?null:previous);}}><summary><span>{p.name}{p.active?'':' · Inactive'}</span><small>{packDescription(p)} · {p.packCost?price(p.packCost):'Price not set'}</small></summary><ProductFields product={p} locked={usedIds.has(p.id)} change={patch=>onChange(p.id,patch)}/>{productProblems(p).length>0&&<p role="alert">{productProblems(p).join(' ')}</p>}<TillItems product={p} products={products} sales={sales} onAdd={onAddSale} onChange={onChangeSale} onRemove={onRemoveSale}/></details>)}
+  {visible.map(p=><details className="stock-product-row" key={p.id} open={expanded===p.id} onToggle={e=>{const open=e.currentTarget.open;setExpanded(previous=>open?p.id:previous===p.id?null:previous);}}><summary><span>{p.name}{p.active?'':' · Inactive'}</span><small>{p.supplier||'No supplier'} · {productPackDetails(p)} · {p.packCost?price(p.packCost):'Price not set'}</small></summary><ProductFields product={p} locked={usedIds.has(p.id)} change={patch=>onChange(p.id,patch)}/>{productProblems(p).length>0&&<p role="alert">{productProblems(p).join(' ')}</p>}<TillItems product={p} products={products} sales={sales} onAdd={onAddSale} onChange={onChangeSale} onRemove={onRemoveSale}/></details>)}
  </section>;
 }
