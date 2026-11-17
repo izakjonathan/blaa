@@ -140,7 +140,6 @@ export default function StockControl(){
    <section className="stock-live-stock"><h2>Stock overview</h2>
    <ul className="stock-overview-products">
     {stock.products.filter(product=>product.active).map(product=><li key={product.id}>
-     <strong className="stock-item-name">{product.name}</strong>
      <StockProductDetails product={product}/>
     </li>)}
    </ul></section>

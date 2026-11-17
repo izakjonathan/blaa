@@ -121,22 +121,44 @@
 }
 .stock-overview-products li {padding: 8px 12px}
 .stock-overview-products li + li {border-top: 1px solid var(--tool-rule)}
-.stock-item-name {display: block; color: var(--tool-ink); font-size: 15px; overflow-wrap: anywhere}
+.stock-item-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  min-width: 0;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  color: var(--tool-ink);
+  font-size: 14px;
+}
 .stock-product-details {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2px 10px;
-  margin: 2px 0 0;
-  color: var(--tool-ink);
-  font-size: 12px;
-  overflow-wrap: anywhere;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+  color: var(--tool-muted);
+  font-size: 13px;
+  white-space: nowrap;
 }
-.stock-product-details dt {display: inline; color: var(--tool-muted)}
-.stock-product-details dd {display: inline; margin: 0 0 0 4px; font-weight: 600}
+.stock-product-details > span {flex-shrink: 0}
+.stock-inline-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.stock-product-details > .stock-line-unit {
+  flex-shrink: 1;
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .stock-order-count-quantity {display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 4px}
 .admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity button {padding: 0; min-height: 44px}
 .admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity input {padding-inline: 4px; min-height: 44px; text-align: center}
-@media(max-width: 340px) {
+@media(max-width: 520px) {
   .stock-order-count-row {grid-template-columns: minmax(0, 1fr)}
   .stock-order-count-quantity {width: min(100%, 148px)}
 }

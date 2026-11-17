@@ -76,10 +76,7 @@ export default function OrderCount({products, onCounting}: Props) {
             setValue(String(Number(next.toFixed(9))));
           };
           return <div key={product.id} className="stock-order-count-row">
-            <div>
-              <strong className="stock-item-name">{product.name}</strong>
-              <StockProductDetails product={product}/>
-            </div>
+            <StockProductDetails product={product}/>
             <div className="stock-order-count-quantity">
               <button type="button" aria-label={'Remove one pack of ' + product.name}
                 disabled={value !== '' && Number(value) <= 0} onClick={() => adjust(-1)}>−</button>
