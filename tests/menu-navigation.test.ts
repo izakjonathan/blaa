@@ -64,13 +64,13 @@ test('backend landing has no Back button or menu icon',()=>{
  const h=harness('/admin',false);h.render();assert.equal(h.hasBack(),false);assert.equal(h.hasBurger(),false);h.unmount();
 });
 
-test('stock header places the title after Back and omits the venue label',()=>{
+test('stock header places the title before Back and omits the venue label',()=>{
  const h=harness('/admin/stock');h.render();
  const items=h.header()!.props.children.filter(Boolean);
  assert.equal(items.length,2);
- assert.equal(items[0].props.href,'/admin');
- assert.equal(items[0].props.children,'Back');
- assert.equal(items[1].type,'h1');
- assert.equal(items[1].props.children,'Stock Control');
+ assert.equal(items[1].props.href,'/admin');
+ assert.equal(items[1].props.children,'Back');
+ assert.equal(items[0].type,'h1');
+ assert.equal(items[0].props.children,'Stock Control');
  h.unmount();
 });
