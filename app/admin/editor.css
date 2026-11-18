@@ -4,71 +4,29 @@
   --editor-ink: var(--tool-ink);
   --editor-rule: var(--tool-rule);
   --editor-muted: var(--tool-muted);
-  background: var(--editor-bg);
-  color: var(--editor-ink);
-  font-family: var(--sans);
-  min-height: 100dvh;
-  padding-bottom: calc(110px + env(safe-area-inset-bottom));
-  line-height: 1.5;
-  font-size: 16px;
   color-scheme: dark;
 }
 
 .content-editor h1 {
-  font-family: inherit;
-  letter-spacing: normal;
   max-width: none;
-  margin: 0;
-  line-height: 1.4;
-  font-size: 16px;
-  font-weight: 600;
 }
 
 .content-editor h2 {
-  font-family: inherit;
-  letter-spacing: normal;
   max-width: none;
-  margin: 0;
-  font-size: 28px;
-  line-height: 1.15;
-  font-weight: 600;
 }
 
 .content-editor h3 {
-  font-family: inherit;
-  letter-spacing: normal;
   max-width: none;
-  margin: 0;
-  line-height: 1.4;
-  font-size: 16px;
-  font-weight: 600;
 }
 
 .content-editor p {
-  font-family: inherit;
-  letter-spacing: normal;
   max-width: none;
-  margin: 0;
-  line-height: 1.4;
 }
 
 .editor-header {
-  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: calc(16px + env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 16px max(20px,env(safe-area-inset-left));
-  background: var(--editor-bg);
-}
-
-
-
-.editor-header h1 {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: .12em;
-  margin-top: 4px;
-  color: var(--editor-muted);
 }
 
 .editor-body {
