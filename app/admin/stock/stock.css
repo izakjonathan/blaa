@@ -1,5 +1,162 @@
 /* Stock Control owns its density and layout; shared tool colours remain inherited. */
 
+/* Typography controls
+   Bricolage Grotesque supports weights 200–800. Agilera is available at 400.
+   Change the sizes and weights here. Line heights sit with the rules below. */
+:is(.stock-control, .admin-tool-header[data-admin-stock=true]) {
+  --stock-font-body: var(--sans);
+  --stock-font-title: var(--display);
+
+  --stock-title-size: clamp(29px, 7vw, 40px);
+  --stock-title-weight: 400;
+  --stock-back-size: 13px;
+  --stock-back-weight: 400;
+  --stock-heading-size: 29px;
+  --stock-heading-weight: 620;
+  --stock-subheading-size: 23px;
+  --stock-subheading-weight: 620;
+  --stock-body-size: 15px;
+  --stock-body-weight: 400;
+  --stock-emphasis-weight: 500;
+  --stock-small-size: 11px;
+  --stock-small-weight: 560;
+
+  --stock-button-size: 15px;
+  --stock-button-weight: 620;
+  --stock-tab-size: var(--stock-button-size);
+  --stock-tab-weight: var(--stock-button-weight);
+
+  --stock-label-size: 11px;
+  --stock-label-weight: 560;
+  --stock-field-size: 16px;
+  --stock-field-weight: 400;
+  --stock-checkbox-label-size: 15px;
+  --stock-checkbox-label-weight: 400;
+  --stock-file-size: 15px;
+  --stock-file-weight: 400;
+  --stock-legend-size: var(--stock-label-size);
+  --stock-legend-weight: var(--stock-label-weight);
+  --stock-summary-size: 25px;
+  --stock-summary-weight: 620;
+
+  --stock-product-name-size: 19px;
+  --stock-product-name-weight: 500;
+  --stock-card-meta-size: 14px;
+  --stock-card-meta-weight: 400;
+  --stock-unit-size: var(--stock-card-meta-size);
+  --stock-unit-weight: var(--stock-card-meta-weight);
+  --stock-pack-size: var(--stock-card-meta-size);
+  --stock-pack-weight: var(--stock-card-meta-weight);
+  --stock-ideal-size: var(--stock-card-meta-size);
+  --stock-ideal-weight: var(--stock-card-meta-weight);
+  --stock-supplier-size: var(--stock-card-meta-size);
+  --stock-supplier-weight: var(--stock-card-meta-weight);
+
+  --stock-metric-label-size: 11px;
+  --stock-metric-label-weight: 560;
+  --stock-metric-value-size: 31px;
+  --stock-metric-value-weight: 700;
+  --stock-table-size: 15px;
+  --stock-table-weight: var(--stock-body-weight);
+  --stock-table-heading-size: 11px;
+  --stock-table-heading-weight: 500;
+  --stock-guide-size: 14px;
+  --stock-guide-detail-size: 12px;
+  --stock-period-label-size: var(--stock-subheading-size);
+  --stock-audit-size: 13px;
+  --stock-save-status-size: var(--stock-small-size);
+  --stock-save-status-weight: var(--stock-small-weight);
+}
+
+/* Match the specificity of the shared admin theme for Stock Control only. */
+.admin-workspace[data-tool=true] main.stock-control {
+  font: var(--stock-body-weight) var(--stock-body-size)/1.22 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control h2 {
+  font-size: var(--stock-heading-size);
+  font-weight: var(--stock-heading-weight);
+}
+
+.admin-workspace[data-tool=true] main.stock-control h3 {
+  font: var(--stock-subheading-weight) var(--stock-subheading-size)/1 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control .stock-period-boundary h3 {
+  font-size: var(--stock-period-label-size);
+}
+
+.admin-workspace[data-tool=true] main.stock-control p {
+  font: var(--stock-body-weight) var(--stock-body-size)/1.22 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control small {
+  font: var(--stock-small-weight) var(--stock-small-size)/1.12 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control :is(button, .editor-button) {
+  font: var(--stock-button-weight) var(--stock-button-size)/1.08 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control > nav > :is(button, .editor-button) {
+  font-size: var(--stock-tab-size);
+  font-weight: var(--stock-tab-weight);
+}
+
+.admin-workspace[data-tool=true] main.stock-control label {
+  font: var(--stock-label-weight) var(--stock-label-size)/1.12 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control label:has(> input[type=checkbox]) {
+  font: var(--stock-checkbox-label-weight) var(--stock-checkbox-label-size)/1.22 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control :is(
+  input:not([type=checkbox]):not([type=range]):not([type=color]):not([type=file]),
+  textarea,
+  select
+) {
+  font: var(--stock-field-weight) var(--stock-field-size)/1.22 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control input[type=file] {
+  font: var(--stock-file-weight) var(--stock-file-size)/1.22 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control legend {
+  font: var(--stock-legend-weight) var(--stock-legend-size)/1.12 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control summary {
+  font: var(--stock-summary-weight) var(--stock-summary-size)/1 var(--stock-font-body);
+}
+
+.stock-control strong:not(.stock-item-name) {
+  font-weight: var(--stock-emphasis-weight);
+}
+
+.admin-workspace[data-tool=true] main.stock-control .stock-metrics article > p {
+  font: var(--stock-metric-label-weight) var(--stock-metric-label-size)/1.12 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control .stock-metrics strong {
+  font: var(--stock-metric-value-weight) var(--stock-metric-value-size)/.9 var(--stock-font-body);
+}
+
+.admin-workspace[data-tool=true] main.stock-control .stock-table :is(td, th) {
+  font-size: var(--stock-table-size);
+  font-weight: var(--stock-table-weight);
+}
+
+.admin-workspace[data-tool=true] main.stock-control .stock-table th {
+  font-size: var(--stock-table-heading-size);
+  font-weight: var(--stock-table-heading-weight);
+}
+
+.admin-workspace[data-tool=true] main.stock-control .stock-save > span {
+  font: var(--stock-save-status-weight) var(--stock-save-status-size)/1.12 var(--stock-font-body);
+}
+
 /* Page layout and theme variables */
 .stock-control {
   --tool-card: transparent;
@@ -12,24 +169,23 @@
   padding: 100px max(20px,var(--gutter)) calc(100px + env(safe-area-inset-bottom));
   background: var(--tool-bg);
   color: var(--tool-ink);
-  font: 14px/1.45 var(--sans);
   min-width: 0;
 }
 
 /* Header and Back button */
 .admin-tool-header[data-admin-stock=true] .stock-header-title {
-  margin: 0;
-  font: 400 clamp(29px, 7vw, 40px)/1 var(--display);
+  font: var(--stock-title-weight) var(--stock-title-size)/1 var(--stock-font-title);
   font-synthesis: none;
+  margin: 0;
   letter-spacing: -.02em;
   text-align: left;
 }
 
 .admin-tool-header[data-admin-stock=true] .admin-home-button {
+  font: var(--stock-back-weight) var(--stock-back-size)/1.2 var(--stock-font-body);
   min-height: 34px;
   padding: 7px 12px;
   flex: none;
-  font: 400 13px/1.2 var(--sans);
 }
 
 /* Overview heading and Start count button */
@@ -50,19 +206,16 @@
 
 /* Headings and body text */
 .stock-control h2 {
-  font: 600 19px/1.3 var(--sans);
   letter-spacing: 0;
   margin: 22px 0 10px;
 }
 
 .stock-control h3 {
-  font: 600 15px/1.3 var(--sans);
   letter-spacing: 0;
   margin: 0 0 8px;
 }
 
 .stock-control p {
-  font: 14px/1.5 var(--sans);
   color: var(--tool-muted);
   max-width: 75ch;
   margin: 8px 0;
@@ -71,7 +224,6 @@
 
 .stock-control small {
   display: block;
-  font: 12px/1.45 var(--sans);
   color: var(--tool-muted);
 }
 
@@ -92,7 +244,6 @@
   border-radius: 999px;
   background: transparent;
   color: var(--tool-ink);
-  font: 14px/1.25 var(--sans);
   text-align: center;
   cursor: pointer;
   max-width: 100%;
@@ -114,7 +265,6 @@
 
 .stock-control>nav>button {
   padding: 8px 5px;
-  font-size: 13px;
   white-space: nowrap;
 }
 
@@ -122,7 +272,6 @@
 .stock-control label {
   display: grid;
   gap: 5px;
-  font: 12px/1.4 var(--sans);
   margin: 8px 0;
   min-width: 0;
   max-width: 100%;
@@ -132,7 +281,6 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 13px;
 }
 
 .stock-control :is(input:not([type=checkbox]):not([type=file]),select,textarea) {
@@ -146,7 +294,6 @@
   border-radius: 10px;
   background: var(--tool-card);
   color: var(--tool-ink);
-  font: 16px/1.35 var(--sans);
 }
 
 .stock-control textarea {
@@ -177,14 +324,12 @@
   cursor: pointer;
   min-height: 32px;
   padding: 4px 0;
-  font: 500 15px/1.4 var(--sans);
   overflow-wrap: anywhere;
 }
 
 .stock-control legend {
   max-width: 100%;
   padding: 0 6px;
-  font: 500 13px/1.4 var(--sans);
 }
 
 .stock-control .stock-form {
@@ -239,7 +384,6 @@
 
 .stock-section-heading p {
   margin: 0;
-  font-size: 13px;
 }
 
 .stock-product-fields {
@@ -269,7 +413,6 @@
 }
 
 .stock-control .stock-product-help {
-  font-size: 12px;
   margin: 6px 0 10px;
 }
 
@@ -328,7 +471,6 @@
 }
 
 .stock-period-boundary h3 {
-  font-size: 13px;
   margin: 0;
 }
 
@@ -370,13 +512,13 @@
 }
 
 .stock-get-started li {
-  font-size: 14px;
+  font-size: var(--stock-guide-size);
 }
 
 .stock-get-started li>span {
+  font-size: var(--stock-guide-detail-size);
   display: block;
   color: var(--tool-muted);
-  font-size: 12px;
   line-height: 1.4;
   margin-top: 2px;
 }
@@ -397,14 +539,11 @@
 }
 
 .stock-metrics article>p {
-  font-size: 12px;
   line-height: 1.3;
   margin: 0 0 6px;
 }
 
 .stock-metrics strong {
-  font-size: 26px;
-  font-weight: 500;
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
 }
@@ -438,15 +577,10 @@
 }
 
 .stock-table :is(td,th) {
-  font-size: 13px;
   padding: 10px;
   text-align: left;
   border-bottom: 1px solid var(--tool-rule);
   font-variant-numeric: tabular-nums;
-}
-
-.stock-table th {
-  font-weight: 500;
 }
 
 /* Alerts and audit history */
@@ -475,11 +609,11 @@
 }
 
 .stock-audit li {
+  font-size: var(--stock-audit-size);
   padding: 12px;
   border: 1px solid var(--tool-rule);
   border-radius: 10px;
   background: var(--tool-card);
-  font-size: 13px;
 }
 
 .stock-audit button {
@@ -503,7 +637,6 @@
 .stock-save>span {
   min-width: 0;
   color: var(--tool-muted);
-  font-size: 12px;
   line-height: 1.3;
 }
 
@@ -534,12 +667,7 @@
     padding-right: 16px;
   }
 
-  .stock-control h1 {
-    font-size: 30px;
-  }
-
   .stock-control h2 {
-    font-size: 18px;
     margin-top: 18px;
   }
 
@@ -573,10 +701,6 @@
     grid-template-columns: repeat(2,minmax(0,1fr));
   }
 
-  .stock-metrics strong {
-    font-size: 24px;
-  }
-
   .stock-save {
     padding-inline: 16px;
   }
@@ -598,7 +722,6 @@
   }
 
   .stock-control>nav>button {
-    font-size: 12px;
     padding-inline: 2px;
   }
 }
@@ -662,6 +785,8 @@
 
 /* Product card typography */
 .stock-item-name {
+  font-size: var(--stock-product-name-size);
+  font-weight: var(--stock-product-name-weight);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -670,8 +795,6 @@
   overflow-wrap: anywhere;
   white-space: normal;
   color: var(--tool-ink);
-  font-size: 19px;
-  font-weight: 500;
   line-height: 1.15;
 }
 
@@ -686,6 +809,8 @@
 }
 
 .stock-card-meta {
+  font-size: var(--stock-card-meta-size);
+  font-weight: var(--stock-card-meta-weight);
   display: flex;
   align-items: baseline;
   gap: 4px;
@@ -693,13 +818,32 @@
   margin-top: 4px;
   overflow: hidden;
   color: var(--tool-muted);
-  font-size: 14px;
   line-height: 1.2;
   white-space: nowrap;
 }
 
 .stock-card-meta > span {
   flex-shrink: 0;
+}
+
+.stock-card-meta > .stock-line-unit {
+  font-size: var(--stock-unit-size);
+  font-weight: var(--stock-unit-weight);
+}
+
+.stock-card-meta > .stock-card-pack {
+  font-size: var(--stock-pack-size);
+  font-weight: var(--stock-pack-weight);
+}
+
+.stock-card-meta > .stock-card-ideal {
+  font-size: var(--stock-ideal-size);
+  font-weight: var(--stock-ideal-weight);
+}
+
+.stock-card-meta > .stock-card-supplier {
+  font-size: var(--stock-supplier-size);
+  font-weight: var(--stock-supplier-weight);
 }
 
 .stock-inline-label {
@@ -732,7 +876,6 @@
   padding: 6px 10px;
   background: transparent;
   color: var(--tool-ink);
-  font: 400 13px/1.2 var(--sans);
 }
 
 .admin-workspace[data-tool=true] .stock-control :is(.stock-primary,button[aria-current=page],button[aria-pressed=true],.stock-save>button:first-of-type:not(:disabled)) {
