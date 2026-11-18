@@ -6,7 +6,11 @@ import PeriodTime from './PeriodTime';
 
 export default function StockActivity({stock,onChange,onDraft}:{stock:Stock;onChange:(stock:Stock)=>void;onDraft:(dirty:boolean)=>void}){
  const [kind,setKind]=useState('delivery'),[selected,setSelected]=useState(''),[at,setAt]=useState(stockNow),[quantity,setQuantity]=useState(''),[cost,setCost]=useState(''),[reference,setReference]=useState(''),[error,setError]=useState('');
- const product=stock.products.find(p=>p.id===selected)??stock.products.find(p=>p.active),item=stock.sales.find(s=>s.id===selected)??stock.sales[0];
+ const products=stock.products.filter(p=>!p.sheetMissing);
+ const ids=new Set(products.map(p=>p.id));
+ const deliverable=products.filter(p=>p.active);
+ const tillItems=stock.sales.filter(s=>s.ingredients.every(i=>ids.has(i.productId)));
+ const product=deliverable.find(p=>p.id===selected)??deliverable[0],item=tillItems.find(s=>s.id===selected)??tillItems[0];
  const cutoff=[...stock.weeks].filter(w=>w.status==='closed').sort((a,b)=>b.end.localeCompare(a.end))[0]?.end;
  const clear=()=>{setQuantity('');setCost('');setReference('');setError('');onDraft(false);};
  const logs=[...(stock.deliveries??[]).map(d=>({id:d.id,at:d.at,label:`Delivery · ${d.product.name} · ${d.packs} packs`,kind:'delivery'})),...(stock.salesEntries??[]).map(e=>({id:e.id,at:e.at,label:`Till sales · ${e.item.name} · ${e.quantity}`,kind:'sale'}))].sort((a,b)=>b.at.localeCompare(a.at)).slice(0,40);
@@ -18,7 +22,7 @@ export default function StockActivity({stock,onChange,onDraft}:{stock:Stock;onCh
    if(kind==='delivery'){if(!product)throw Error('Add a product first.');const price=cost===''?product.packCost:Number(cost);if(!Number.isFinite(price)||price<0)throw Error('Enter a valid pack cost.');onChange({...stock,deliveries:[...(stock.deliveries??[]),{id:crypto.randomUUID(),product:structuredClone(product),at,packs:qty,cost:price,reference}]});}
    else{if(!item)throw Error('Add a till item inside a product first.');if(item.ingredients.some(i=>i.quantity<=0))throw Error('Complete this till item’s serving size first.');onChange({...stock,salesEntries:[...(stock.salesEntries??[]),{id:crypto.randomUUID(),item:structuredClone(item),at,quantity:qty}]});}clear();
   }catch(error){setError((error as Error).message);}}}>
-   <div className="stock-product-fields"><label>{kind==='delivery'?'Product':'Till item'}<select value={kind==='delivery'?product?.id??'':item?.id??''} onChange={e=>{setSelected(e.target.value);setCost('');}}>{kind==='delivery'?stock.products.filter(p=>p.active).map(p=><option key={p.id} value={p.id}>{p.name}</option>):stock.sales.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
+   <div className="stock-product-fields"><label>{kind==='delivery'?'Product':'Till item'}<select value={kind==='delivery'?product?.id??'':item?.id??''} onChange={e=>{setSelected(e.target.value);setCost('');}}>{kind==='delivery'?deliverable.map(p=><option key={p.id} value={p.id}>{p.name}</option>):tillItems.map(s=><option key={s.id} value={s.id}>{s.name}</option>)}</select></label>
    <label>{kind==='delivery'?'Packs received':'Quantity sold'}<input type="number" inputMode="decimal" min={kind==='delivery'?.000001:0} max={10000000} step="any" required value={quantity} onChange={e=>setQuantity(e.target.value)}/></label>
    {kind==='delivery'&&<><label>Cost per pack (DKK)<input type="number" inputMode="decimal" min={0} step="any" placeholder={String(product?.packCost??0)} value={cost} onChange={e=>setCost(e.target.value)}/></label><label>Delivery reference (optional)<input maxLength={200} value={reference} onChange={e=>setReference(e.target.value)}/></label></>}
    </div><PeriodTime label="Activity time (Copenhagen)" value={at} onChange={setAt}/>

@@ -26,7 +26,7 @@ function harness(initialPath='/',leaveConfirmed=true){
  function open(){render();nodes(tree).find(n=>n.props.className==='burger-button')!.props.onClick({detail:1});render();paint();paint();render();}
  function choose(href:string){nodes(tree).find(n=>n.props.href===href&&n.props.onClick&&Object.hasOwn(n.props,'aria-current'))!.props.onClick({preventDefault(){},metaKey:false,ctrlKey:false,shiftKey:false,altKey:false});}
  function back(){const link=nodes(tree).find(n=>n.props.className==='admin-home-button');let prevented=false;link!.props.onClick({preventDefault(){prevented=true;},metaKey:false,ctrlKey:false,shiftKey:false,altKey:false});return {href:link!.props.href,prevented};}
- return {dataset,confirmations,back,hasBack:()=>nodes(tree).some(n=>n.props.className==='admin-home-button'),hasBurger:()=>nodes(tree).some(n=>n.props.className==='burger-button'),open,choose,render,paint,menu,pushes,prefetches,scrolls,classes,route:(p:string)=>{pathname=p;render();},unmount:()=>slots.forEach(s=>s?.cleanup?.())};
+ return {dataset,confirmations,back,header:()=>nodes(tree).find(n=>n.type==='header'),hasBack:()=>nodes(tree).some(n=>n.props.className==='admin-home-button'),hasBurger:()=>nodes(tree).some(n=>n.props.className==='burger-button'),open,choose,render,paint,menu,pushes,prefetches,scrolls,classes,route:(p:string)=>{pathname=p;render();},unmount:()=>slots.forEach(s=>s?.cleanup?.())};
 }
 test('menu route selection disables Next scrolling and jumps instantly before revealing the destination',()=>{
  const h=harness();h.open();h.choose('/om-os');
@@ -62,4 +62,15 @@ for(const confirmed of [false,true])test(`backend back link ${confirmed?'allows'
 });
 test('backend landing has no Back button or menu icon',()=>{
  const h=harness('/admin',false);h.render();assert.equal(h.hasBack(),false);assert.equal(h.hasBurger(),false);h.unmount();
+});
+
+test('stock header places the title after Back and omits the venue label',()=>{
+ const h=harness('/admin/stock');h.render();
+ const items=h.header()!.props.children.filter(Boolean);
+ assert.equal(items.length,2);
+ assert.equal(items[0].props.href,'/admin');
+ assert.equal(items[0].props.children,'Back');
+ assert.equal(items[1].type,'h1');
+ assert.equal(items[1].props.children,'Stock Control');
+ h.unmount();
 });

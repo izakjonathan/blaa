@@ -9,10 +9,14 @@ export async function initStock(db:Query){
  await db`INSERT INTO blaa_stock_state(id,revision,document) VALUES(1,0,${JSON.stringify(emptyStock)}::jsonb) ON CONFLICT(id) DO NOTHING`;
 }
 export async function readStock(db:Query){const rows=await db`SELECT revision,document FROM blaa_stock_state WHERE id=1`;return {revision:Number(rows[0].revision),document:validateStock(rows[0].document)};}
-export async function saveStock(db:Query,revision:number,document:Stock,reason:string){
+export async function saveStock(db:Query,revision:number,document:Stock,reason:string,sheetManaged=false){
  document=validateStock(document);
  const previous=await readStock(db);if(previous.revision!==revision)throw Error('CONFLICT: Stock data changed on another device. Export your edits, then reload before saving.');
  checkStockChange(previous.document,document,reason);
+ if(sheetManaged){
+  const catalog=new Map(previous.document.products.map(p=>[p.id,p]));
+  if(document.products.some(p=>!catalog.has(p.id)||Boolean(p.sheetMissing)!==Boolean(catalog.get(p.id)?.sheetMissing)))throw Error('Invalid catalog change: add or remove products in Google Sheets.');
+ }
  for(const week of document.weeks.filter(w=>w.source==='ledger'&&w.status==='closed'&&!previous.document.weeks.some(old=>old.id===w.id&&old.status==='closed'))){
   const anchor=document.weeks.find(w=>w.status==='closed'&&w.end===week.start&&w.id!==week.id);
   if(week.baseline){if(document.weeks.some(w=>w.id!==week.id&&w.status==='closed'&&w.end<=week.end))throw Error('Invalid count: a baseline already exists.');continue;}

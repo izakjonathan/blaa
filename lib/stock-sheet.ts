@@ -117,6 +117,7 @@ export function mergeSheetProducts(stock: Stock, rows: unknown[][]) {
       par: previous ? (pack === previous.pack ? previous.par : previous.par / previous.pack * pack) : 7 * pack,
       threshold: previous?.threshold ?? 5,
       active: activeText ? activeText === 'true' : previous?.active ?? true,
+      sheetMissing: undefined,
       unitLabel,
       unitSizeL,
       packQty,
@@ -131,8 +132,13 @@ export function mergeSheetProducts(stock: Stock, rows: unknown[][]) {
       updated++;
     }
   }
-  if (!seen.size) throw Error('Invalid Stock Control sheet: no products found.');
-  return {document: validateStock({...stock, products}), added, updated};
+  let removed = 0;
+  const catalog = products.map(product => {
+    if (seen.has(product.id) || product.sheetMissing) return product;
+    removed++;
+    return {...product, sheetMissing: true};
+  });
+  return {document: validateStock({...stock, products: catalog}), added, updated, removed};
 }
 
 export function stockSheetEnabled() {

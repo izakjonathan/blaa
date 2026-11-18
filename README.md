@@ -124,7 +124,7 @@ Open **Stock Control** and enter its access key. The website syncs automatically
 
 The sync reads **Name**, **Supplier**, **Unit**, **Unit size (l.)**, and **Pack qty** from **Sheet1**. Enter a unit such as Bottle, Can, or Keg, its volume in litres, and the number of units in one purchase pack. For example, a pack of 24 bottles of 0.33 L totals 7.92 L. Blank sizes or quantities appear as missing and retain the existing conversion where available. For new products, a blank pack quantity uses one unit per pack. Counts use purchase packs, including partial packs. The older Type / Unit / Pack format is also supported.
 
-Add an optional **SKU** column with unique, stable values and sync it before renaming or reclassifying products. Without SKU, the importer matches on name, supplier, and type. An optional **Active** column set to `FALSE` archives a product. Removing a sheet row leaves the product in Stock Control. Pulling updates the catalog and keeps counts, activity and till recipes in the app. Unit changes can be blocked once counts, deliveries or till records use the product.
+Add an optional **SKU** column with unique, stable values and sync it before renaming or reclassifying products. Without SKU, the importer matches on name, supplier, and type. An optional **Active** column set to `FALSE` archives a product. Removing a sheet row removes the product from the current catalog and future order counts at the next successful sync. Past counts, deliveries and sales retain their product references. Pulling updates the catalog and keeps counts, activity and till recipes in the app. Unit changes can be blocked once counts, deliveries or till records use the product.
 
 
 ### Supplier order counts
