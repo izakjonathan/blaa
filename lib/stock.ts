@@ -1,4 +1,4 @@
-export type Product={id:string;name:string;sku:string;category:string;supplier:string;unit:'L'|'each'|'kg';pack:number;packCost:number;par:number;threshold:number;active:boolean;unitLabel?:string;unitSizeL?:number;packQty?:number;lowIdeal?:number;highIdeal?:number};
+export type Product={id:string;name:string;sku:string;category:string;supplier:string;unit:'L'|'each'|'kg';pack:number;packCost:number;par:number;threshold:number;active:boolean;sheetMissing?:boolean;unitLabel?:string;unitSizeL?:number;packQty?:number;lowIdeal?:number;highIdeal?:number};
 export type Sale={id:string;name:string;sku:string;unitPrice?:number;ingredients:{productId:string;quantity:number}[]};
 export type Count={product:Product;opening:number|null;closing:number|null;deliveryPacks:number;deliveryLoose:number;waste:number;comps:number;transfer:number;note:string};
 export type Delivery={id:string;product:Product;at:string;packs:number;cost:number;reference:string};
@@ -13,7 +13,7 @@ const num=(v:unknown,min=0,max=10000000)=>{if(typeof v!=='number'||!Number.isFin
 const bool=(v:unknown)=>{if(typeof v!=='boolean')throw Error('Invalid stock switch.');return v;};
 function list<T>(v:unknown,fn:(value:unknown)=>T,max:number){if(!Array.isArray(v)||v.length>max)throw Error('Invalid stock list.');return v.map(fn);}
 function unique<T extends{id:string}>(rows:T[]){if(new Set(rows.map(r=>r.id)).size!==rows.length)throw Error('Invalid duplicate stock id.');return rows;}
-function product(v:unknown):Product{const p=obj(v),unit=text(p.unit);if(!['L','each','kg'].includes(unit))throw Error('Invalid stock unit.');const name=text(p.name);if(!name.trim())throw Error('Invalid empty product name.');return {id:id(p.id),name,sku:text(p.sku),category:text(p.category),supplier:text(p.supplier),unit:unit as Product['unit'],pack:num(p.pack,.0001),packCost:num(p.packCost),par:num(p.par),threshold:num(p.threshold,0,100),active:bool(p.active),...(p.unitLabel===undefined?{}:{unitLabel:text(p.unitLabel)}),...(p.unitSizeL===undefined?{}:{unitSizeL:num(p.unitSizeL,.0001)}),...(p.packQty===undefined?{}:{packQty:num(p.packQty,1)}),...(p.lowIdeal===undefined?{}:{lowIdeal:num(p.lowIdeal)}),...(p.highIdeal===undefined?{}:{highIdeal:num(p.highIdeal)})};}
+function product(v:unknown):Product{const p=obj(v),unit=text(p.unit);if(!['L','each','kg'].includes(unit))throw Error('Invalid stock unit.');const name=text(p.name);if(!name.trim())throw Error('Invalid empty product name.');return {id:id(p.id),name,sku:text(p.sku),category:text(p.category),supplier:text(p.supplier),unit:unit as Product['unit'],pack:num(p.pack,.0001),packCost:num(p.packCost),par:num(p.par),threshold:num(p.threshold,0,100),active:bool(p.active),...(p.sheetMissing===undefined?{}:{sheetMissing:bool(p.sheetMissing)}),...(p.unitLabel===undefined?{}:{unitLabel:text(p.unitLabel)}),...(p.unitSizeL===undefined?{}:{unitSizeL:num(p.unitSizeL,.0001)}),...(p.packQty===undefined?{}:{packQty:num(p.packQty,1)}),...(p.lowIdeal===undefined?{}:{lowIdeal:num(p.lowIdeal)}),...(p.highIdeal===undefined?{}:{highIdeal:num(p.highIdeal)})};}
 function sale(v:unknown):Sale{const s=obj(v);const ingredients=list(s.ingredients,value=>{const i=obj(value);return {productId:id(i.productId),quantity:num(i.quantity,.000001)};},40);if(!ingredients.length||new Set(ingredients.map(i=>i.productId)).size!==ingredients.length)throw Error('Invalid recipe ingredients.');const name=text(s.name);if(!name.trim())throw Error('Invalid empty till item name.');return {id:id(s.id),name,sku:text(s.sku),ingredients,...(s.unitPrice===undefined?{}:{unitPrice:num(s.unitPrice)})};}
 export function validateStock(value:unknown):Stock{
  if(JSON.stringify(value).length>2900000)throw Error('Invalid stock document: document exceeds 2.9 MB; contact the maintainer to archive historical records.');
@@ -58,8 +58,11 @@ export function summary(week:Week){
 }
 export function newWeek(stock:Stock,start:string,end:string,id:string):Week{
  const previous=[...stock.weeks].filter(w=>w.status==='closed'&&w.end===start).at(-1);
- const products=stock.products.filter(p=>p.active||stock.sales.some(s=>s.ingredients.some(i=>i.productId===p.id)));
- return {id,start,end,status:'draft',salesConfirmed:false,movementsConfirmed:false,note:'',rows:products.map(p=>({product:structuredClone(p),opening:previous?.rows.find(r=>r.product.id===p.id)?.closing??null,closing:null,deliveryPacks:0,deliveryLoose:0,waste:0,comps:0,transfer:0,note:''})),sales:stock.sales.map(item=>({item:structuredClone(item),quantity:0}))};
+ const catalog=stock.products.filter(p=>!p.sheetMissing);
+ const ids=new Set(catalog.map(p=>p.id));
+ const sales=stock.sales.filter(s=>s.ingredients.every(i=>ids.has(i.productId)));
+ const products=catalog.filter(p=>p.active||sales.some(s=>s.ingredients.some(i=>i.productId===p.id)));
+ return {id,start,end,status:'draft',salesConfirmed:false,movementsConfirmed:false,note:'',rows:products.map(p=>({product:structuredClone(p),opening:previous?.rows.find(r=>r.product.id===p.id)?.closing??null,closing:null,deliveryPacks:0,deliveryLoose:0,waste:0,comps:0,transfer:0,note:''})),sales:sales.map(item=>({item:structuredClone(item),quantity:0}))};
 }
 /** Closed periods are immutable unless explicitly reopened with an audit reason. */
 export function checkStockChange(previous:Stock,next:Stock,reason:string){

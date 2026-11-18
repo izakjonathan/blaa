@@ -7,6 +7,7 @@ export default function StockProductDetails({product}: {product: Product}) {
   const ideal = format(product.lowIdeal);
   return <div className="stock-product-details">
     <strong className="stock-item-name" title={product.name}>{product.name}</strong>
+    <span className="stock-card-supplier">{product.supplier || 'No supplier'}</span>
     <div className="stock-card-meta">
       <span className="stock-line-unit" title={product.unitLabel}>{product.unitLabel || '—'}</span>
       <span aria-hidden="true">-</span>

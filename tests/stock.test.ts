@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {PGlite} from '@electric-sql/pglite';
 import {validateStock,newWeek,rowReport,summary,weekIssues,checkStockChange,type Stock,type Product} from '../lib/stock.ts';
 import {initStock,readStock,saveStock} from '../lib/stock-store.ts';
+import {mergeSheetProducts} from '../lib/stock-sheet.ts';
 import type {Query} from '../lib/content-store.ts';
 const product:Product={id:'beer',name:'Beer',sku:'123',category:'Beer',supplier:'Supplier',unit:'L',pack:30,packCost:600,par:60,threshold:5,active:true};
 function sample():Stock{const stock:Stock={products:[structuredClone(product)],sales:[{id:'pint',name:'Beer 0.5L',sku:'1',ingredients:[{productId:'beer',quantity:.5}]}],weeks:[]};const week=newWeek(stock,'2026-11-02T04:00','2026-11-09T04:00','week1');week.salesConfirmed=true;week.movementsConfirmed=true;week.rows[0]={...week.rows[0],opening:30,closing:10,deliveryPacks:1,waste:2,comps:3};week.sales[0].quantity=80;stock.weeks.push(week);return stock;}
@@ -41,4 +42,27 @@ test('closed weeks cannot be rewritten or deleted and reopening needs an explici
 test('stock saves are atomic, audited and reject concurrent revisions',async()=>{
  const db=new PGlite();const query:Query=async(strings,...values)=>{const sql=strings.reduce((out,s,i)=>out+(i?'$'+i:'')+s,'');return (await db.query(sql,values)).rows as Record<string,unknown>[];};
  try{await initStock(query);const state=await readStock(query);assert.equal(state.revision,0);const stock=sample();assert.equal(await saveStock(query,0,stock,'First count'),1);await assert.rejects(()=>saveStock(query,0,stock,'Stale'),/CONFLICT/);const audit=await db.query('SELECT revision,document,reason FROM blaa_stock_audit');assert.equal(audit.rows.length,1);assert.equal((audit.rows[0] as {reason:string}).reason,'First count');stock.weeks[0].status='closed';await saveStock(query,1,stock,'Closed');const invalid=structuredClone(stock);invalid.weeks[0].rows[0].closing=0;await assert.rejects(()=>saveStock(query,2,invalid,'Edit'),/reopen/);assert.equal((await readStock(query)).revision,2);}finally{await db.close();}
+});
+
+test('only sheet sync can change the managed catalog and removals preserve finalized records',async()=>{
+ const db=new PGlite();
+ const query:Query=async (strings,...values)=>(await db.query(strings.reduce((sql,part,index)=>sql+(index?'$'+index:'')+part,''),values)).rows as Record<string,unknown>[];
+ try{
+  await initStock(query);
+  const stock=sample();
+  stock.weeks[0].status='closed';
+  await saveStock(query,0,stock,'Closed');
+  const previous=await readStock(query);
+  const headers=['Name','Supplier','Type','Unit','Pack'];
+  const cleared=mergeSheetProducts(previous.document,[headers]);
+  await assert.rejects(()=>saveStock(query,1,cleared.document,'Manual removal',true),/add or remove products in Google Sheets/);
+  assert.equal(await saveStock(query,1,cleared.document,'Synced products from Google Sheets'),2);
+  const saved=await readStock(query);
+  assert.equal(saved.document.products[0].sheetMissing,true);
+  assert.deepEqual(saved.document.weeks,previous.document.weeks);
+  await assert.rejects(()=>saveStock(query,2,previous.document,'Restore older catalog',true),/add or remove products in Google Sheets/);
+  const extra=structuredClone(saved.document);
+  extra.products.push({...product,id:'outside-sheet'});
+  await assert.rejects(()=>saveStock(query,2,extra,'Add outside sheet',true),/add or remove products in Google Sheets/);
+ }finally{await db.close();}
 });

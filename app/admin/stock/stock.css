@@ -4,8 +4,14 @@
  padding:100px max(20px,var(--gutter)) calc(100px + env(safe-area-inset-bottom));
  background:var(--tool-bg);color:var(--tool-ink);font:14px/1.45 var(--sans);min-width:0;
 }
-.stock-control>header {display:block;margin:0 0 12px;padding:0;border:0}
-.stock-control h1 {font:36px/1.1 var(--display);letter-spacing:-.02em;margin:0;text-align:left}
+.admin-tool-header[data-admin-stock=true] .stock-header-title {
+  margin: 0;
+  font: 650 clamp(20px, 5vw, 26px)/1.12 var(--sans);
+  text-align: right;
+}
+.stock-overview-heading {display:flex;align-items:center;justify-content:space-between;gap:8px}
+.admin-workspace[data-tool=true] .stock-control .stock-overview-heading h2 {margin:0}
+.stock-overview-heading > button {flex-shrink:0}
 .stock-control h2 {font:600 19px/1.3 var(--sans);letter-spacing:0;margin:22px 0 10px}
 .stock-control h3 {font:600 15px/1.3 var(--sans);letter-spacing:0;margin:0 0 8px}
 .stock-control p {font:14px/1.5 var(--sans);color:var(--tool-muted);max-width:75ch;margin:8px 0;overflow-wrap:anywhere}
@@ -137,11 +143,19 @@
   overflow-wrap: anywhere;
   white-space: normal;
   color: var(--tool-ink);
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 700;
   line-height: 1.15;
 }
 .stock-product-details {min-width: 0}
+.stock-card-supplier {
+  display: block;
+  margin-top: 3px;
+  color: var(--tool-muted);
+  font-size: 12px;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
 .stock-card-meta {
   display: flex;
   align-items: baseline;

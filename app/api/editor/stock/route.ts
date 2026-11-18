@@ -23,7 +23,7 @@ export async function POST(request:Request){
  await initStock(db);
  const state=await readStock(db);
  if(body.revision!==state.revision)throw Error('CONFLICT: Stock data changed. Reload before syncing.');
- const {document,added,updated}=mergeSheetProducts(state.document,rows);
- const revision=added||updated?await saveStock(db,state.revision,document,'Synced products from Google Sheets'):state.revision;
- return Response.json({revision,document,added,updated},{headers});
- }if(body.action==='retry-email'){await initStock(db);await processStockMail(db);return Response.json({mail:await mailStatus(db)},{headers});}if(!Number.isSafeInteger(body.revision)||Number(body.revision)<0||typeof body.reason!=='string'||body.reason.length>1000)throw Error('Invalid stock save.');await initStock(db);const revision=await saveStock(db,Number(body.revision),validateStock(body.document),body.reason);after(async()=>{try{await processStockMail(db);}catch{/* The durable outbox remains available for retry. */}});return Response.json({revision,mail:await mailStatus(db)},{headers});}catch(error){return editorError(error);}}
+ const {document,added,updated,removed}=mergeSheetProducts(state.document,rows);
+ const revision=added||updated||removed?await saveStock(db,state.revision,document,'Synced products from Google Sheets'):state.revision;
+ return Response.json({revision,document,added,updated,removed},{headers});
+ }if(body.action==='retry-email'){await initStock(db);await processStockMail(db);return Response.json({mail:await mailStatus(db)},{headers});}if(!Number.isSafeInteger(body.revision)||Number(body.revision)<0||typeof body.reason!=='string'||body.reason.length>1000)throw Error('Invalid stock save.');await initStock(db);const revision=await saveStock(db,Number(body.revision),validateStock(body.document),body.reason,stockSheetEnabled());after(async()=>{try{await processStockMail(db);}catch{/* The durable outbox remains available for retry. */}});return Response.json({revision,mail:await mailStatus(db)},{headers});}catch(error){return editorError(error);}}

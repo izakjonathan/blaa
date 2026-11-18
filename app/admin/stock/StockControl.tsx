@@ -39,6 +39,8 @@ export default function StockControl(){
  const unsaved=dirty||productDraft!==null||activityDraft;
  const [start,setStart]=useState(()=>nowDate()+'T04:00'),[end,setEnd]=useState(()=>nextDate(nowDate()));
  const alive=useRef(true),file=useRef<HTMLInputElement>(null);
+ const catalog=stock.products.filter(product=>!product.sheetMissing);
+ const activeProducts=catalog.filter(product=>product.active);
  const week=stock.weeks.find(w=>w.id===period)??stock.weeks.at(-1),report=week?summary(week):null;
  const refreshProducts=async(currentRevision:number,signal?:AbortSignal)=>{
   setMessage('Syncing products from Google Sheets…');
@@ -49,10 +51,10 @@ export default function StockControl(){
   if(!alive.current||signal?.aborted)return;
   setStock(validateStock(result.document));
   setRevision(result.revision);
-  if(result.added||result.updated){
+  if(result.added||result.updated||result.removed){
    setAudit(previous=>[{revision:result.revision,reason:'Synced products from Google Sheets',saved_at:new Date().toISOString()},...previous].slice(0,30));
-   setMessage(`Google Sheets sync complete. ${result.added} added, ${result.updated} updated.`);
-  }else setMessage('Products are up to date.');
+   setMessage(`Google Sheets sync complete. ${result.added} added, ${result.updated} updated, ${result.removed} removed.`);
+  }else setMessage('');
  };
  const read=async(syncOnOpen=false,signal?:AbortSignal)=>{
   setBusy(true);
@@ -100,7 +102,7 @@ export default function StockControl(){
   setBusy(true);setMessage('');try{const document=validateStock(next);const data=await api({method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({document,revision,reason:note||'Saved draft/settings'})});if(!alive.current)return;setStock(document);setRevision(data.revision);setDirty(false);if(data.mail)setMail(data.mail);setReason('');setMessage('Saved on the server.');setAudit(old=>[{revision:data.revision,reason:note||'Saved draft/settings',saved_at:new Date().toISOString()},...old].slice(0,30));}catch(error){setMessage(error instanceof Error?error.message:'Save failed.');}finally{if(alive.current)setBusy(false);}
  };
  const syncSheet=async()=>{
-  if(unsaved||busy||!sheetEnabled)return;
+  if(unsaved||orderCounting||busy||!sheetEnabled)return;
   setBusy(true);
   try{
    await refreshProducts(revision);
@@ -115,7 +117,6 @@ export default function StockControl(){
  const exportReport=()=>{if(!week||!report)return;const csv=[['Product','Base unit','Opening','Delivered','Transfer','Closing','Actual usage','Till usage','Recorded waste','Complimentary','Unexplained variance','Estimated loss %','Loss cost DKK'],...report.rows.map(r=>[r.row.product.name,r.row.product.unit,r.row.opening,r.delivered,r.row.transfer,r.row.closing,r.actual,r.theoretical,r.row.waste,r.row.comps,r.variance,r.percent,r.loss===null?null:r.loss*r.cost])].map(row=>row.map(value=>'"'+(typeof value==='string'&&/^[=+@-]/.test(value)?"'"+value:String(value??'')).replaceAll('"','""')+'"').join(',')).join('\r\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'stock-'+week.start.slice(0,10)+'.csv');};
  const visible=report?.rows.filter(r=>(!category||r.row.product.category===category)&&(r.row.product.name+' '+r.row.product.sku).toLowerCase().includes(search.toLowerCase()))??[];
  if(locked)return <main id="main" className="stock-control">
-  <header><h1>Stock Control</h1></header>
   <form onSubmit={event=>{
    event.preventDefault();
    const input=event.currentTarget.elements.namedItem('stock-access-key') as HTMLInputElement;
@@ -128,23 +129,23 @@ export default function StockControl(){
    <p role="status">{message}</p>
   </form>
  </main>;
- return <main id="main" className="stock-control" data-keyboard={keyboard||undefined}><header><div><p className="admin-page-caption">Inventory</p><h1>Stock Control</h1></div></header>
+ return <main id="main" className="stock-control" data-keyboard={keyboard||undefined}>
   <nav aria-label="Stock tools">{[['dashboard','Overview'],['input','Counts'],['order','Order count'],['activity','Activity'],['settings','Products'],['history','History']].map(([key,label])=><button key={key} aria-current={tab===key?'page':undefined} onClick={()=>setTab(key)}>{label}</button>)}</nav>
-  <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read();}}}>Reload</button></div><p role="status">{message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
+  <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy||orderCounting} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read(true);}}}>Reload</button></div><p role="status">{message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
   <fieldset disabled={busy||!loaded} className="stock-form">
   {!['settings','activity','order'].includes(tab)&&stock.weeks.length>0&&<label>Period (Copenhagen time)<select value={week?.id??''} onChange={e=>setPeriod(e.target.value)}><option value="" disabled>No periods yet</option>{[...stock.weeks].sort((a,b)=>b.start.localeCompare(a.start)).map(w=><option key={w.id} value={w.id}>{w.start.replace('T',' ')} → {w.end.replace('T',' ')} · {w.status}</option>)}</select></label>}
   <div hidden={tab!=='activity'}><StockActivity stock={stock} onChange={update} onDraft={setActivityDraft}/></div>
-  <div hidden={tab!=='order'}><OrderCount products={stock.products} onCounting={setOrderCounting}/></div>
+  <div hidden={tab!=='order'}><OrderCount products={catalog} onCounting={setOrderCounting}/></div>
   {tab==='dashboard'&&<>
-   <button disabled={!stock.products.some(product=>product.active)} onClick={()=>setTab('order')}>Start count</button>
-   <section className="stock-live-stock"><h2>Stock overview</h2>
+   <section className="stock-live-stock">
+   <div className="stock-overview-heading"><h2>Stock overview</h2><button disabled={!activeProducts.length} onClick={()=>setTab('order')}>Start count</button></div>
    <ul className="stock-overview-products">
-    {stock.products.filter(product=>product.active).map(product=><li key={product.id}>
+    {activeProducts.map(product=><li key={product.id}>
      <StockProductDetails product={product}/>
     </li>)}
    </ul></section>
 
-   {!report?(loaded?<section className="stock-get-started"><h2>Set up your first count</h2><ol><li><strong>Add products</strong><span>Bottles, kegs, cases and other stock you buy.</span></li><li><strong>Connect till items</strong><span>Choose how much stock each sale uses.</span></li><li><strong>Start a weekly count</strong><span>Count stock, add deliveries and enter quantities sold.</span></li></ol><div className="stock-product-actions"><button onClick={()=>setTab('settings')}>Products & till</button><button disabled={!stock.products.length} onClick={()=>setTab('input')}>Start weekly count</button></div></section>:null):<>
+   {!report?(loaded?<section className="stock-get-started"><h2>Set up your first count</h2><ol><li><strong>{sheetEnabled?'Add products in Google Sheets':'Add products'}</strong><span>Bottles, kegs, cases and other stock you buy.</span></li><li><strong>Connect till items</strong><span>Choose how much stock each sale uses.</span></li><li><strong>Start a weekly count</strong><span>Count stock, add deliveries and enter quantities sold.</span></li></ol><div className="stock-product-actions"><button onClick={()=>setTab('settings')}>Products & till</button><button disabled={!activeProducts.length} onClick={()=>setTab('input')}>Start weekly count</button></div></section>:null):<>
     {week!.baseline&&<p>Baseline count: establishes opening stock for the next cycle. No usage or waste percentage is inferred.</p>}
     <div className="stock-metrics">{[['Sales quantity',countFinancials(week!).sales===null?'—':quantity(countFinancials(week!).sales)],['Revenue (list prices)',countFinancials(week!).revenue===null?'—':money(countFinancials(week!).revenue!)],['Sales COGS',countFinancials(week!).cogs===null?'—':money(countFinancials(week!).cogs!)]].map(([name,value])=><article key={name}><p>{name}</p><strong>{value}</strong></article>)}</div>{countFinancials(week!).unpriced>0&&<p>Add PLU selling prices for a complete revenue estimate. Prices and costs must use a consistent VAT basis.</p>}
     <p>{week!.status==='draft'?'Provisional draft · ':'Closed period · '}{report.complete}/{report.total} rows reconciled. All figures use this period’s saved pack sizes, recipes and costs.</p>
@@ -160,11 +161,11 @@ export default function StockControl(){
    </>}
   </>}
   {tab==='input'&&<>
-   <section className="stock-count-start"><h2>Add count</h2><p>The first count sets a baseline. Later counts calculate usage since the previous finalized count. Count time is exclusive: activity at that exact minute belongs to the next cycle.</p><PeriodTime label="Count time (Copenhagen)" value={countAt} onChange={setCountAt}/><button disabled={stock.weeks.some(w=>w.status==='draft')||!stock.products.length} onClick={()=>{try{const count=newCount(stock,countAt,crypto.randomUUID());update(validateStock({...stock,weeks:[...stock.weeks,count]}));setPeriod(count.id);setMessage(count.baseline?'Enter current stock, then finalize this baseline.':'Posted activity loaded. Enter physical counts, check sales and finalize.');}catch(error){setMessage((error as Error).message);}}}>Start count</button></section>
+   <section className="stock-count-start"><h2>Add count</h2><p>The first count sets a baseline. Later counts calculate usage since the previous finalized count. Count time is exclusive: activity at that exact minute belongs to the next cycle.</p><PeriodTime label="Count time (Copenhagen)" value={countAt} onChange={setCountAt}/><button disabled={stock.weeks.some(w=>w.status==='draft')||!activeProducts.length} onClick={()=>{try{const count=newCount(stock,countAt,crypto.randomUUID());update(validateStock({...stock,weeks:[...stock.weeks,count]}));setPeriod(count.id);setMessage(count.baseline?'Enter current stock, then finalize this baseline.':'Posted activity loaded. Enter physical counts, check sales and finalize.');}catch(error){setMessage((error as Error).message);}}}>Start count</button></section>
    <details><summary>Advanced: custom period</summary><p>Use the same dates and times as your stock count and till report. A normal week runs Monday 04:00 to the following Monday 04:00.</p><PeriodTime label="Opening count" value={start} onChange={value=>{setStart(value);if(value)setEnd(nextDate(value));}}/><PeriodTime label="Closing count" value={end} onChange={setEnd}/><button onClick={()=>{try{const next=newWeek(stock,start,end,crypto.randomUUID());const value=validateStock({...stock,weeks:[...stock.weeks,next]});update(value);setPeriod(next.id);setMessage('Period created. Opening counts carry forward only from a closed period ending at this exact start.');}catch(error){setMessage((error as Error).message);}}}>Create period</button></details>
    {week&&<><h2>{week.status==='closed'?'Closed period':'Weekly counts'}</h2><p>Count all storage locations, including open bottles and kegs. Enter 0 for no stock; leave a count blank only if it has not been checked. Add any waste or adjustments inside each product.</p>
     {week.status==='closed'?<><label>Reason to reopen<input value={reason} onChange={e=>setReason(e.target.value)} maxLength={1000}/></label><button disabled={!ready||!reason.trim()||dirty} onClick={()=>void save({...stock,weeks:stock.weeks.map(w=>w.id===week.id?{...w,status:'draft'}:w)},'Reopened '+week.start+': '+reason)}>Reopen for correction</button><p>Save other changes first. Previous saved revisions remain in History.</p></>:<fieldset><legend>{week.baseline?'Baseline stock':'Physical stock & movements'}</legend>{!week.baseline&&<button onClick={()=>{if(week.source==='ledger'){try{editWeek(applyActivity(stock,week));setMessage('Activity refreshed. Recheck confirmations before finalizing.');}catch(error){setMessage((error as Error).message);}return;}if(!confirm('Refresh this draft with current product costs, pack sizes and till recipes? Counts remain; removed till mappings will leave this draft.'))return;const snapshot=newWeek(stock,week.start,week.end,week.id);editWeek({rows:[...week.rows.map(row=>({...row,product:stock.products.find(p=>p.id===row.product.id)??row.product})),...snapshot.rows.filter(r=>!week.rows.some(old=>old.product.id===r.product.id))],sales:snapshot.sales.map(s=>({...s,quantity:week.sales.find(old=>old.item.id===s.item.id)?.quantity??0})),salesConfirmed:false,movementsConfirmed:false});}}>{week.source==='ledger'?'Refresh posted activity':'Update draft products'}</button>}
-     {week.rows.map(row=><details key={row.product.id}><summary>{row.product.name} · Closing {row.closing===null?'Not counted':quantity(unitsToPacks(row.product,row.closing))+' packs'}</summary><p>{productPackDetails(row.product)}. Count in purchase packs, including partial packs.</p><div className="stock-numbers">
+     {week.rows.map(row=><details key={row.product.id}><summary><span className="stock-item-name">{row.product.name}</span><small>{row.product.supplier||'No supplier'} · Closing {row.closing===null?'Not counted':quantity(unitsToPacks(row.product,row.closing))+' packs'}</small></summary><p>{productPackDetails(row.product)}. Count in purchase packs, including partial packs.</p><div className="stock-numbers">
       {!week.baseline&&numeric('Opening stock (packs)',row.opening===null?null:unitsToPacks(row.product,row.opening),n=>editRow(row.product.id,{opening:n===null?null:packsToUnits(row.product,n)}),0,true,week.source==='ledger')}
       {numeric('Closing stock (packs)',row.closing===null?null:unitsToPacks(row.product,row.closing),n=>editRow(row.product.id,{closing:n===null?null:packsToUnits(row.product,n)}),0,true)}
       {!week.baseline&&numeric('Delivered (packs)',row.deliveryPacks,n=>editRow(row.product.id,{deliveryPacks:n!}),0,false,week.source==='ledger')}
@@ -182,10 +183,10 @@ export default function StockControl(){
   </>}
   {tab==='settings'&&<section className="stock-settings">
    {sheetEnabled&&<div className="stock-product-actions">
-    <button disabled={unsaved||busy||!ready} onClick={()=>void syncSheet()}>Sync from Google Sheets</button>
+    <button disabled={unsaved||orderCounting||busy||!ready} onClick={()=>void syncSheet()}>Sync from Google Sheets</button>
     {unsaved&&<p>Save or discard local edits before syncing.</p>}
    </div>}
-   <Products products={stock.products} usedIds={new Set([...stock.weeks.flatMap(w=>w.rows.map(r=>r.product.id)),...(stock.deliveries??[]).map(d=>d.product.id),...(stock.salesEntries??[]).flatMap(e=>e.item.ingredients.map(i=>i.productId))])} draft={productDraft} setDraft={setProductDraft} onAdd={(product,sale)=>{update({...stock,products:[product,...stock.products],sales:sale?[...stock.sales,sale]:stock.sales});setMessage('Product added. Use Save to keep it on all devices.');}} onChange={editProduct} sales={stock.sales} onAddSale={sale=>update({...stock,sales:[...stock.sales,sale]})} onChangeSale={editSale} onRemoveSale={id=>update({...stock,sales:stock.sales.filter(s=>s.id!==id)})}/>
+   <Products products={catalog} sheetManaged={sheetEnabled} usedIds={new Set([...stock.weeks.flatMap(w=>w.rows.map(r=>r.product.id)),...(stock.deliveries??[]).map(d=>d.product.id),...(stock.salesEntries??[]).flatMap(e=>e.item.ingredients.map(i=>i.productId))])} draft={productDraft} setDraft={setProductDraft} onAdd={(product,sale)=>{update({...stock,products:[product,...stock.products],sales:sale?[...stock.sales,sale]:stock.sales});setMessage('Product added. Use Save to keep it on all devices.');}} onChange={editProduct} sales={stock.sales} onAddSale={sale=>update({...stock,sales:[...stock.sales,sale]})} onChangeSale={editSale} onRemoveSale={id=>update({...stock,sales:stock.sales.filter(s=>s.id!==id)})}/>
   </section>}
   {week&&tab!=='order'&&<details><summary>Order suggestions · {orderSuggestions(week).length} products</summary><p>Whole packs to reach ideal stock. This is a recommendation, not an order sent to suppliers.</p><ul>{orderSuggestions(week).map(r=><li key={r.id}>{r.supplier} · {r.name}: {r.order} packs (counted {quantity(r.counted)} / ideal {quantity(r.ideal)})</li>)}</ul></details>}
   {tab==='history'&&<>
