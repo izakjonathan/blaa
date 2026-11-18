@@ -10,11 +10,11 @@ export default function StockProductDetails({product}: {product: Product}) {
     <strong className="stock-item-name" title={product.name}>{product.name}</strong>
     <div className="stock-card-meta">
       <span className="stock-line-unit" title={product.unitLabel}>{product.unitLabel || '—'}</span>
-      <span aria-hidden="true">-</span>
-      <span>PK {format(product.packQty)}</span>
-      <span aria-hidden="true">-</span>
-      <span title="Ideal in packs"><span className="stock-inline-label">Ideal in packs </span>{ideal}</span>
-      <span aria-hidden="true">-</span>
+      <span className="stock-card-separator" aria-hidden="true">-</span>
+      <span className="stock-card-pack">PK {format(product.packQty)}</span>
+      <span className="stock-card-separator" aria-hidden="true">-</span>
+      <span className="stock-card-ideal" title="Ideal in packs"><span className="stock-inline-label">Ideal in packs </span>{ideal}</span>
+      <span className="stock-card-separator" aria-hidden="true">-</span>
       <span className="stock-card-supplier" title={supplier}>{supplier}</span>
     </div>
   </div>;
