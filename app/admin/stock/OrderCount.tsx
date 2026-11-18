@@ -39,10 +39,12 @@ export default function OrderCount({products, onCounting}: Props) {
     return <section>
       <h2>Order count</h2>
       {suppliers.length === 0 ? <p>No active products to count.</p> : <>
-        <fieldset>
+        <fieldset className="stock-order-suppliers">
           <legend>Suppliers to count</legend>
-          <button type="button" onClick={() => setSelected(null)}>Select all</button>
-          <button type="button" onClick={() => setSelected([])}>Clear selection</button>
+          <div className="stock-order-supplier-actions">
+            <button type="button" onClick={() => setSelected(null)}>Select all</button>
+            <button type="button" onClick={() => setSelected([])}>Clear selection</button>
+          </div>
           {suppliers.map(supplier => <label key={supplier}>
             <input type="checkbox" checked={selectedSuppliers.includes(supplier)} onChange={event => {
               setSelected(event.target.checked
