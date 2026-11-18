@@ -69,7 +69,7 @@ body:has(.admin-workspace) {
   min-width: 0;
   background: var(--tool-bg);
   color: var(--tool-ink);
-  font: var(--stock-body-weight,400) var(--stock-body-size,15px)/1.22 var(--stock-font-body,var(--sans));
+  font: var(--stock-body-weight,400) var(--stock-body-size,15px)/var(--stock-body-line-height, 1.22) var(--stock-font-body,var(--sans));
   letter-spacing: -.01em;
 }
 
@@ -97,8 +97,9 @@ body:has(.admin-workspace) {
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) h2 {
   font-size: var(--stock-heading-size,29px);
   font-weight: var(--stock-heading-weight,620);
-  line-height: 1;
-  letter-spacing: -.055em;
+  font-family: var(--stock-font-heading, var(--display));
+  line-height: var(--stock-heading-line-height, 1);
+  letter-spacing: var(--stock-heading-tracking, -.055em);
   margin: 20px 0 14px;
   color: var(--tool-ink);
   text-transform: none;
@@ -110,14 +111,14 @@ body:has(.admin-workspace) {
 }
 
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) h3 {
-  font: var(--stock-subheading-weight,620) var(--stock-subheading-size,23px)/1 var(--stock-font-body,var(--sans));
+  font: var(--stock-subheading-weight,620) var(--stock-subheading-size,23px)/var(--stock-subheading-line-height, 1) var(--stock-font-body,var(--sans));
   letter-spacing: -.055em;
   margin: 0 0 12px;
   color: var(--tool-ink);
 }
 
 .admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio) p {
-  font: var(--stock-body-weight,400) var(--stock-body-size,15px)/1.22 var(--stock-font-body,var(--sans));
+  font: var(--stock-body-weight,400) var(--stock-body-size,15px)/var(--stock-body-line-height, 1.22) var(--stock-font-body,var(--sans));
   letter-spacing: -.01em;
   color: var(--tool-muted);
   margin: 10px 0;
@@ -126,7 +127,7 @@ body:has(.admin-workspace) {
 
 .admin-workspace[data-tool=true] :is(.admin-page-caption,.editor-state,.stock-save>span,small) {
   color: var(--tool-muted);
-  font: var(--stock-small-weight,560) var(--stock-small-size,11px)/1.12 var(--stock-font-body,var(--sans));
+  font: var(--stock-small-weight,560) var(--stock-small-size,11px)/var(--stock-small-line-height, 1.12) var(--stock-font-body,var(--sans));
   letter-spacing: .06em;
   text-transform: uppercase;
 }
@@ -151,7 +152,7 @@ body:has(.admin-workspace) {
   border-radius: 22px;
   background: var(--tool-card);
   color: var(--tool-ink);
-  font: var(--stock-control-weight,var(--stock-button-weight,620)) var(--stock-control-size,var(--stock-button-size,15px))/1.08 var(--stock-font-body,var(--sans));
+  font: var(--stock-control-weight,var(--stock-button-weight,620)) var(--stock-control-size,var(--stock-button-size,15px))/var(--stock-button-line-height, 1.08) var(--stock-font-body,var(--sans));
   letter-spacing: -.015em;
   text-transform: none;
   text-align: center;
@@ -178,7 +179,7 @@ body:has(.admin-workspace) {
   margin: 0 0 8px;
   min-width: 0;
   color: var(--tool-muted);
-  font: var(--stock-label-weight,560) var(--stock-label-size,11px)/1.12 var(--stock-font-body,var(--sans));
+  font: var(--stock-label-weight,560) var(--stock-label-size,11px)/var(--stock-label-line-height, 1.12) var(--stock-font-body,var(--sans));
   letter-spacing: .06em;
   text-transform: uppercase;
 }
@@ -195,7 +196,7 @@ body:has(.admin-workspace) {
   border-radius: 20px;
   background: var(--tool-content);
   color: var(--tool-ink);
-  font: var(--stock-field-weight,400) var(--stock-field-size,16px)/1.22 var(--stock-font-body,var(--sans));
+  font: var(--stock-field-weight,400) var(--stock-field-size,16px)/var(--stock-field-line-height, 1.22) var(--stock-font-body,var(--sans));
   letter-spacing: -.01em;
   text-transform: none;
   box-shadow: none;
@@ -228,7 +229,7 @@ body:has(.admin-workspace) {
   border-radius: 22px;
   background: var(--tool-content);
   color: var(--tool-ink);
-  font: var(--stock-checkbox-label-weight,400) var(--stock-checkbox-label-size,15px)/1.22 var(--stock-font-body,var(--sans));
+  font: var(--stock-checkbox-label-weight,400) var(--stock-checkbox-label-size,15px)/var(--stock-checkbox-label-line-height, 1.22) var(--stock-font-body,var(--sans));
   letter-spacing: -.01em;
   text-transform: none;
 }
@@ -249,7 +250,7 @@ body:has(.admin-workspace) {
   border-radius: 20px;
   background: var(--tool-content);
   color: var(--tool-ink);
-  font: var(--stock-file-weight,400) var(--stock-file-size,15px)/1.22 var(--stock-font-body,var(--sans));
+  font: var(--stock-file-weight,400) var(--stock-file-size,15px)/var(--stock-file-line-height, 1.22) var(--stock-font-body,var(--sans));
   letter-spacing: -.01em;
   text-transform: none;
 }
@@ -295,7 +296,7 @@ body:has(.admin-workspace) {
 
 .admin-workspace[data-tool=true] :is(.stock-control,.social-studio) legend {
   color: var(--tool-muted);
-  font: var(--stock-legend-weight,560) var(--stock-legend-size,11px)/1.12 var(--stock-font-body,var(--sans));
+  font: var(--stock-legend-weight,560) var(--stock-legend-size,11px)/var(--stock-legend-line-height, 1.12) var(--stock-font-body,var(--sans));
   letter-spacing: .06em;
   text-transform: uppercase;
   padding: 0 8px;
@@ -307,7 +308,7 @@ body:has(.admin-workspace) {
   position: relative;
   min-height: 44px;
   padding: 12px 28px 12px 0;
-  font: var(--stock-summary-weight,620) var(--stock-summary-size,25px)/1 var(--stock-font-body,var(--sans));
+  font: var(--stock-summary-weight,620) var(--stock-summary-size,25px)/var(--stock-summary-line-height, 1) var(--stock-font-body,var(--sans));
   letter-spacing: -.055em;
   color: var(--tool-ink);
   cursor: pointer;
@@ -480,14 +481,14 @@ body:has(.admin-workspace) {
 }
 
 .admin-workspace[data-tool=true] .stock-metrics article>p {
-  font: var(--stock-metric-label-weight, 560) var(--stock-metric-label-size, 11px)/1.12 var(--stock-font-body, var(--sans));
+  font: var(--stock-metric-label-weight, 560) var(--stock-metric-label-size, 11px)/var(--stock-metric-label-line-height, 1.12) var(--stock-font-body, var(--sans));
   letter-spacing: .06em;
   text-transform: uppercase;
   margin: 0 0 12px;
 }
 
 .admin-workspace[data-tool=true] .stock-metrics strong {
-  font: var(--stock-metric-value-weight, 700) var(--stock-metric-value-size, 31px)/.9 var(--stock-font-body, var(--sans));
+  font: var(--stock-metric-value-weight, 700) var(--stock-metric-value-size, 31px)/var(--stock-metric-value-line-height, .9) var(--stock-font-body, var(--sans));
   letter-spacing: -.065em;
   font-variant-numeric: tabular-nums;
   overflow-wrap: anywhere;
@@ -504,6 +505,7 @@ body:has(.admin-workspace) {
   border-color: var(--tool-rule);
   font-size: var(--stock-table-size, 15px);
   font-weight: var(--stock-table-weight, 400);
+  line-height: var(--stock-table-line-height, normal);
 }
 
 .admin-workspace[data-tool=true] .stock-table th {
@@ -585,7 +587,7 @@ body:has(.admin-workspace) {
   min-width: 0;
   letter-spacing: 0;
   text-transform: none;
-  font: var(--stock-save-status-weight, 560) var(--stock-save-status-size, 11px)/1.12 var(--stock-font-body, var(--sans));
+  font: var(--stock-save-status-weight, 560) var(--stock-save-status-size, 11px)/var(--stock-save-status-line-height, 1.12) var(--stock-font-body, var(--sans));
 }
 
 .admin-workspace[data-tool=true] .editor-actions .editor-button {

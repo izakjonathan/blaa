@@ -2,47 +2,64 @@
 
 /* Typography controls
    Bricolage Grotesque supports weights 200–800. Agilera is available at 400.
-   Change the sizes and weights here. Line heights sit with the rules below. */
+   Change the sizes, weights and line heights here. */
 :is(.stock-control, .admin-tool-header[data-admin-stock=true]) {
   --stock-font-body: var(--sans);
   --stock-font-title: var(--display);
+  --stock-font-heading: var(--stock-font-body);
 
-  --stock-title-size: clamp(29px, 7vw, 40px);
+  --stock-title-size: clamp(26px, 6.5vw, 34px);
   --stock-title-weight: 400;
+  --stock-title-line-height: 1.1;
   --stock-back-size: 13px;
-  --stock-back-weight: 400;
-  --stock-heading-size: 29px;
-  --stock-heading-weight: 400;
-  --stock-subheading-size: 23px;
-  --stock-subheading-weight: 400;
-  --stock-body-size: 15px;
+  --stock-back-weight: 500;
+  --stock-back-line-height: 18px;
+  --stock-heading-size: 22px;
+  --stock-heading-weight: 600;
+  --stock-heading-line-height: 28px;
+  --stock-heading-tracking: -.025em;
+  --stock-subheading-size: 17px;
+  --stock-subheading-weight: 600;
+  --stock-subheading-line-height: 22px;
+  --stock-body-size: 14px;
   --stock-body-weight: 400;
-  --stock-emphasis-weight: 500;
-  --stock-small-size: 11px;
+  --stock-body-line-height: 1.5;
+  --stock-emphasis-weight: 600;
+  --stock-small-size: 12px;
   --stock-small-weight: 400;
+  --stock-small-line-height: 16px;
 
-  --stock-button-size: 15px;
-  --stock-button-weight: 400;
-  --stock-tab-size: var(--stock-button-size);
+  --stock-button-size: 14px;
+  --stock-button-weight: 500;
+  --stock-button-line-height: 20px;
+  --stock-tab-size: 13px;
   --stock-tab-weight: var(--stock-button-weight);
 
   --stock-label-size: 11px;
-  --stock-label-weight: 560;
+  --stock-label-weight: 600;
+  --stock-label-line-height: 16px;
   --stock-field-size: 16px;
   --stock-field-weight: 400;
-  --stock-checkbox-label-size: 15px;
+  --stock-field-line-height: 22px;
+  --stock-checkbox-label-size: 14px;
   --stock-checkbox-label-weight: 400;
-  --stock-file-size: 15px;
+  --stock-checkbox-label-line-height: 20px;
+  --stock-file-size: 14px;
   --stock-file-weight: 400;
+  --stock-file-line-height: 20px;
   --stock-legend-size: var(--stock-label-size);
   --stock-legend-weight: var(--stock-label-weight);
-  --stock-summary-size: 25px;
-  --stock-summary-weight: 400;
+  --stock-legend-line-height: var(--stock-label-line-height);
+  --stock-summary-size: 16px;
+  --stock-summary-weight: 600;
+  --stock-summary-line-height: 22px;
 
-  --stock-product-name-size: 19px;
-  --stock-product-name-weight: 400;
-  --stock-card-meta-size: 14px;
+  --stock-product-name-size: 16px;
+  --stock-product-name-weight: 500;
+  --stock-product-name-line-height: 22px;
+  --stock-card-meta-size: 12px;
   --stock-card-meta-weight: 400;
+  --stock-card-meta-line-height: 16px;
   --stock-unit-size: var(--stock-card-meta-size);
   --stock-unit-weight: var(--stock-card-meta-weight);
   --stock-pack-size: var(--stock-card-meta-size);
@@ -53,19 +70,23 @@
   --stock-supplier-weight: var(--stock-card-meta-weight);
 
   --stock-metric-label-size: 11px;
-  --stock-metric-label-weight: 560;
-  --stock-metric-value-size: 31px;
-  --stock-metric-value-weight: 400;
-  --stock-table-size: 15px;
+  --stock-metric-label-weight: 600;
+  --stock-metric-label-line-height: 16px;
+  --stock-metric-value-size: 24px;
+  --stock-metric-value-weight: 500;
+  --stock-metric-value-line-height: 30px;
+  --stock-table-size: 13px;
   --stock-table-weight: var(--stock-body-weight);
-  --stock-table-heading-size: 11px;
-  --stock-table-heading-weight: 500;
+  --stock-table-line-height: 20px;
+  --stock-table-heading-size: 12px;
+  --stock-table-heading-weight: 600;
   --stock-guide-size: 14px;
   --stock-guide-detail-size: 12px;
   --stock-period-label-size: var(--stock-subheading-size);
   --stock-audit-size: 13px;
   --stock-save-status-size: var(--stock-small-size);
   --stock-save-status-weight: var(--stock-small-weight);
+  --stock-save-status-line-height: var(--stock-small-line-height);
 }
 
 /* Stock-specific typography roles. Shared admin rules consume the tokens above. */
@@ -91,7 +112,7 @@
 
 /* Header and Back button */
 .admin-tool-header[data-admin-stock=true] .stock-header-title {
-  font: var(--stock-title-weight) var(--stock-title-size)/1 var(--stock-font-title);
+  font: var(--stock-title-weight) var(--stock-title-size)/var(--stock-title-line-height) var(--stock-font-title);
   font-synthesis: none;
   margin: 0;
   letter-spacing: -.02em;
@@ -99,7 +120,7 @@
 }
 
 .admin-tool-header[data-admin-stock=true] .admin-home-button {
-  font: var(--stock-back-weight) var(--stock-back-size)/1.2 var(--stock-font-body);
+  font: var(--stock-back-weight) var(--stock-back-size)/var(--stock-back-line-height) var(--stock-font-body);
   min-height: 34px;
   padding: 7px 12px;
   flex: none;
@@ -119,6 +140,19 @@
 
 .stock-overview-heading > button {
   flex-shrink: 0;
+}
+
+/* Order count supplier picker */
+.stock-order-supplier-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.admin-workspace[data-tool=true] .stock-order-suppliers label {
+  min-height: 44px;
+  padding-block: 8px;
 }
 
 /* Buttons and navigation */
@@ -429,7 +463,7 @@
   overflow-wrap: anywhere;
   white-space: normal;
   color: var(--tool-ink);
-  line-height: 1.15;
+  line-height: var(--stock-product-name-line-height);
 }
 
 .stock-product-details {
@@ -449,10 +483,10 @@
   align-items: baseline;
   gap: 4px;
   min-width: 0;
-  margin-top: 4px;
+  margin-top: 2px;
   overflow: hidden;
   color: var(--tool-muted);
-  line-height: 1.2;
+  line-height: var(--stock-card-meta-line-height);
   white-space: nowrap;
 }
 
