@@ -1,4 +1,4 @@
-import {createHash, timingSafeEqual} from 'node:crypto';
+import {createHash} from 'node:crypto';
 import {validateStock, type Product, type Stock} from './stock.ts';
 
 const normalize = (value: string) => value.trim().normalize('NFC').toLowerCase();
@@ -143,15 +143,6 @@ export function mergeSheetProducts(stock: Stock, rows: unknown[][]) {
 
 export function stockSheetEnabled() {
   return Boolean(process.env.STOCK_SHEET_SCRIPT_URL || process.env.STOCK_SHEET_SCRIPT_KEY);
-}
-
-export function stockAccessAllowed(request: Request) {
-  if (!stockSheetEnabled() && !process.env.STOCK_ACCESS_KEY) return true;
-  const key = process.env.STOCK_ACCESS_KEY;
-  const authorization = request.headers.get('authorization');
-  if (!key || key.length < 32 || !authorization?.startsWith('Bearer ')) return false;
-  const hash = (value: string) => createHash('sha256').update(value).digest();
-  return timingSafeEqual(hash(key), hash(authorization.slice(7)));
 }
 
 export async function readStockSheet(): Promise<unknown[][]> {

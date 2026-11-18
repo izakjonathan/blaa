@@ -22,14 +22,10 @@ export default function StockControl(){
  const [stock,setStock]=useState<Stock>(emptyStock),[revision,setRevision]=useState(0),[ready,setReady]=useState(false),[loaded,setLoaded]=useState(false),[busy,setBusy]=useState(false),[dirty,setDirty]=useState(false),[message,setMessage]=useState('');
  const [tab,setTab]=useState('dashboard'),[period,setPeriod]=useState(''),[search,setSearch]=useState(''),[category,setCategory]=useState(''),[audit,setAudit]=useState<Audit[]>([]),[reason,setReason]=useState('');
  const [activityDraft,setActivityDraft]=useState(false),[countAt,setCountAt]=useState(stockNow),[mail,setMail]=useState<{configured:boolean;jobs:{id:string;status:string;error:string}[]}>({configured:false,jobs:[]});
- const [locked,setLocked]=useState(false),[sheetEnabled,setSheetEnabled]=useState(false);
- const accessKey=useRef('');
+ const [sheetEnabled,setSheetEnabled]=useState(false);
  const api=async(options?:RequestInit,url='/api/editor/stock')=>{
-  const headers=new Headers(options?.headers);
-  if(accessKey.current)headers.set('Authorization','Bearer '+accessKey.current);
-  const response=await fetch(url,{...options,headers,cache:'no-store'});
+  const response=await fetch(url,{...options,cache:'no-store'});
   const data=await response.json();
-  if(response.status===401){accessKey.current='';setLocked(true);}
   if(!response.ok)throw Error(data.error||'Could not complete the stock request.');
   return data;
  };
@@ -64,7 +60,6 @@ export default function StockControl(){
    setStock(validateStock(data.document));
    setRevision(data.revision);
    setReady(data.ready);
-   setLocked(false);
    setSheetEnabled(data.sheetEnabled===true);
    setAudit(data.audit);
    setMail(data.mail??{configured:false,jobs:[]});
@@ -116,19 +111,6 @@ export default function StockControl(){
  const exportJSON=()=>download(new Blob([JSON.stringify({version:1,revision,document:stock},null,2)],{type:'application/json'}),'blaa-stock-backup.json');
  const exportReport=()=>{if(!week||!report)return;const csv=[['Product','Base unit','Opening','Delivered','Transfer','Closing','Actual usage','Till usage','Recorded waste','Complimentary','Unexplained variance','Estimated loss %','Loss cost DKK'],...report.rows.map(r=>[r.row.product.name,r.row.product.unit,r.row.opening,r.delivered,r.row.transfer,r.row.closing,r.actual,r.theoretical,r.row.waste,r.row.comps,r.variance,r.percent,r.loss===null?null:r.loss*r.cost])].map(row=>row.map(value=>'"'+(typeof value==='string'&&/^[=+@-]/.test(value)?"'"+value:String(value??'')).replaceAll('"','""')+'"').join(',')).join('\r\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'stock-'+week.start.slice(0,10)+'.csv');};
  const visible=report?.rows.filter(r=>(!category||r.row.product.category===category)&&(r.row.product.name+' '+r.row.product.sku).toLowerCase().includes(search.toLowerCase()))??[];
- if(locked)return <main id="main" className="stock-control">
-  <form onSubmit={event=>{
-   event.preventDefault();
-   const input=event.currentTarget.elements.namedItem('stock-access-key') as HTMLInputElement;
-   accessKey.current=input.value;
-   input.value='';
-   void read(true);
-  }}>
-   <label>Stock Control access key<input name="stock-access-key" type="password" required autoComplete="current-password"/></label>
-   <button disabled={busy}>Unlock Stock Control</button>
-   <p role="status">{message}</p>
-  </form>
- </main>;
  return <main id="main" className="stock-control" data-keyboard={keyboard||undefined}>
   <nav aria-label="Stock tools">{[['dashboard','Overview'],['input','Counts'],['order','Order count'],['activity','Activity'],['settings','Products'],['history','History']].map(([key,label])=><button key={key} aria-current={tab===key?'page':undefined} onClick={()=>setTab(key)}>{label}</button>)}</nav>
   <div className="stock-save"><span role="status">{productDraft?'Finish product':activityDraft?'Finish entry':busy?(loaded?'Saving…':'Loading…'):dirty?'Unsaved':loaded?'Saved':'Loading…'}</span><button disabled={busy||!ready||!dirty||!!productDraft||activityDraft} onClick={()=>void save()}>Save</button><button disabled={busy||orderCounting} onClick={()=>{if(!unsaved||confirm('Discard unsaved edits and reload?')){setProductDraft(null);setActivityDraft(false);void read(true);}}}>Reload</button></div><p role="status">{message}</p>{activityDraft&&tab!=='activity'&&<p>Add or clear your activity entry. <button onClick={()=>setTab('activity')}>Continue entry</button></p>}{productDraft&&tab!=='settings'&&<p>Finish your new product before saving. <button onClick={()=>setTab('settings')}>Continue new product</button></p>}
