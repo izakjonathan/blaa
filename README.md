@@ -118,9 +118,9 @@ Release 1.15.1 restores brand-controlled backend colours, removes the bottom doc
 1. Open the private **Stock Control** sheet on desktop and select **Extensions → Apps Script**. Add the code from [stock-control.gs](scripts/stock-control.gs).
 2. In Apps Script **Project Settings → Script properties**, add `STOCK_SHEET_ID` (the ID in the spreadsheet URL) and `STOCK_SHEET_SCRIPT_KEY` (a random secret of at least 32 characters).
 3. Select **Deploy → New deployment → Web app**. Set **Execute as** to yourself and **Who has access** to **Anyone**. Authorize the script and copy its `/exec` URL. The sheet stays private and the script only returns rows after it verifies the sync secret.
-4. In Vercel set `STOCK_SHEET_SCRIPT_URL` to the deployment URL, `STOCK_SHEET_SCRIPT_KEY` to the same script secret, and `STOCK_ACCESS_KEY` to a separate random key of at least 32 characters. Keep both secrets out of Git and client environment variables. Deploy the branch with these variables.
+4. In Vercel set `STOCK_SHEET_SCRIPT_URL` to the deployment URL and `STOCK_SHEET_SCRIPT_KEY` to the same script secret. Keep the secret out of Git and client environment variables. Deploy the branch with these variables.
 
-Open **Stock Control** and enter its access key. The website syncs automatically as it opens. If the script is unavailable, the saved products remain available and **Products → Sync from Google Sheets** can retry.
+Open **Stock Control** to sync automatically. The module is available to anyone who can reach the admin site. If the script is unavailable, the saved products remain available and **Products → Sync from Google Sheets** can retry.
 
 The sync reads **Name**, **Supplier**, **Unit**, **Unit size (l.)**, and **Pack qty** from **Sheet1**. Enter a unit such as Bottle, Can, or Keg, its volume in litres, and the number of units in one purchase pack. For example, a pack of 24 bottles of 0.33 L totals 7.92 L. Blank sizes or quantities appear as missing and retain the existing conversion where available. For new products, a blank pack quantity uses one unit per pack. Counts use purchase packs, including partial packs. The older Type / Unit / Pack format is also supported.
 
