@@ -22,6 +22,7 @@ import { ContentProvider } from "./Content";
 import { readPublished } from "../lib/content-db";
 import { createIntroBootstrap, INTRO_CRITICAL_CSS, INTRO_NO_SCRIPT_CSS } from "../lib/intro-bootstrap";
 import { splashSettings } from "../lib/splash";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 // Published pages are reusable; editor publish/restore invalidates this layout.
 export const revalidate = 60;
 export const metadata: Metadata = {
@@ -58,6 +59,7 @@ export default async function RootLayout({
       </head>
       <body>
         <ContentProvider value={published}><SiteShell>{children}</SiteShell></ContentProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
