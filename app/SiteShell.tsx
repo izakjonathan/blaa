@@ -163,6 +163,7 @@ function MarketingShell({ children }: {
         {pathname!=='/admin/stock'&&<Link className="brand-logo" href="/" aria-label="Blågårds Apotek — forsiden" onClick={event=>{if(tools&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&document.documentElement.dataset.adminUnsaved==='true'&&!window.confirm('Leave without saving your changes?'))event.preventDefault();}} inert={mounted}>
           {tools&&pathname!=='/admin'?<span className="admin-venue-name">Blågårds Apotek</span>:<BrandArtwork alt="Blågårds Apotek" tone={tools ? "admin" : !mounted && headerTone.logo === "dark" ? "green" : "gold"}/>}
         </Link>}
+        {pathname==='/admin/stock'&&<h1 className="stock-header-title">Stock Control</h1>}
         {tools ? pathname==='/admin'?null:<Link href="/admin" className="admin-home-button" onClick={event=>{if(!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&pathname!=='/admin'&&document.documentElement.dataset.adminUnsaved==='true'&&!window.confirm('Leave without saving your changes?'))event.preventDefault();}}>Back</Link> : <button ref={button} className="burger-button" style={{color: !mounted && headerTone.menu === "dark" ? "var(--brand-green)" : "var(--brand-gold)"}} type="button" aria-label={mounted ? "Luk menu" : "Åbn menu"} aria-haspopup="dialog" aria-controls={mounted ? "site-menu" : undefined} aria-expanded={expanded} onPointerDown={() => { keyboard.current = false; }} onKeyDown={event => {
             if (event.key === "Enter" || event.key === " ")
                 keyboard.current = true;
@@ -183,7 +184,6 @@ function MarketingShell({ children }: {
             <path className="burger-stroke burger-bottom" d="M3 18H25"/>
           </svg>
         </button>}
-        {pathname==='/admin/stock'&&<h1 className="stock-header-title">Stock Control</h1>}
       </header>
       {!tools && mounted && (<div ref={panel} id="site-menu" className="site-menu" data-phase={phase} role="dialog" aria-modal="true" aria-label="Udforsk Blågårds Apotek" aria-hidden={!visible} inert={!visible} onPointerDown={() => { keyboard.current = false; }} onTransitionEnd={event => {
                 if (phase === "closing" && event.target === event.currentTarget && event.propertyName === "transform")

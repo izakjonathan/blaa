@@ -1,13 +1,22 @@
 /* Stock Control owns its density and layout; shared tool colours remain inherited. */
 .stock-control {
- --stock-gap:12px;min-height:100svh;max-width:1360px;margin:auto;
+ --tool-card:transparent;--tool-content:transparent;
+ --stock-gap:12px;--stock-card-border:color-mix(in srgb,var(--tool-ink) 45%,var(--tool-bg));min-height:100svh;max-width:1360px;margin:auto;
  padding:100px max(20px,var(--gutter)) calc(100px + env(safe-area-inset-bottom));
  background:var(--tool-bg);color:var(--tool-ink);font:14px/1.45 var(--sans);min-width:0;
 }
 .admin-tool-header[data-admin-stock=true] .stock-header-title {
   margin: 0;
-  font: 650 clamp(20px, 5vw, 26px)/1.12 var(--sans);
-  text-align: right;
+  font: 400 clamp(29px, 7vw, 40px)/1 var(--display);
+  font-synthesis: none;
+  letter-spacing: -.02em;
+  text-align: left;
+}
+.admin-tool-header[data-admin-stock=true] .admin-home-button {
+  min-height: 34px;
+  padding: 7px 12px;
+  flex: none;
+  font: 400 13px/1.2 var(--sans);
 }
 .stock-overview-heading {display:flex;align-items:center;justify-content:space-between;gap:8px}
 .admin-workspace[data-tool=true] .stock-control .stock-overview-heading h2 {margin:0}
@@ -19,13 +28,11 @@
 .stock-control a {color:inherit}
 .stock-control button {display:inline-flex;align-items:center;justify-content:center;min-height:44px;gap:6px;padding:8px 14px;margin:0;border:1px solid var(--tool-rule);border-radius:999px;background:transparent;color:var(--tool-ink);font:14px/1.25 var(--sans);text-align:center;cursor:pointer;max-width:100%;touch-action:manipulation}
 .stock-control button:disabled {opacity:.4;cursor:default}
-.stock-control :is(.stock-primary,button[aria-current=page],button[aria-pressed=true]) {background:var(--tool-ink);border-color:var(--tool-ink);color:var(--tool-bg)}
 .stock-control>nav {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:0 0 16px;max-width:640px}
 .stock-control>nav>button {padding:8px 5px;font-size:13px;white-space:nowrap}
 .stock-control label {display:grid;gap:5px;font:12px/1.4 var(--sans);margin:8px 0;min-width:0;max-width:100%}
 .stock-control label:has(>input[type=checkbox]) {display:flex;align-items:flex-start;gap:8px;font-size:13px}
 .stock-control :is(input:not([type=checkbox]):not([type=file]),select,textarea) {display:block;width:100%;min-width:0;max-width:100%;min-height:44px;padding:9px 10px;border:1px solid var(--tool-rule);border-radius:10px;background:var(--tool-card);color:var(--tool-ink);font:16px/1.35 var(--sans)}
-.stock-control input[type=checkbox] {flex:none;width:18px;height:18px;margin:1px 0 0;accent-color:var(--tool-ink)}
 .stock-control textarea {min-height:80px;resize:vertical}
 .stock-control :is(details,fieldset) {min-inline-size:0;max-inline-size:100%;padding:14px;margin:10px 0;border:1px solid var(--tool-rule);border-radius:12px;background:var(--tool-card)}
 .stock-control details details {background:transparent;padding:10px 0 0;border:0;border-top:1px solid var(--tool-rule);border-radius:0;margin:12px 0 0}
@@ -83,7 +90,6 @@
 .stock-save {position:fixed;inset:auto 0 0;z-index:70;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;padding:8px max(20px,var(--gutter)) calc(8px + env(safe-area-inset-bottom));background:var(--tool-bg);border-top:1px solid var(--tool-rule)}
 .stock-save>span {min-width:0;color:var(--tool-muted);font-size:12px;line-height:1.3}
 .stock-save>button {padding-inline:14px;white-space:nowrap}
-.stock-save>button:first-of-type:not(:disabled) {background:var(--tool-ink);color:var(--tool-bg);border-color:var(--tool-ink)}
 .stock-control[data-keyboard=true] .stock-save {display:none}
 .floating-header[data-admin=true][data-admin-stock=true] {min-height:76px;padding-block:12px}
 .floating-header[data-admin=true][data-admin-stock=true] .brand-logo {width:104px}
@@ -111,7 +117,7 @@
 
 .stock-order-count-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 148px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 116px);
   align-items: center;
   gap: 8px;
   margin-top: 6px;
@@ -130,9 +136,9 @@
 }
 .stock-overview-products > li, .stock-count-group > .stock-order-count-row {
   padding: 8px 10px;
-  border: 1px solid var(--tool-rule);
-  border-radius: 12px;
-  background: var(--tool-card);
+  border: 1px solid var(--stock-card-border);
+  border-radius: 22px;
+  background: transparent;
 }
 .stock-item-name {
   display: -webkit-box;
@@ -148,13 +154,10 @@
   line-height: 1.15;
 }
 .stock-product-details {min-width: 0}
-.stock-card-supplier {
+.stock-product-details > .stock-item-name {
   display: block;
-  margin-top: 3px;
-  color: var(--tool-muted);
-  font-size: 12px;
-  line-height: 1.2;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .stock-card-meta {
   display: flex;
@@ -175,16 +178,64 @@
   overflow: hidden;
   clip-path: inset(50%);
 }
-.stock-card-meta > .stock-line-unit {
+.stock-card-meta > :is(.stock-line-unit,.stock-card-supplier) {
   flex-shrink: 1;
-  max-width: 12ch;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.stock-order-count-quantity {display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px; align-items: center; gap: 4px}
-.admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity button {padding: 0; min-height: 44px}
-.admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity input {padding-inline: 4px; min-height: 44px; text-align: center}
+.stock-order-count-quantity {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 4px;
+}
+
+.admin-workspace[data-tool=true] .stock-control button,
+.admin-workspace[data-tool=true] .stock-control > nav > button {
+  min-height: 34px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--tool-ink);
+  font: 400 13px/1.2 var(--sans);
+}
+.admin-workspace[data-tool=true] .stock-control :is(.stock-primary,button[aria-current=page],button[aria-pressed=true],.stock-save>button:first-of-type:not(:disabled)) {
+  border-color: var(--tool-ink);
+  background: transparent;
+  color: var(--tool-ink);
+}
+.admin-workspace[data-tool=true] .stock-control :is(.stock-product-row,.stock-count-product) {
+  border-color: var(--stock-card-border);
+  border-radius: 28px;
+}
+.stock-control input[type=checkbox] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  appearance: none;
+  display: inline-grid;
+  place-content: center;
+  border: 1px solid var(--tool-strong);
+  border-radius: 4px;
+}
+.stock-control input[type=checkbox]:checked::before {
+  content: '';
+  width: 8px;
+  height: 4px;
+  border: solid var(--tool-ink);
+  border-width: 0 0 2px 2px;
+  transform: translateY(-1px) rotate(-45deg);
+}
+.admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity button {
+  padding: 0;
+}
+.admin-workspace[data-tool=true] .stock-control .stock-order-count-quantity input {
+  min-height: 34px;
+  padding: 4px;
+  text-align: center;
+}
 @media(max-width: 380px) {
-  .stock-order-count-row {grid-template-columns: minmax(0, 1fr) 132px; gap: 6px; padding-inline: 8px}
+  .stock-order-count-row {grid-template-columns: minmax(0, 1fr) 108px; gap: 6px; padding-inline: 8px}
   .stock-order-count-quantity {gap: 2px}
 }
