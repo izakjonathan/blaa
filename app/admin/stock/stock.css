@@ -12,14 +12,14 @@
   --stock-back-size: 13px;
   --stock-back-weight: 400;
   --stock-heading-size: 29px;
-  --stock-heading-weight: 620;
+  --stock-heading-weight: 400;
   --stock-subheading-size: 23px;
   --stock-subheading-weight: 620;
   --stock-body-size: 15px;
   --stock-body-weight: 400;
   --stock-emphasis-weight: 500;
   --stock-small-size: 11px;
-  --stock-small-weight: 560;
+  --stock-small-weight: 400;
 
   --stock-button-size: 15px;
   --stock-button-weight: 620;
@@ -37,7 +37,7 @@
   --stock-legend-size: var(--stock-label-size);
   --stock-legend-weight: var(--stock-label-weight);
   --stock-summary-size: 25px;
-  --stock-summary-weight: 620;
+  --stock-summary-weight: 400;
 
   --stock-product-name-size: 19px;
   --stock-product-name-weight: 500;
@@ -55,7 +55,7 @@
   --stock-metric-label-size: 11px;
   --stock-metric-label-weight: 560;
   --stock-metric-value-size: 31px;
-  --stock-metric-value-weight: 700;
+  --stock-metric-value-weight: 400;
   --stock-table-size: 15px;
   --stock-table-weight: var(--stock-body-weight);
   --stock-table-heading-size: 11px;
