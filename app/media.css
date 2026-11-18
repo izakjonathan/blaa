@@ -1,0 +1,267 @@
+/* Image overlays and treatment */
+/* Share the hero's green wash with every editorial photograph. */
+
+:root, [data-photo-gradient] {
+  --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 85.0980%, transparent) 0%, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 40.0000%, transparent) 60%, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 13.3333%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 61.9608%, transparent), transparent 50%);
+}
+
+.scene-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--photo-overlay);
+  opacity: var(--image-overlay-strength,1);
+}
+
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition) {
+  position: relative;
+  isolation: isolate;
+}
+
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--photo-overlay);
+  pointer-events: none;
+  opacity: var(--image-overlay-strength,1);
+}
+
+:is(.experience, [data-reveal-page="story"]) :is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition) > img {
+  filter: brightness(calc(1 - .28 * var(--image-overlay-strength,1)));
+}
+
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition) > figcaption {
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 600px) {
+  :root, [data-photo-gradient] {
+    --photo-overlay: linear-gradient(90deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 65.8824%, transparent), color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 20.0000%, transparent)), linear-gradient(0deg, color-mix(in srgb, var(--photo-overlay-color,var(--brand-dark)) 73.3333%, transparent), transparent 75%);
+  }
+}
+
+/* Per-image preference follows the image through draft, publish and restore. */
+
+:is(.split-photo, .photo-story figure, .company-photo, .collection-photos figure, .collection-paper figure,.venue-gallery figure,.venue-exhibition):has(> img[data-overlay="off"])::after {
+  background: none;
+}
+
+.scene:has(> img[data-overlay="off"]) > .scene-shade {
+  background: none;
+}
+
+.splash-backdrop:has(> img[data-overlay="off"]) > .splash-green {
+  background: none;
+}
+
+body :is(.scene-photo, .split-photo > img, .photo-story figure > img, .company-photo > img, .collection-photos figure > img, .collection-paper figure > img, .venue-gallery figure > img, .venue-exhibition > img, .splash-photo)[data-overlay="off"] {
+  filter: none;
+}
+
+/* Strength is server-rendered per image and updates with the live draft. */
+
+.brand-splash .splash-green {
+  opacity: calc(var(--image-overlay-strength,1) * var(--splash-overlay,.87));
+}
+
+body .scene-photo {
+  filter: brightness(var(--scene-photo-brightness, calc(1 - .28 * var(--image-overlay-strength,1))));
+}
+
+/* Photo parallax */
+/* Clip the moving photo without moving the layout or its overlay. */
+[data-parallax-frame] {
+  overflow: hidden;
+}
+
+img[data-photo-parallax] {
+  transform: translate3d(0,var(--photo-parallax-shift,0px),0) scale(var(--photo-parallax-scale,1));
+  transform-origin: center;
+}
+
+img[data-photo-parallax][data-parallax-active] {
+  will-change: transform;
+}
+
+@media(prefers-reduced-motion:reduce) {
+  img[data-photo-parallax] {
+    transform: none;
+    will-change: auto;
+  }
+}
+
+/* Gallery and collections */
+/* Brand photographs retain their natural composition; artwork stays legible. */
+
+.collection-photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  padding: 0;
+  align-items: start;
+}
+
+.collection-photos figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.collection-paper figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.collection-photos img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.collection-paper img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.collection-wide {
+  grid-column: 1/-1;
+}
+
+.collection-paper {
+  position: relative;
+  isolation: isolate;
+  background: var(--green);
+  padding: clamp(12px,2vw,32px);
+}
+
+.collection-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.collection-paper .collection-backdrop > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(calc(1 - .28 * var(--image-overlay-strength,1)));
+}
+
+@media (max-width:600px) {
+  .collection-photos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Let media reach the page edges; inset only the editorial copy. */
+
+.experience .brand-world {
+  padding-inline: 0;
+}
+
+.brand-world > .world-heading {
+  padding-left: max(var(--gutter),env(safe-area-inset-left,0px));
+  padding-right: max(var(--gutter),env(safe-area-inset-right,0px));
+}
+
+/* Brand artwork */
+/* Palette-controlled venue artwork and shared grain. */
+
+.brand-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: var(--brand-grain-opacity,0);
+  background: url('/brand/grain.svg') repeat;
+  mix-blend-mode: soft-light;
+}
+
+/* Alpha artwork inherits exact colours from the current editor document. */
+.brand-artwork {
+ display: block;
+ width: 100%;
+ mask-size: contain;
+ mask-position: center;
+ mask-repeat: no-repeat;
+ -webkit-mask-size: contain;
+ -webkit-mask-position: center;
+ -webkit-mask-repeat: no-repeat;
+}
+
+/* Editorial motion */
+/* Masks are a decorative layer; the original heading still owns layout and speech. */
+.line-heading :is(.heading-char,.heading-char-inner) {font:inherit;letter-spacing:inherit}
+.heading-char {position:absolute;display:block;white-space:pre;overflow:hidden;padding:.14em .08em .16em;margin:-.14em -.08em 0;box-sizing:content-box}
+.heading-char-inner {display:block}
+html.reveal-enabled .line-heading.reveal-pending .heading-char-inner {transform:translate3d(0,115%,0)}
+html.reveal-enabled .line-heading.reveal-visible:not(.reveal-settled) .heading-char-inner {
+ animation:headingLetterArrival var(--heading-char-duration,750ms) var(--ease-reveal) calc(var(--reveal-delay,0ms) + var(--char-delay,0ms)) backwards;
+}
+@keyframes headingLetterArrival {from{transform:translate3d(0,115%,0)}to{transform:none}}
+
+/* Framing includes the fixed gradient. Image zoom uses individual scale, while
+   PhotoParallax exclusively owns the image's transform property. */
+[data-editorial-photo] {overflow:hidden}
+[data-editorial-frame] {clip-path:inset(0 var(--editorial-inset,0px) round var(--editorial-radius,0px))}
+img[data-photo-zoom] {scale:var(--photo-zoom-start,1.05);transform-origin:center}
+img[data-photo-zoom="settled"] {scale:1;transition:scale var(--photo-zoom-duration,1100ms) cubic-bezier(.16,1,.3,1)}
+
+/* An accessible source retains natural kerning, width and line wrapping. */
+.menu-label {position:relative;display:inline-block}
+.menu-label-source {opacity:0}
+.menu-label-visual {position:absolute;left:0;top:0;white-space:pre;pointer-events:none}
+.menu-letter-mask {display:inline-block;overflow:hidden;vertical-align:top;height:1.08em;box-sizing:content-box}
+.menu-letter-track {display:block;transition:transform var(--menu-roll-duration,300ms) cubic-bezier(.4,0,.2,1);transition-delay:calc(min(var(--letter-index,0),16) * var(--menu-roll-stagger,14ms))}
+.menu-letter-track>span {display:block;height:1.08em;line-height:1.08}
+.site-menu nav>a:focus-visible .menu-letter-track {transform:translateY(-50%)}
+@media(hover:hover) and (pointer:fine){.site-menu nav>a:hover .menu-letter-track {transform:translateY(-50%)}}
+
+.site-menu nav>a::after {content:"";position:absolute;bottom:0;left:0;width:100%;height:1px;background:var(--rule);transform:scaleX(0);transform-origin:left;transition:transform var(--menu-divider-duration,600ms) var(--ease-menu);transition-delay:calc(var(--menu-link-delay,150ms) + var(--item,0) * var(--menu-link-stagger,65ms))}
+.site-menu:is([data-phase="open"],[data-phase="closing"]) nav>a::after {transform:scaleX(1)}
+
+/* Disable immediately even before React's media-query subscription rerenders. */
+html[data-motion="reduced"].reveal-enabled .line-heading.heading-lines-ready:is(.reveal-pending,.reveal-visible) :is(.heading-char-inner,.heading-line-inner) {animation:none;transition:none;transform:none}
+html[data-motion="reduced"] .site-menu nav>a .menu-letter-track {transition:none;transform:none}
+html[data-motion="reduced"] img[data-photo-zoom] {scale:1;transition:none}
+html[data-motion="reduced"] [data-editorial-frame] {clip-path:none}
+html[data-motion="reduced"] .site-menu nav>a::after {transform:scaleX(1);transition:none}
+@media(prefers-reduced-motion:reduce){
+ html[data-motion] .line-heading.heading-lines-ready:is(.reveal-pending,.reveal-visible) :is(.heading-char-inner,.heading-line-inner) {animation:none;transition:none;transform:none}
+ html[data-motion] .site-menu nav>a .menu-letter-track {transition:none;transform:none}
+ img[data-photo-zoom] {scale:1;transition:none}
+ [data-editorial-frame] {clip-path:none}
+ .site-menu nav>a::after {transform:scaleX(1);transition:none}
+}
+
+/* Route transitions */
+/* A single, normally invisible panel covers only internal page changes. */
+.route-curtain {
+ position:fixed;inset:0;z-index:110;background:var(--route-curtain-color,var(--brand-green));
+ color:var(--route-curtain-ink,var(--brand-gold));display:grid;place-items:center;
+ transform:translate3d(0,100%,0);visibility:hidden;pointer-events:none;
+}
+.route-curtain[data-phase="covering"] {
+ visibility:visible;pointer-events:auto;transform:translate3d(0,0,0);
+ transition:transform var(--route-cover-duration,300ms) var(--route-cover-ease,cubic-bezier(.42,0,.58,1));
+}
+.route-curtain[data-phase="waiting"] {visibility:visible;pointer-events:auto;transform:translate3d(0,0,0)}
+.route-curtain[data-phase="revealing"] {
+ visibility:visible;pointer-events:auto;transform:translate3d(0,-100%,0);
+ transition:transform var(--route-reveal-duration,400ms) var(--route-reveal-ease,cubic-bezier(.22,1,.36,1));
+}
+.route-curtain>span {font:14px/1.5 var(--sans)}
+.route-status {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+html.route-transitioning {overflow:hidden;scrollbar-gutter:stable;scroll-behavior:auto}
+html.route-transitioning body {overflow:hidden;overscroll-behavior:none}
+html.route-covered .brand-hero .hero-line>* {animation-play-state:paused}
+html.route-covered .brand-hero .hero-discover {animation-play-state:paused}
+html.menu-navigating .site-menu[data-phase="closing"] {transition-duration:var(--route-menu-duration,var(--duration-menu));transition-timing-function:var(--route-menu-ease,var(--ease-menu))}
+html[data-motion="reduced"] .route-curtain {visibility:hidden;transition:none}
+@media(prefers-reduced-motion:reduce){.route-curtain[data-phase] {visibility:hidden;transition:none}}

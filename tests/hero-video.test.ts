@@ -86,7 +86,7 @@ test('background starts without gestures, has no controls and resumes when visib
   document.hidden=false;listeners.visibilitychange();await Promise.resolve();assert.equal(playCalls,3);
   media.paused=true;mediaListeners.pause();await Promise.resolve();assert.equal(playCalls,4);
   const {readFileSync:readCSS}=await import('node:fs');
-  assert.match(readCSS(new URL('../app/landing.css',import.meta.url),'utf8'), /\.hero-video\s*\{[^}]*pointer-events:\s*none/);
+  assert.match(readCSS(new URL('../app/site.css',import.meta.url),'utf8'), /\.hero-video\s*\{[^}]*pointer-events:\s*none/);
   cleanup();assert.deepEqual(listeners,{});
   assert.deepEqual(mediaListeners,{});
   // A splash reveal retries even if readiness events already fired while hidden.

@@ -27,13 +27,19 @@ test('stylesheets have one selector owner per condition, no duplicate declaratio
    rule.walkDecls(d=>{
     const fallback=d.prop==='min-height'&&props.get(d.prop)==='100vh'&&d.value==='100lvh';
     assert.ok(!props.has(d.prop)||fallback,`${file}: duplicate ${rule.selector} ${d.prop}`);props.set(d.prop,d.value);
-    if(d.important)assert.equal(file,'motion.css',`${file}: fix specificity instead of adding !important`);
+    if(d.important) {
+     assert.equal(file,'site.css', `${file}: fix specificity instead of adding !important`);
+     assert.equal(rule.selector.includes('.brand-hero'),true);
+     assert.equal(d.prop,'animation');
+     assert.equal(d.value,'none');
+     assert.ok(rule.selector.includes('data-motion="reduced"')||conditions.includes('media:(prefers-reduced-motion:reduce)'));
+    }
    });
   });
  }
 });
 test('brand photographs form a continuous grid without gaps or stagger padding',()=>{
- const css=postcss.parse(readFileSync(new URL('collection.css',root),'utf8'));
+ const css=postcss.parse(readFileSync(new URL('media.css',root),'utf8'));
  const grid=css.nodes.find(n=>n.type==='rule'&&n.selector==='.collection-photos');
  assert.ok(grid?.type==='rule');
  assert.ok(grid.nodes.some(n=>n.type==='decl'&&n.prop==='gap'&&n.value==='0'));
@@ -46,5 +52,33 @@ test('class selectors reference the current markup or runtime state code',()=>{
   postcss.parse(readFileSync(new URL(file,root),'utf8')).walkRules(rule=>{
    for(const match of rule.selector.matchAll(/\.([a-zA-Z_][\w-]*)/g))assert.ok(source.includes(match[1]),`${file}: unreferenced class ${match[1]}`);
   });
+ }
+});
+
+test('shared admin typography reads the Stock Control settings without a second font override',()=>{
+ const stock=postcss.parse(readFileSync(new URL('admin/stock/stock.css',root),'utf8'));
+ const shared=postcss.parse(readFileSync(new URL('admin/tool-theme.css',root),'utf8'));
+ const settings=stock.nodes.find(n=>n.type==='rule'&&n.selector===':is(.stock-control, .admin-tool-header[data-admin-stock=true])');
+ assert.ok(settings?.type==='rule');
+ const defined=new Set(settings.nodes.filter(n=>n.type==='decl').map(n=>n.prop));
+ const used=new Set<string>();
+ const declarations=new Map<string,string>();
+ for(const css of [stock,shared])css.walkDecls(d=>{
+  for(const match of d.value.matchAll(/var\((--stock-[\w-]+)/g))used.add(match[1]);
+  if(css===shared&&d.parent?.type==='rule')declarations.set(d.parent.selector+' '+d.prop,d.value);
+ });
+ for(const name of defined)assert.ok(used.has(name),`unused typography setting ${name}`);
+ for(const name of used)assert.ok(defined.has(name)||['--stock-card-border','--stock-control-size','--stock-control-weight'].includes(name),`missing setting ${name}`);
+ const tools='.admin-workspace[data-tool=true] :is(.content-editor,.stock-control,.social-studio)';
+ for(const [role,property,token,fallback] of [
+  ['h2','font-weight','--stock-heading-weight','620'],
+  ['summary','font','--stock-summary-weight','620'],
+  ['p','font','--stock-body-size','15px'],
+  [':is(button,.editor-button)','font','--stock-button-size','15px'],
+  ['label','font','--stock-label-size','11px'],
+ ]){
+  const selector=role==='summary'?tools.replace(':is(.content-editor,.stock-control,.social-studio)', ':is(.stock-control,.social-studio,.content-editor)'):tools;
+  const value=declarations.get(`${selector} ${role} ${property}`);
+  assert.ok(value?.includes(`var(${token},${fallback})`),`shared ${role} must read ${token}`);
  }
 });

@@ -68,108 +68,25 @@
   --stock-save-status-weight: var(--stock-small-weight);
 }
 
-/* Match the specificity of the shared admin theme for Stock Control only. */
-.admin-workspace[data-tool=true] main.stock-control {
-  font: var(--stock-body-weight) var(--stock-body-size)/1.22 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control h2 {
-  font-size: var(--stock-heading-size);
-  font-weight: var(--stock-heading-weight);
-}
-
-.admin-workspace[data-tool=true] main.stock-control h3 {
-  font: var(--stock-subheading-weight) var(--stock-subheading-size)/1 var(--stock-font-body);
-}
-
+/* Stock-specific typography roles. Shared admin rules consume the tokens above. */
 .admin-workspace[data-tool=true] main.stock-control .stock-period-boundary h3 {
   font-size: var(--stock-period-label-size);
 }
 
-.admin-workspace[data-tool=true] main.stock-control p {
-  font: var(--stock-body-weight) var(--stock-body-size)/1.22 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control small {
-  font: var(--stock-small-weight) var(--stock-small-size)/1.12 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control :is(button, .editor-button) {
-  font: var(--stock-button-weight) var(--stock-button-size)/1.08 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control > nav > :is(button, .editor-button) {
-  font-size: var(--stock-tab-size);
-  font-weight: var(--stock-tab-weight);
-}
-
-.admin-workspace[data-tool=true] main.stock-control label {
-  font: var(--stock-label-weight) var(--stock-label-size)/1.12 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control label:has(> input[type=checkbox]) {
-  font: var(--stock-checkbox-label-weight) var(--stock-checkbox-label-size)/1.22 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control :is(
-  input:not([type=checkbox]):not([type=range]):not([type=color]):not([type=file]),
-  textarea,
-  select
-) {
-  font: var(--stock-field-weight) var(--stock-field-size)/1.22 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control input[type=file] {
-  font: var(--stock-file-weight) var(--stock-file-size)/1.22 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control legend {
-  font: var(--stock-legend-weight) var(--stock-legend-size)/1.12 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control summary {
-  font: var(--stock-summary-weight) var(--stock-summary-size)/1 var(--stock-font-body);
+.admin-workspace[data-tool=true] main.stock-control > nav > button {
+  --stock-control-size: var(--stock-tab-size);
+  --stock-control-weight: var(--stock-tab-weight);
 }
 
 .stock-control strong:not(.stock-item-name) {
   font-weight: var(--stock-emphasis-weight);
 }
 
-.admin-workspace[data-tool=true] main.stock-control .stock-metrics article > p {
-  font: var(--stock-metric-label-weight) var(--stock-metric-label-size)/1.12 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control .stock-metrics strong {
-  font: var(--stock-metric-value-weight) var(--stock-metric-value-size)/.9 var(--stock-font-body);
-}
-
-.admin-workspace[data-tool=true] main.stock-control .stock-table :is(td, th) {
-  font-size: var(--stock-table-size);
-  font-weight: var(--stock-table-weight);
-}
-
-.admin-workspace[data-tool=true] main.stock-control .stock-table th {
-  font-size: var(--stock-table-heading-size);
-  font-weight: var(--stock-table-heading-weight);
-}
-
-.admin-workspace[data-tool=true] main.stock-control .stock-save > span {
-  font: var(--stock-save-status-weight) var(--stock-save-status-size)/1.12 var(--stock-font-body);
-}
-
 /* Page layout and theme variables */
 .stock-control {
   --tool-card: transparent;
   --tool-content: transparent;
-  --stock-gap: 12px;
-  --stock-card-border: color-mix(in srgb,var(--tool-ink) 45%,var(--tool-bg));
-  min-height: 100svh;
-  max-width: 1360px;
-  margin: auto;
-  padding: 100px max(20px,var(--gutter)) calc(100px + env(safe-area-inset-bottom));
-  background: var(--tool-bg);
-  color: var(--tool-ink);
-  min-width: 0;
+  --stock-card-border: color-mix(in srgb, var(--tool-ink) 45%, var(--tool-bg));
 }
 
 /* Header and Back button */
@@ -204,111 +121,17 @@
   flex-shrink: 0;
 }
 
-/* Headings and body text */
-.stock-control h2 {
-  letter-spacing: 0;
-  margin: 22px 0 10px;
-}
-
-.stock-control h3 {
-  letter-spacing: 0;
-  margin: 0 0 8px;
-}
-
-.stock-control p {
-  color: var(--tool-muted);
-  max-width: 75ch;
-  margin: 8px 0;
-  overflow-wrap: anywhere;
-}
-
-.stock-control small {
-  display: block;
-  color: var(--tool-muted);
-}
-
-.stock-control a {
-  color: inherit;
-}
-
 /* Buttons and navigation */
 .stock-control button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  gap: 6px;
-  padding: 8px 14px;
-  margin: 0;
-  border: 1px solid var(--tool-rule);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--tool-ink);
-  text-align: center;
-  cursor: pointer;
-  max-width: 100%;
   touch-action: manipulation;
 }
-
-.stock-control button:disabled {
-  opacity: .4;
-  cursor: default;
-}
-
-.stock-control>nav {
-  display: grid;
-  grid-template-columns: repeat(5,minmax(0,1fr));
-  gap: 6px;
-  margin: 0 0 16px;
-  max-width: 640px;
-}
-
-.stock-control>nav>button {
-  padding: 8px 5px;
-  white-space: nowrap;
-}
-
-/* Form fields and expandable sections */
 .stock-control label {
-  display: grid;
-  gap: 5px;
-  margin: 8px 0;
-  min-width: 0;
   max-width: 100%;
-}
-
-.stock-control label:has(>input[type=checkbox]) {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-}
-
-.stock-control :is(input:not([type=checkbox]):not([type=file]),select,textarea) {
-  display: block;
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-  min-height: 44px;
-  padding: 9px 10px;
-  border: 1px solid var(--tool-rule);
-  border-radius: 10px;
-  background: var(--tool-card);
-  color: var(--tool-ink);
-}
-
-.stock-control textarea {
-  min-height: 80px;
-  resize: vertical;
 }
 
 .stock-control :is(details,fieldset) {
   min-inline-size: 0;
   max-inline-size: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border: 1px solid var(--tool-rule);
-  border-radius: 12px;
-  background: var(--tool-card);
 }
 
 .stock-control details details {
@@ -321,30 +144,14 @@
 }
 
 .stock-control summary {
-  cursor: pointer;
-  min-height: 32px;
-  padding: 4px 0;
   overflow-wrap: anywhere;
 }
 
 .stock-control legend {
   max-width: 100%;
-  padding: 0 6px;
-}
-
-.stock-control .stock-form {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  margin: 0;
 }
 
 /* Focus and status messages */
-.stock-control :focus-visible {
-  outline: 2px solid var(--tool-ink);
-  outline-offset: 3px;
-}
 
 .stock-control :is(input,select,textarea,summary) {
   scroll-margin-block: 100px;
@@ -366,26 +173,6 @@
   gap: 0 12px;
 }
 
-.stock-settings {
-  max-width: 960px;
-}
-
-.stock-section-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin: 16px 0 12px;
-}
-
-.stock-section-heading h2 {
-  margin: 0 0 4px;
-}
-
-.stock-section-heading p {
-  margin: 0;
-}
-
 .stock-product-fields {
   display: grid;
   grid-template-columns: repeat(2,minmax(0,1fr));
@@ -397,13 +184,6 @@
   grid-column: 1/-1;
 }
 
-.stock-product-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0;
-}
-
 .stock-product-create {
   padding: 14px;
   margin: 12px 0;
@@ -412,16 +192,8 @@
   border-radius: 12px;
 }
 
-.stock-control .stock-product-help {
-  margin: 6px 0 10px;
-}
-
 .stock-product-search {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) auto;
   align-items: center;
-  gap: 12px;
-  margin: 14px 0 8px;
 }
 
 .stock-product-row>summary>small {
@@ -434,17 +206,6 @@
   border-top: 1px solid var(--tool-rule);
   padding-top: 14px;
   margin-top: 14px;
-}
-
-.stock-till-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.stock-till-heading h3 {
-  margin: 0;
 }
 
 .stock-control .stock-till-card {
@@ -499,16 +260,11 @@
   padding: 0;
 }
 
-/* Overview guidance and metrics */
-.stock-get-started {
-  max-width: 680px;
-}
+/* Overview guidance */
 
 .stock-get-started ol {
   display: grid;
-  gap: 10px;
   padding-left: 20px;
-  margin: 12px 0;
 }
 
 .stock-get-started li {
@@ -521,31 +277,6 @@
   color: var(--tool-muted);
   line-height: 1.4;
   margin-top: 2px;
-}
-
-.stock-metrics {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 10px;
-  margin: 14px 0;
-}
-
-.stock-metrics article {
-  padding: 12px;
-  background: var(--tool-card);
-  border: 1px solid var(--tool-rule);
-  border-radius: 12px;
-  min-width: 0;
-}
-
-.stock-metrics article>p {
-  line-height: 1.3;
-  margin: 0 0 6px;
-}
-
-.stock-metrics strong {
-  font-variant-numeric: tabular-nums;
-  overflow-wrap: anywhere;
 }
 
 /* Table and filters */
@@ -565,8 +296,6 @@
 
 .stock-table {
   overflow: auto;
-  border: 1px solid var(--tool-rule);
-  border-radius: 12px;
   margin: 14px 0;
 }
 
@@ -577,7 +306,6 @@
 }
 
 .stock-table :is(td,th) {
-  padding: 10px;
   text-align: left;
   border-bottom: 1px solid var(--tool-rule);
   font-variant-numeric: tabular-nums;
@@ -585,9 +313,6 @@
 
 /* Alerts and audit history */
 .stock-alert {
-  background: var(--tool-card);
-  border: 1px solid var(--tool-rule);
-  border-radius: 10px;
   padding: 10px 12px;
   margin: 12px 0;
 }
@@ -620,70 +345,12 @@
   margin-top: 8px;
 }
 
-/* Save bar and keyboard state */
-.stock-save {
-  position: fixed;
-  inset: auto 0 0;
-  z-index: 70;
-  display: grid;
-  grid-template-columns: minmax(0,1fr) auto auto;
-  align-items: center;
-  gap: 8px;
-  padding: 8px max(20px,var(--gutter)) calc(8px + env(safe-area-inset-bottom));
-  background: var(--tool-bg);
-  border-top: 1px solid var(--tool-rule);
-}
-
-.stock-save>span {
-  min-width: 0;
-  color: var(--tool-muted);
-  line-height: 1.3;
-}
-
 .stock-save>button {
-  padding-inline: 14px;
   white-space: nowrap;
-}
-
-.stock-control[data-keyboard=true] .stock-save {
-  display: none;
-}
-
-/* Compact header */
-.floating-header[data-admin=true][data-admin-stock=true] {
-  min-height: 76px;
-  padding-block: 12px;
-}
-
-.floating-header[data-admin=true][data-admin-stock=true] .brand-logo {
-  width: 104px;
 }
 
 /* Mobile layout */
 @media (max-width: 600px) {
-  .stock-control {
-    padding-top: 88px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .stock-control h2 {
-    margin-top: 18px;
-  }
-
-  .stock-control>nav {
-    margin-bottom: 12px;
-  }
-
-  .stock-control :is(details,fieldset),
-  .stock-product-create {
-    padding: 12px;
-  }
-
-  .stock-product-search {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
 
   .stock-section-heading>button {
     flex: none;
@@ -691,26 +358,6 @@
 
   .stock-section-heading p {
     display: none;
-  }
-
-  .stock-numbers {
-    grid-template-columns: repeat(2,minmax(0,1fr));
-  }
-
-  .stock-metrics {
-    grid-template-columns: repeat(2,minmax(0,1fr));
-  }
-
-  .stock-save {
-    padding-inline: 16px;
-  }
-
-  .floating-header[data-admin=true][data-admin-stock=true] {
-    min-height: 68px;
-  }
-
-  .floating-header[data-admin=true][data-admin-stock=true] .brand-logo {
-    width: 96px;
   }
 }
 
@@ -720,10 +367,6 @@
   .stock-date-time {
     grid-template-columns: 1fr;
   }
-
-  .stock-control>nav>button {
-    padding-inline: 2px;
-  }
 }
 
 /* PLU and activity forms */
@@ -731,15 +374,6 @@
   padding-top: 12px;
   margin-top: 12px;
   border-top: 1px solid var(--tool-rule);
-}
-
-.stock-count-start,
-.stock-activity-form {
-  padding: 14px;
-  margin: 12px 0;
-  border: 1px solid var(--tool-rule);
-  border-radius: 12px;
-  background: var(--tool-card);
 }
 
 .stock-control input:read-only {
@@ -869,14 +503,7 @@
   gap: 4px;
 }
 
-/* Button and card overrides for the admin workspace */
-.admin-workspace[data-tool=true] .stock-control button,
-.admin-workspace[data-tool=true] .stock-control > nav > button {
-  min-height: 34px;
-  padding: 6px 10px;
-  background: transparent;
-  color: var(--tool-ink);
-}
+/* Active buttons and product cards */
 
 .admin-workspace[data-tool=true] .stock-control :is(.stock-primary,button[aria-current=page],button[aria-pressed=true],.stock-save>button:first-of-type:not(:disabled)) {
   border-color: var(--tool-ink);
